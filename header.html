@@ -1,0 +1,78 @@
+<header>
+    <div class="container nav-container">
+        <a href="index.html" class="logo-area" aria-label="Domů">
+            <img src="obrázky/logo.png" alt="Logo EDC">
+        </a>
+
+        <!-- Desktop menu -->
+        <nav class="desktop-nav" aria-label="Hlavní navigace">
+            <ul class="nav-links">
+                <!-- Nový odkaz na WCAG verzi – první v pořadí -->
+                <li>
+                    <a href="WCAG.html" class="wcag-accessibility-link" aria-label="Přejít na verzi stránky v souladu s WCAG AAA – zvětšené písmo a vysoký kontrast">
+                        WCAG AA zobrazení
+                    </a>
+                </li>
+                <li><a href="#" class="newsletter-btn" onclick="openNewsletterModal(); return false;">Přihlášení k newsletteru</a></li>
+                <li><a href="index.html" onclick="history.back()" class="login-btn">Zpět</a></li>
+                <li><a href="https://portal.edc-cr.cz/" class="login-btn">Přihlásit se do portálu</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger tlačítko -->
+        <button class="hamburger" aria-label="Otevřít menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Mobilní menu -->
+        <nav class="mobile-nav" aria-hidden="true" aria-label="Mobilní navigace">
+            <ul class="nav-links">
+                <!-- Stejný odkaz i v mobilním menu – první položka -->
+                <li>
+                    <a href="WCAG.html" class="wcag-accessibility-link" aria-label="Přejít na verzi stránky v souladu s WCAG AA – zvětšené písmo a vysoký kontrast">
+                        WCAG AA zobrazení
+                    </a>
+                </li>
+                <li><a href="#" class="newsletter-btn" onclick="openNewsletterModal(); return false;">Přihlášení k newsletteru</a></li>
+                <li><a href="index.html" onclick="history.back()" class="login-btn">Zpět</a></li>
+                <li><a href="https://portal.edc-cr.cz/" class="login-btn">Přihlásit se do portálu</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="nav-overlay"></div>
+
+<!-- ====================== NEWSLETTER MODÁL ====================== -->
+<div id="newsletterModal" class="sub-modal" role="dialog" aria-modal="true" aria-labelledby="newsletterTitle">
+    <div class="sub-modal-content">
+        <button class="sub-close" onclick="closeNewsletterModal()" aria-label="Zavřít modální okno newsletteru">×</button>
+        
+        <h2 id="newsletterTitle">Přihlášení k newsletteru</h2>
+        <p id="newsletterDesc">
+            Buďte jako první informováni o novinkách z EDC, legislativních změnách a akcích.
+        </p>
+
+        <form id="newsletterForm" onsubmit="submitNewsletter(event)" aria-describedby="newsletterDesc">
+            <label for="newsletterEmail" class="visually-hidden">Váš e-mail</label>
+            <input 
+                type="email" 
+                id="newsletterEmail" 
+                name="email" 
+                placeholder="Váš e-mail" 
+                required 
+                aria-required="true"
+            >
+
+            <button type="submit" class="sub-modal-btn">
+                Odeslat přihlášku
+            </button>
+        </form>
+
+        <p class="privacy-note">
+            Vaše údaje jsou v bezpečí a nebudeme vás spamovat.
+        </p>
+    </div>
+</div>

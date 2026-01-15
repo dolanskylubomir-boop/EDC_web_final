@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detail tiskové zprávy – Elektroenergetické datové centrum">
+    <meta name="keywords" content="EDC, aktuality, tisková zpráva, komunitní energetika">
+    <meta name="author" content="Elektroenergetické datové centrum, a.s.">
+
+    <title>Tisková zpráva | EDC</title>
+    <link rel="canonical" href="https://tvojedomena.cz/zpravy_rizeni.html">
+
+    <link rel="stylesheet" href="styles.css?v=20251215">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" href="Obrázky/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="Obrázky/apple-touch-icon.png">
+</head>
+<body>
+
+    <div class="nav-overlay"></div>
+    <div id="cookie-banner">/* stejný jako v index.html */</div>
+    <div id="error-banner" class="error-banner" role="alert" aria-live="assertive">/* stejný */</div>
+
+    <main id="main-content" class="container">
+        <!-- Obsah se načte dynamicky podle parametru ?id= -->
+    </main>
+
+    <script src="include.js"></script>
+
+    <script>
+        window.loadContent = function(path) {
+            fetch(path + '?t=' + Date.now())
+                .then(r => r.text())
+                .then(html => {
+                    document.getElementById('main-content').innerHTML = html;
+                })
+                .catch(err => console.error(err));
+        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id') || '1'; // výchozí zpráva 1
+
+            // Správný název souboru: zpravy_rizeni_content_1.html atd.
+            loadContent(`zpravy_rizeni_content_${id}.html`);
+        });
+    </script>
+
+    <!-- Sem vlož stejné skripty pro cookie banner, error banner atd. jako v index.html -->
+</body>
+</html>

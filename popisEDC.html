@@ -1,0 +1,139 @@
+<section class="zprava-content">
+    <div class="container">
+        
+        <!-- Tlačítko zpět – plynulé načtení aktuality -->
+        <div class="zprava-back-wrapper">
+            <a href="aktuality_content.html" 
+               onclick="loadContent('index_content.html'); event.preventDefault();" 
+               class="login-btn">
+                ← Vrátit se zpět na úvodní stránku
+            </a>
+        </div>
+
+        <div>
+            <h1 id="navod-edc-nadpis">Jak používat web EDC</h1>
+
+            <p>
+                Web EDC je navržený tak, aby se v něm vyznali i méně zkušení uživatelé.
+                Tento stručný návod vám pomůže najít základní informace i odborné sekce.
+            </p>
+
+            <h2>Obecné informace o EDC</h2>
+            <ul>
+                <li>
+                Pro přehled o společnosti klikněte na dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal1')">
+                    O společnosti
+                </button>.
+                Získáte zde aktuality, základní informace o EDC, povinná sdělení
+                i odkazy na další důležité stránky.
+                </li>
+                <li>
+                Hledáte adresy nebo telefonní čísla? Použijte dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal2')">
+                    Kontakty
+                </button>,
+                kde najdete přehled všech důležitých kontaktů a sídel.
+                </li>
+            </ul>
+
+            <h2>Informace pro běžné zákazníky</h2>
+            <ul>
+                <li>
+                Pokud využíváte služby EDC jako zákazník (například sdílení nebo
+                ukládání energie), klikněte na dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal6')">
+                    Sdílení
+                </button>.
+                Dozvíte se zde, jak sdílení funguje, jaké jsou podmínky a jak začít.
+                </li>
+                <li>
+                Potřebujete informace k ukládání energie do baterií či jiných zařízení?
+                Vyberte dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal7')">
+                    Akumulace
+                </button>,
+                kde najdete vysvětlení pojmů, postupy i potřebné dokumenty.
+                </li>
+            </ul>
+
+            <h2>Pro odborné uživatele</h2>
+            <p>Tyto sekce jsou určeny zejména pro agregátory, distributory a obchodníky.</p>
+            <ul>
+                <li>
+                Pro sledování stavu sítě využijte dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal9')">
+                    Síťový semafor
+                </button>,
+                kde je přehled o aktuální situaci v síti a doporučeních pro provoz.
+                </li>
+                <li>
+                Pro automatizovanou komunikaci mezi systémy zvolte
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal5')">
+                    M2M komunikace
+                </button>,
+                kde jsou technické informace a dokumentace k rozhraním.
+                </li>
+                <li>
+                Pokud vás zajímá zapojení do řízení poptávky a nabídky, otevřete dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="openModal('modal8')">
+                    Flexibilita
+                </button>,
+                kde jsou pravidla, podmínky a technické požadavky.
+                </li>
+            </ul>
+
+            <h2>Další užitečné sekce</h2>
+            <ul>
+                <li>
+                Nevíte si rady s pojmy z energetiky? Klikněte na dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="window.loadContent && window.loadContent('slovnik_content.html')">
+                    EDC slovník energetiky
+                </button>,
+                kde jsou jednoduše vysvětlené základní pojmy.
+                </li>
+                <li>
+                Hledáte často kladené dotazy? V dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="window.loadContent && window.loadContent('FAQ_content.html')">
+                    FAQ
+                </button>
+                najdete odpovědi na nejběžnější otázky.
+                </li>
+                <li>
+                Pokud chcete vidět celou strukturu stránek, použijte dlaždici
+                <button type="button"
+                        class="link-button"
+                        onclick="window.loadContent && window.loadContent('mapa_webu_content.html')">
+                    Mapa webu
+                </button>.
+                </li>
+            </ul>
+
+            <h2>Když si nevíte rady</h2>
+            <p>
+                Pokud jste si z nabízených možností nevybrali nebo nevíte, kde hledat,
+                obraťte se na našeho chatbota <strong>Terezku</strong>.
+                Napište jí svůj dotaz vlastními slovy – Terezka vám poradí, na kterou část
+                webu se podívat, nebo vám rovnou poskytne stručné vysvětlení.
+            </p>
+                    </div>
+    </div>
+</section>
