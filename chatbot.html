@@ -52,7 +52,7 @@
     if (window.__TEREZA_INIT__) return;
     window.__TEREZA_INIT__ = true;
 
-    const API_KEY = "AIzaSyDwb_Zg716BzhMCbO_6M85NVluzPmOfQ-w";
+    const API_KEY = "není";
 
     // System prompt jako čistý text pro system_instruction
     const systemPromptText = `Jsi Terezka, milá a lidská virtuální asistentka EDC. Ahoj! 😊 Jsem tu, abych ti pomohla s čímkoli okolo energetiky, sdílení elektřiny nebo EDC. 
@@ -297,4 +297,5 @@
     document.getElementById('tereza-send').onclick = send;
     document.getElementById('tereza-input').addEventListener('keydown', e => e.key === 'Enter' && send());
 })();
+
 </script>
