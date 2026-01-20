@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesní mapa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* === HORNÍ ČÁST S LOGEM A TLAČÍTKY === */
+        .header-top {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(39, 80, 76, 0.15);
+            margin-bottom: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(66, 165, 245, 0.2);
+        }
+
+        .header-top-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .logo {
+            flex-shrink: 0;
+        }
+
+        .logo img {
+            max-width: 200px;
+            height: auto;
+            width: 100%;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .page-title {
+            color: #1e3c72;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            line-height: 1.3;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #05282a 0%, #0a3d40 100%);
+            color: #94e3c2;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #0a3d40 0%, #27504c 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(39, 80, 76, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c4f0de 0%, #94e3c2 100%);
+            color: #05282a;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #94e3c2 0%, #6bd4a9 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(100, 221, 192, 0.3);
+        }
+
+        /* === HLAVNÍ OBSAH - MAPA PROCESU === */
+        .process-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 70px 40px;
+            justify-content: center;
+            align-items: start;
+            position: relative;
+            margin: 50px auto;
+            max-width: 1300px;
+            padding: 20px;
+        }
+
+        .traffic-light-container {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-self: center;
+            width: 100%;
+            max-width: 200px;
+            perspective: 1000px;
+        }
+
+        .traffic-light-container:hover {
+            transform: translateY(-15px) scale(1.05);
+        }
+
+        /* SEMAFOR - HLAVNÍ KONSTRUKCE */
+        .traffic-light {
+            width: 100%;
+            max-width: 120px;
+            height: auto;
+            aspect-ratio: 2/3;
+            position: relative;
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.15));
+            margin: 0 auto;
+            transform-style: preserve-3d;
+        }
+
+        /* Tělo semaforu */
+        .traffic-light-body {
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(135deg, #333333 0%, #222222 100%);
+            border-radius: 20px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                inset -8px -8px 20px rgba(0, 0, 0, 0.5),
+                inset 8px 8px 20px rgba(255, 255, 255, 0.1),
+                0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 3px solid #444444;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        /* Kovové detaily */
+        .traffic-light-body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.05) 20%, 
+                transparent 40%,
+                rgba(0, 0, 0, 0.1) 60%,
+                transparent 80%
+            );
+            border-radius: 17px;
+        }
+
+        /* Červené světlo (vždy svítí) */
+        .traffic-light-red {
+            width: 50%;
+            height: 22%;
+            background: radial-gradient(
+                circle at 30% 30%, 
+                #ff4444 0%,
+                #cc0000 40%,
+                #990000 80%,
+                #660000 100%
+            );
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                0 0 30px rgba(255, 68, 68, 0.7),
+                0 0 60px rgba(255, 68, 68, 0.4),
+                0 0 90px rgba(255, 68, 68, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            z-index: 3;
+            animation: redGlow 2s infinite alternate;
+        }
+
+        @keyframes redGlow {
+            from {
+                box-shadow: 
+                    0 0 30px rgba(255, 68, 68, 0.7),
+                    0 0 60px rgba(255, 68, 68, 0.4),
+                    0 0 90px rgba(255, 68, 68, 0.2),
+                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            to {
+                box-shadow: 
+                    0 0 40px rgba(255, 68, 68, 0.8),
+                    0 0 70px rgba(255, 68, 68, 0.5),
+                    0 0 100px rgba(255, 68, 68, 0.3),
+                    inset 0 0 25px rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        /* Oranžové světlo (vypnuté) */
+        .traffic-light-orange {
+            width: 50%;
+            height: 22%;
+            background: radial-gradient(
+                circle at 30% 30%, 
+                #666666 0%,
+                #555555 40%,
+                #444444 80%,
+                #333333 100%
+            );
+            border-radius: 50%;
+            position: absolute;
+            top: 39%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                inset 0 0 15px rgba(0, 0, 0, 0.5),
+                0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        /* Zelené světlo (rozbliká se při interakci) */
+        .traffic-light-green {
+            width: 50%;
+            height: 22%;
+            background: radial-gradient(
+                circle at 30% 30%, 
+                #666666 0%,
+                #555555 40%,
+                #444444 80%,
+                #333333 100%
+            );
+            border-radius: 50%;
+            position: absolute;
+            top: 68%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 
+                inset 0 0 15px rgba(0, 0, 0, 0.5),
+                0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+
+        /* Aktivní zelené světlo - blikání */
+        .traffic-light-container:hover .traffic-light-green,
+        .traffic-light-container.active .traffic-light-green {
+            background: radial-gradient(
+                circle at 30% 30%, 
+                #44ff44 0%,
+                #00cc00 40%,
+                #009900 80%,
+                #006600 100%
+            );
+            box-shadow: 
+                0 0 40px rgba(68, 255, 68, 0.8),
+                0 0 70px rgba(68, 255, 68, 0.5),
+                0 0 100px rgba(68, 255, 68, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: greenBlink 0.8s infinite alternate;
+        }
+
+        @keyframes greenBlink {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 
+                    0 0 40px rgba(68, 255, 68, 0.8),
+                    0 0 70px rgba(68, 255, 68, 0.5),
+                    0 0 100px rgba(68, 255, 68, 0.3),
+                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                opacity: 0.7;
+                box-shadow: 
+                    0 0 20px rgba(68, 255, 68, 0.6),
+                    0 0 40px rgba(68, 255, 68, 0.3),
+                    0 0 60px rgba(68, 255, 68, 0.1),
+                    inset 0 0 10px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Oranžové světlo při interakci */
+        .traffic-light-container:hover .traffic-light-orange,
+        .traffic-light-container.active .traffic-light-orange {
+            background: radial-gradient(
+                circle at 30% 30%, 
+                #ffaa44 0%,
+                #ff8800 40%,
+                #cc6600 80%,
+                #994400 100%
+            );
+            box-shadow: 
+                0 0 30px rgba(255, 170, 68, 0.5),
+                0 0 50px rgba(255, 136, 0, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Stojan semaforu */
+        .traffic-light-stand {
+            width: 20%;
+            height: 40%;
+            background: linear-gradient(to bottom, 
+                #666666 0%,
+                #555555 20%,
+                #444444 40%,
+                #333333 60%,
+                #222222 80%,
+                #111111 100%
+            );
+            position: absolute;
+            bottom: -40%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 8px 8px 0 0;
+            box-shadow: 
+                inset -3px 0 8px rgba(0, 0, 0, 0.5),
+                inset 3px 0 8px rgba(255, 255, 255, 0.1),
+                0 4px 10px rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* === LABELY SEMAFORŮ === */
+        .traffic-light-label {
+            margin-top: 50px;
+            color: #1e3c72;
+            font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+            text-align: center;
+            font-weight: 700;
+            width: 100%;
+            max-width: 160px;
+            line-height: 1.4;
+            padding: 12px 8px;
+            word-wrap: break-word;
+            hyphens: auto;
+            min-height: 4em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fdff 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.1);
+            border: 2px solid rgba(66, 165, 245, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .traffic-light-container:hover .traffic-light-label {
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+            border-color: rgba(66, 165, 245, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(30, 60, 114, 0.15);
+        }
+
+        /* === MODÁLNÍ OKNO === */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            animation: fadeIn 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fdff 100%);
+            margin: 5vh auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(66, 165, 245, 0.2);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-60px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #666;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            margin-top: -10px;
+            margin-right: -10px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.05);
+        }
+
+        .close:hover {
+            color: #000;
+            background: rgba(0,0,0,0.1);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            color: #1e3c72;
+            margin-bottom: 25px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            border-bottom: 4px solid #42a5f5;
+            padding-bottom: 15px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f7ff 100%);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(66, 165, 245, 0.1);
+        }
+
+        .audio-player h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audio-player h3::before {
+            content: '🎵';
+            font-size: 1.4rem;
+        }
+
+        .audio-player audio {
+            width: 100%;
+            outline: none;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .video-wrapper {
+            margin: 25px 0;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .video-wrapper h3 {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            color: #1e3c72;
+            font-size: 1.2rem;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-wrapper h3::before {
+            content: '🎬';
+            font-size: 1.4rem;
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .links-section {
+            margin: 25px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(66, 165, 245, 0.2);
+            border: 1px solid rgba(66, 165, 245, 0.3);
+        }
+
+        .links-section h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .links-section h3::before {
+            content: '📎';
+            font-size: 1.4rem;
+        }
+
+        .links-section a {
+            display: inline-flex;
+            align-items: center;
+            margin: 8px 10px 8px 0;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #42a5f5 0%, #2196f3 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+            word-break: break-word;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .links-section a:hover {
+            background: linear-gradient(135deg, #2196f3 0%, #1e88e5 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .links-section a::before {
+            content: '📥';
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* === RESPONZIVNÍ ÚPRAVY === */
+        @media (min-width: 768px) {
+            .header-top {
+                padding: 25px 0;
+                margin-bottom: 50px;
+            }
+            
+            .logo img {
+                max-width: 220px;
+            }
+            
+            .process-map {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 80px 50px;
+            }
+            
+            .traffic-light {
+                max-width: 140px;
+            }
+            
+            .traffic-light-label {
+                font-size: 0.9rem;
+                min-height: 3.5em;
+                padding: 15px 10px;
+                margin-top: 60px;
+            }
+            
+            .modal-content {
+                padding: 40px;
+                margin: 10vh auto;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .process-map {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 90px 60px;
+            }
+            
+            .traffic-light {
+                max-width: 160px;
+            }
+            
+            .traffic-light-label {
+                font-size: 1rem;
+                max-width: 180px;
+                margin-top: 70px;
+            }
+            
+            .modal-content {
+                width: 85%;
+                padding: 50px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-top-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .header-left {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+            }
+            
+            .page-title {
+                text-align: center;
+                width: 100%;
+            }
+            
+            .header-buttons {
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .btn {
+                flex: 1;
+                min-width: 140px;
+            }
+            
+            .process-map {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 60px 30px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px 5px;
+                background: linear-gradient(135deg, #f0f7ff 0%, #e4edf5 100%);
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header-top {
+                padding: 20px 0;
+                margin-bottom: 30px;
+                border-radius: 12px;
+            }
+            
+            .logo img {
+                max-width: 180px;
+            }
+            
+            .process-map {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                margin: 30px auto;
+            }
+            
+            .traffic-light-container {
+                max-width: 170px;
+            }
+            
+            .traffic-light {
+                max-width: 130px;
+            }
+            
+            .traffic-light-label {
+                font-size: 0.85rem;
+                min-height: 4em;
+                padding: 10px 8px;
+                margin-top: 45px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 5vh auto;
+                padding: 25px;
+            }
+            
+            .links-section a {
+                display: block;
+                margin: 10px 0;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .process-map {
+                gap: 40px;
+            }
+            
+            .traffic-light-container {
+                max-width: 150px;
+            }
+            
+            .traffic-light {
+                max-width: 110px;
+            }
+            
+            .traffic-light-label {
+                font-size: 0.8rem;
+                min-height: 4.5em;
+                margin-top: 40px;
+            }
+            
+            .btn {
+                min-width: 120px;
+                padding: 10px 20px;
+            }
+        }
+
+        /* Efekt pozadí */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(100, 181, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(148, 227, 194, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-inner">
+                    <div class="header-left">
+                        <div class="logo">
+                            <img src="loga/logo.png" alt="Logo společnosti EDC">
+                        </div>
+                        <h1 class="page-title">Proces síťového semaforu</h1>
+                    </div>
+                    <div class="header-buttons">
+                        <a href="index.html" class="btn" target="_blank">Zpět na web EDC</a>
+                        <a href="https://portal.edc-cr.cz" class="btn btn-primary" target="_blank">Portál EDC</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="process-map" id="processMap"></div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-header" id="modalTitle">Modul</h2>
+            
+            <div class="audio-player">
+                <h3>Audio:</h3>
+                <audio id="modalAudio" controls>
+                    <source src="" type="audio/mpeg">
+                    Váš prohlížeč nepodporuje audio element.
+                </audio>
+            </div>
+
+            <div class="video-wrapper" id="videoWrapper">
+                <h3>Video náhled:</h3>
+            </div>
+
+            <div class="links-section">
+                <h3>Odkazy:</h3>
+                <div id="modalLinks"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modules = [
+            {
+                id: 1,
+                title: "Mám Fotovoltaiku a chci sdílet",
+                audio: "audio/audio1.mp3",
+                video: "https://www.youtube.com/embed/CDDSmAbdwWM",
+                links: [
+                    { text: "Obecné informace ke sdílení", url: "https://www.edc-cr.cz/wp-content/uploads/2024/11/Obecne-informace-ke-sdileni-elektriny-1.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" },
+                    { text: "Odkaz do Portálu EDC", url: "https://portal.edc-cr.cz" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Smlouva s EDC",
+                audio: "audio/audio2.mp3",
+                video: "https://www.youtube.com/embed/IpbcKVADq6o",
+                links: [
+                    { text: "Vzor smlouvy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/09/EDC_Smlouva-o-pristupu-do-IS-EDC-1.pdf" },
+                    { text: "Česká pošta - certifikáty", url: "https://www.ceskaposta.cz/sluzby/certifikacni-autorita-postsignum/kvalifikovane-certifikaty#examples2" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Práce v Portálu EDC - změna hesla",
+                audio: "audio/audio3.mp3",
+                video: "https://www.youtube.com/embed/4RR7OvzM3aY",
+                links: [
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
+                ]
+            },
+            {
+                id: 4,
+                title: "Základní orientace v portálu EDC",
+                audio: "audio/audio4.mp3",
+                video: "https://www.youtube.com/embed/GixQnliFbmQ",
+                links: [
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Registrace EANd - výrobna",
+                audio: "audio/audio5.mp3",
+                video: "https://www.youtube.com/embed/JzphLUIXRpw?list=PLtKjhdmNYudWp9ZVqS2WqpLnDgVubK_Lc",
+                links: [
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
+                ]
+            },
+            {
+                id: 6,
+                title: "Nastavení sdílení (skupiny sdílení elektřiny-SSE)",
+                audio: "audio/audio6.mp3",
+                video: "https://www.youtube.com/embed/bHo8MaEeELQ?list=PLtKjhdmNYudWp9ZVqS2WqpLnDgVubK_Lc",
+                links: [
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
+                ]
+            },
+            {
+                id: 7,
+                title: "Registrace EANo - odběrové místo",
+                audio: "audio/audio7.mp3",
+                video: "video7.mp4",
+                links: [
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
+                ]
+            },
+            {
+                id: 8,
+                title: "Správa účtu v portálu EDC",
+                audio: "audio/audio8.mp3",
+                video: "video8.mp4",
+                links: [
+                    { text: "Metriky", url: "#metrics8" },
+                    { text: "Logy", url: "#logs8" }
+                ]
+            },
+            {
+                id: 9,
+                title: "Správa dat sdílení SSE",
+                audio: "audio/audio9.mp3",
+                video: "video9.mp4",
+                links: [
+                    { text: "Performance", url: "#perf9" },
+                    { text: "Tipy", url: "#tips9" }
+                ]
+            },
+            {
+                id: 10,
+                title: "Postup pro importování odběrových EAN do portálu EDC",
+                audio: "audio/audio10.mp3",
+                video: "video10.mp4",
+                links: [
+                    { text: "Aktualizace", url: "#update10" },
+                    { text: "Záplaty", url: "#patch10" }
+                ]
+            },
+            {
+                id: 11,
+                title: "Dotace - potvrzení sdílení",
+                audio: "audio/audio11.mp3",
+                video: "video11.mp4",
+                links: [
+                    { text: "Kapacita", url: "#cap11" },
+                    { text: "Růst", url: "#growth11" }
+                ]
+            },
+            {
+                id: 12,
+                title: "Kontakty na naši infolinku",
+                audio: "audio/audio12.mp3",
+                video: "video12.mp4",
+                links: [
+                    { text: "Report", url: "#report12" },
+                    { text: "Zpětná vazba", url: "#feedback12" }
+                ]
+            }
+        ];
+
+        const processMap = document.getElementById('processMap');
+        
+        modules.forEach((module) => {
+            const trafficLightContainer = document.createElement('div');
+            trafficLightContainer.className = 'traffic-light-container';
+            trafficLightContainer.setAttribute('data-id', module.id);
+            trafficLightContainer.innerHTML = `
+                <div class="traffic-light">
+                    <div class="traffic-light-body"></div>
+                    <div class="traffic-light-red"></div>
+                    <div class="traffic-light-orange"></div>
+                    <div class="traffic-light-green"></div>
+                    <div class="traffic-light-stand"></div>
+                </div>
+                <div class="traffic-light-label">${module.title}</div>
+            `;
+            
+            trafficLightContainer.addEventListener('click', () => openModal(module));
+            trafficLightContainer.addEventListener('mouseenter', () => {
+                document.querySelectorAll('.traffic-light-container').forEach(tc => {
+                    if (tc !== trafficLightContainer) tc.classList.remove('active');
+                });
+                trafficLightContainer.classList.add('active');
+            });
+            trafficLightContainer.addEventListener('mouseleave', () => {
+                trafficLightContainer.classList.remove('active');
+            });
+            
+            processMap.appendChild(trafficLightContainer);
+        });
+
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalAudio = document.getElementById('modalAudio');
+        const videoWrapper = document.getElementById('videoWrapper');
+        const modalLinks = document.getElementById('modalLinks');
+        const closeBtn = document.querySelector('.close');
+
+        function isYouTubeUrl(url) {
+            return url.includes('youtube.com') || url.includes('youtu.be');
+        }
+
+        function openModal(module) {
+            // Reset všech semaforů
+            document.querySelectorAll('.traffic-light-container').forEach(tc => {
+                tc.classList.remove('active');
+            });
+            
+            // Aktivace kliknutého semaforu
+            const activeTrafficLight = document.querySelector(`[data-id="${module.id}"]`);
+            if (activeTrafficLight) activeTrafficLight.classList.add('active');
+            
+            modalTitle.textContent = module.title;
+            modalAudio.src = module.audio;
+            
+            // Vyčistit video wrapper
+            videoWrapper.innerHTML = '<h3>Video náhled:</h3>';
+            
+            // Zjistit typ videa a vytvořit příslušný element
+            if (isYouTubeUrl(module.video)) {
+                const iframe = document.createElement('iframe');
+                iframe.src = module.video;
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                videoWrapper.appendChild(iframe);
+            } else {
+                const video = document.createElement('video');
+                video.controls = true;
+                video.style.width = '100%';
+                const source = document.createElement('source');
+                source.src = module.video;
+                source.type = 'video/mp4';
+                video.appendChild(source);
+                videoWrapper.style.paddingBottom = '0';
+                videoWrapper.style.height = 'auto';
+                videoWrapper.appendChild(video);
+            }
+            
+            modalLinks.innerHTML = '';
+            module.links.forEach(link => {
+                const a = document.createElement('a');
+                let url = link.url;
+                if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('#')) {
+                    url = 'https://' + url;
+                }
+                a.href = url;
+                a.textContent = link.text;
+                a.target = '_blank';
+                if (!url.startsWith('#')) {
+                    a.download = '';
+                }
+                modalLinks.appendChild(a);
+            });
+            
+            modal.style.display = 'block';
+            modalAudio.play().catch(e => console.log("Autoplay blocked:", e));
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+            modalAudio.pause();
+            document.querySelectorAll('.traffic-light-container').forEach(tc => {
+                tc.classList.remove('active');
+            });
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                modalAudio.pause();
+                document.querySelectorAll('.traffic-light-container').forEach(tc => {
+                    tc.classList.remove('active');
+                });
+            }
+        }
+
+        // Zajištění správného zobrazení při načtení stránky
+        window.addEventListener('load', function() {
+            // Kontrola a úprava rozložení pro velmi krátké texty
+            document.querySelectorAll('.traffic-light-label').forEach(label => {
+                const text = label.textContent.trim();
+                if (text.length < 20) {
+                    label.style.minHeight = '3em';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

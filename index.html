@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <!--single-page aplikace (SPA)-->
+    <meta charset="UTF-16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Elektroenergetické datové centrum (EDC) – centrální platforma pro sdílení dat v české energetice. Podporujeme komunitní energetiku, akumulaci, flexibilitu a aktivní zákazníky.">
+    <meta name="keywords" content="EDC, elektroenergetické datové centrum, komunitní energetika, sdílení energie, akumulace, flexibilita, síťový semafor, OTE, ČR">
+    <meta name="author" content="Elektroenergetické datové centrum, a.s.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="EDC – Elektroenergetické datové centrum">
+    <meta property="og:description" content="Oficiální stránky EDC – klíčový pilíř moderní české energetiky.">
+    <meta property="og:image" content="https://tvojedomena.cz/Obrázky/og-image.jpg">
+    <meta property="og:url" content="https://tvojedomena.cz">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EDC – Elektroenergetické datové centrum">
+    <meta name="twitter:description" content="Centrální platforma pro sdílení dat v české energetice">
+    <meta name="twitter:image" content="https://tvojedomena.cz/Obrázky/og-image.jpg">
+
+    <title>EDC – Elektroenergetické datové centrum | Sdílení, akumulace a flexibilita energie</title>
+    <link rel="canonical" href="https://tvojedomena.cz/">
+
+    <!-- Favicon + Apple Touch -->
+    <link rel="icon" href="Obrázky/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="Obrázky/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="styles.css?v=20260106123456">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Cookie banner inline styles -->
+    <style>
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        }
+        #cookie-banner p { margin: 0 0 10px 0; }
+        #cookie-banner button {
+            background: #fff;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #cookie-banner a { color: #fff; text-decoration: underline; }
+    </style>
+</head>
+
+<body>
+    <!-- Overlay pro mobilní menu -->
+    <div class="nav-overlay"></div>
+
+    <!-- Cookie banner -->
+    <div id="cookie-banner">
+        <p>
+            Tento web používá cookies k lepšímu zážitku, analýze návštěvnosti a personalizaci obsahu.
+            Více informací v <a href="/cookies/gdpr.pdf">Zásadách cookies</a>.
+        </p>
+        <button id="accept-all">Přijmout vše</button>
+        <button id="necessary-only">Pouze nezbytné</button>
+        <button id="reject-all">Odmítnout vše</button>
+    </div>
+
+     <!--     Banner poruchy 
+    <div id="error-banner" class="error-banner" role="alert" aria-live="assertive">
+        <div class="error-content">
+            <span class="error-icon">⚠️</span>
+            <div class="error-text">
+                Aktuálně řešíme technickou poruchu na webu. Omlouváme se za komplikace a děkujeme za trpělivost.
+                Pokud potřebujete okamžitou pomoc, kontaktujte nás na
+                <a href="mailto:info@edc-cr.cz">info@edc-cr.cz</a> nebo telefonicky.
+            </div>
+            <button class="close-btn" aria-label="Zavřít hlášení o poruše" title="Zavřít">
+                <span class="close-icon">&times;</span>
+            </button>
+        </div>
+    </div>-->
+
+    <!-- Hlavní obsah – dynamicky nahrazován -->
+    <main id="main-content" class="container">
+        <noscript>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Jsme Elektroenergetické datové centrum.</h1>
+                    <p>
+                        Představujeme klíčový pilíř pro nová technická řešení. Umožňujeme přechod k moderní decentralizované,
+                        digitální a dekarbonizované elektroenergetice. Zajištujeme výměnu dat spojených s činnostmi energetického trhu.
+                        Podporujeme rozvoj komunitní energetiky. Přispíváme k posílení role aktivního zákazníka.
+                    </p>
+                </div>
+            </section>
+
+            <section class="modals-section">
+                <div class="modal-trigger"><h3>O společnosti</h3><p>Vše o EDC</p></div>
+                <div class="modal-trigger"><h3>Kontakty</h3><p>Adresy a sídla</p></div>
+                <div class="modal-trigger"><h3>Kariéra</h3><p>Práce v EDC</p></div>
+                <div class="modal-trigger"><h3>Interoperabilita dat</h3><p>Dokumenty</p></div>
+                <div class="modal-trigger"><h3>M2M komunikace</h3><p>Dokumenty</p></div>
+                <div class="modal-trigger"><h3>Sdílení</h3><p>Vše co byste měli vědět</p></div>
+                <div class="modal-trigger"><h3>Akumulace</h3><p>Vše co byste měli vědět</p></div>
+                <div class="modal-trigger"><h3>Flexibilita</h3><p>Vše co byste měli vědět</p></div>
+                <div class="modal-trigger"><h3>Síťový semafor</h3><p>Vše co byste měli vědět</p></div>
+                <div class="modal-trigger"><h3>EDC slovník energetiky</h3><p>Vše co byste měli vědět</p></div>
+                <div class="modal-trigger"><h3>FAQ</h3><p>Nejčastější dotazy</p></div>
+                <div class="modal-trigger"><h3>Mapa webu</h3><p>Struktura stránek EDC</p></div>
+                <div class="modal-trigger"><h3>Popis TEST webu</h3><p>Popis TEST webu</p></div>
+            </section>
+        </noscript>
+    </main>
+
+    <!-- ====================== VELKÉ MODÁLY – vždy přítomné v DOM ====================== -->
+    <div id="modal1" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal1')">×</span>
+            <div class="modal-inner">
+                <div>
+                    <h2>Společnost EDC</h2>
+                    <p>Chcete vědět nejnovější informace a co se o nás píše? Vše o společnosti EDC.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" 
+                         onclick="window.loadContent && window.loadContent('aktuality_content.html'); closeModal('modal1')">
+                        <h3>Aktuality a tiskové zprávy</h3>
+                    </div>
+                    <div class="sub-modal-trigger" 
+                         onclick="window.loadContent && window.loadContent('struktura_spolecnosti_content.html'); closeModal('modal1')">
+                        <h3>Struktury společnosti</h3>
+                    </div>
+                    <div class="sub-modal-trigger" 
+                         onclick="window.loadContent && window.loadContent('povinna-sdeleni_content.html'); closeModal('modal1')">
+                        <h3>Povinná sdělení</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal2')">×</span>
+            <div class="modal-inner">
+                <div><h2>Zde najdete všechny dostupné kontakty.</h2><p>Neváhejte nás kontaktovat.</p></div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-1')"><h3>Fakturační údaje</h3></div>
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-2')"><h3>Korespondenční adresa</h3></div>
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-3')"><h3>Sídlo společnosti</h3></div>
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-4')"><h3>Call centrum EDC</h3></div>
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-5')"><h3>YouTube kanál EDC</h3></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal5')">×</span>
+            <div class="modal-inner">
+                <div>
+                    <h2>Dokumenty pro distributory, agregátory a obchodníky</h2>
+                    <p>Vše o automatické komunikaci a další manuály naleznete zde.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="loadContent('M2M_sdileni_content.html'); closeModal('modal5')">
+                        <h3>M2M komunikace sdileni, akumulace</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('M2M_semafor_content.html'); closeModal('modal5')">
+                        <h3>M2M komunikace síťový semafor</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('M2M_flexibilita_content.html'); closeModal('modal5')">
+                        <h3>M2M komunikace agregace, technická flexibilita</h3>
+                    </div>
+                </div>
+                <div class="modal-btn" onclick="loadContent('M2M_content.html'); closeModal('modal5')">
+                    Více informací →
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal6')">×</span>
+            <div class="modal-inner">
+                <div>
+                    <h2>Sdílení</h2>
+                    <p>Vše o sdílení elektřiny a Portálu EDC naleznete zde.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="loadContent('sdileni_video_content.html'); closeModal('modal6')">
+                        <h3>Videomanuály</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('sdileni_dokumenty_content.html'); closeModal('modal6')">
+                        <h3>Dokumenty ke stažení</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('sdileni_FAQ_content.html'); closeModal('modal6')">
+                        <h3>Sdílení souhrn</h3>
+                    </div>
+                </div>
+                    <div class="modal-btn" onclick="window.location.href = 'sdileni_mapa.html'; closeModal('modal6')">
+                        Proces sdíleni v kostce →
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal7" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal7')">×</span>
+            <div class="modal-inner">
+                <div>
+                    <h2>Akumulace</h2>
+                    <p>Vše o akumulaci elektřiny a Portálu EDC naleznete zde.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="loadContent('akumulace_video_content.html'); closeModal('modal7')">
+                        <h3>Videomanuály</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('akumulace_dokumenty_content.html'); closeModal('modal7')">
+                        <h3>Dokumenty ke stažení</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('akumulace_FAQ_content.html'); closeModal('modal7')">
+                        <h3>Akumulace souhrn</h3>
+                    </div>
+                </div>
+                <div class="modal-btn" onclick="loadContent('akumulace_content.html'); closeModal('modal7')">
+                    Více informací →
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal8" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal8')">×</span>
+            <div class="modal-inner">
+                <div>
+                    <h2>Flexibilita</h2>
+                    <p>Vše o Flexibilitě naleznete zde.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="loadContent('flexibilita_video_content.html'); closeModal('modal8')">
+                        <h3>Videomanuály</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('flexibilita_dokumenty_content.html'); closeModal('modal8')">
+                        <h3>Dokumenty ke stažení</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('flexibilita_FAQ_content.html'); closeModal('modal8')">
+                        <h3>Flexibilita souhrn</h3>
+                    </div>
+                </div>
+                <div class="modal-btn" onclick="loadContent('flexibilita_content.html'); closeModal('modal8')">
+                    Více informací →
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal9" class="modal">
+        <div class="modal-content has-scroll" style="background-image: url('obrázky/zarovky.png');">
+            <span class="close" onclick="closeModal('modal9')">×</span>
+            <div class="modal-inner">
+                <div>
+                  <h2>Síťový semafor</h2>
+                  <p>Vše o Síťovém semaforu naleznete zde.</p>
+                </div>
+                <div class="sub-modal-grid">
+                    <div class="sub-modal-trigger" onclick="loadContent('semafor_video_content.html'); closeModal('modal9')">
+                        <h3>Videomanuály</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('semafor_dokumenty_content.html'); closeModal('modal9')">
+                        <h3>Dokumenty ke stažení</h3>
+                    </div>
+                    <div class="sub-modal-trigger" onclick="loadContent('semafor_FAQ_content.html'); closeModal('modal9')">
+                        <h3>Semafor souhrn</h3>
+                    </div>
+                </div>
+                <div class="modal-btn" onclick="window.location.href = ('semafor_mapa.html'); closeModal('modal9')">
+                    Proces v kostce →
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kontaktní sub-modály -->
+    <div id="sub2-1" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-1')">×</span>
+            <h2>Fakturační údaje</h2>
+            <strong>Elektroenergetické datové centrum, a.s.</strong><br>
+            IČO: 21020264<br>
+            DIČ: CZ21020264<br><br>
+            Bankovní spojení: Komerční banka, a.s.<br>
+            Číslo účtu: 131-1380440247/0100<br>
+            IBAN: CZ96 0100 0001 3113 8044 0247<br>
+            SWIFT: KOMBCZPPXXX
+        </div>
+    </div>
+
+    <div id="sub2-2" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-2')">×</span>
+            <h2>Korespondenční adresa</h2>
+            <strong>Elektroenergetické datové centrum, a.s.</strong><br>
+            Dock In One<br>
+            Voctářova 2449/5<br>
+            180 00 Praha 8 - Libeň
+        </div>
+    </div>
+
+    <div id="sub2-3" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-3')">×</span>
+            <h2>Sídlo společnosti</h2>
+            <strong>Elektroenergetické datové centrum, a.s.</strong><br>
+            Na Hroudě 1492/4<br>
+            100 00 Praha 10 – Vršovice<br><br>
+            Zapsáno v OR vedeném Městským soudem v Praze,<br>
+            oddíl B, vložka 28495
+        </div>
+    </div>
+
+    <div id="sub2-4" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-4')">×</span>
+            <h2>Call centrum EDC</h2>
+            <strong>PO – PÁ: 8:00 – 16:00</strong><br><br>
+            <strong>Volání z ČR:</strong> 800 720 204 <small>(zdarma)</small><br>
+            <strong>Ze zahraničí:</strong> +420 519 799 300<br><br>
+            <strong>E-mail:</strong> <a href="mailto:info@edc-cr.cz">info@edc-cr.cz</a>
+        </div>
+    </div>
+
+    <div id="sub2-5" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-5')">×</span>
+            <h2>YouTube kanál EDC</h2>
+            <p style="text-align:center;margin-top:1.5rem;">
+                <a href="https://www.youtube.com/@EDC-CR" target="_blank" rel="noopener"
+                   style="display:inline-flex;align-items:center;gap:10px;color:#0a3d3d;font-weight:600;font-size:1.1rem;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ff0000">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 0 6.502C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.538l0-7.076 6.45 3.538-6.45 3.538z"/>
+                    </svg>
+                    YouTube kanál EDC
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ====================== JEDEN CENTRÁLNÍ SKRIPT ====================== -->
+    <script>
+        // ====================== GLOBÁLNÍ FUNKCE ======================
+        window.openModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.classList.add('modal-open');
+                setTimeout(() => modal.scrollTop = 0, 100);
+            }
+        };
+
+        window.closeModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+
+            // Zavře všechny otevřené sub-modály
+            document.querySelectorAll('.sub-modal').forEach(sub => {
+                if (sub.style.display === 'flex' || sub.style.display === 'block') {
+                    sub.style.display = 'none';
+                }
+            });
+        };
+
+        window.openSubModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.style.display = 'flex';
+        };
+
+        window.closeSubModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.style.display = 'none';
+        };
+
+        // Newsletter
+        window.openNewsletterModal = function() {
+            const modal = document.getElementById('newsletterModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            }
+        };
+
+        window.closeNewsletterModal = function() {
+            const modal = document.getElementById('newsletterModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+        };
+
+        window.submitNewsletter = async function(e) {
+            e.preventDefault();
+            
+            const emailInput = e.target.querySelector('input[type=email]');
+            const email = emailInput.value.trim();
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            
+            if (!email || !email.includes('@')) {
+                alert('Zadejte platný email, prosím.');
+                return;
+            }
+
+            // Zablokujeme tlačítko proti dvojitému odeslání
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Odesílám...';
+
+            try {
+                const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer VÁŠ_API_TOKEN_ZDE'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        groups: ["123456"],          // ← vaše Group ID(y) – může být pole
+                        status: "active",
+                        // volitelně: name: "Jan Novák",
+                        // fields: { "company": "Moje firma" }
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Úspěch
+                    alert('Děkujeme! Na váš email jsme poslali potvrzovací zprávu.');
+                    closeNewsletterModal();
+                    e.target.reset();
+                } else {
+                    // Chyba (často už existuje)
+                    if (data.errors?.[0]?.message?.includes('already subscribed')) {
+                        alert('Tento email je již přihlášen k odběru.');
+                    } else {
+                        alert('Nastala chyba: ' + (data.message || 'zkuste to později'));
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Nepodařilo se připojit k serveru. Zkuste později.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Přihlásit se';
+            }
+        };
+
+        // ====================== NAČÍTÁNÍ OBSAHU ======================
+        window.loadContent = function(path) {
+            console.log('Načítám obsah:', path);
+            fetch(path + '?t=' + Date.now())
+                .then(response => {
+                    if (!response.ok) throw new Error('Soubor nenalezen: ' + path);
+                    return response.text();
+                })
+                .then(html => {
+                    const main = document.getElementById('main-content');
+                    main.innerHTML = html;
+                    initializePageAfterLoad();
+                })
+                .catch(err => {
+                    console.error('Chyba:', err);
+                    document.getElementById('main-content').innerHTML =
+                        '<div class="container"><h2>Obsah se nepodařilo načíst</h2><p>Zkuste obnovit stránku.</p></div>';
+                });
+        };
+
+        function initializePageAfterLoad() {
+            // Řazení aktualit od nejnovější
+            const list = document.querySelector('.aktuality-list');
+            if (list) {
+                const rows = Array.from(list.querySelectorAll('.aktualita-row')).reverse();
+                rows.forEach(row => list.appendChild(row));
+            }
+
+            // Obnovení onclick pro stahování PDF
+            document.querySelectorAll('.modal-trigger[onclick*="download"]').forEach(trigger => {
+                const code = trigger.getAttribute('onclick');
+                if (code) trigger.onclick = new Function('event', code);
+            });
+
+            // Obnovení onclick pro otevírání modálů s videi
+            document.querySelectorAll('.modal-trigger[onclick*="openModal"]').forEach(trigger => {
+                const code = trigger.getAttribute('onclick');
+                if (code) trigger.onclick = new Function(code);
+            });
+            // Automatické generování mapy webu
+            if (document.querySelector('.mapa-webu-section')) {
+                generateSiteMap();
+            }
+
+            function generateSiteMap() {
+                const mapDiv = document.getElementById('auto-site-map');
+                if (!mapDiv) return;
+
+                mapDiv.innerHTML = `
+                    <ul class="site-map-tree">
+                        <li>
+                            <span onclick="window.loadContent && window.loadContent('index_content.html')">Domovská stránka</span>
+                            <ul>
+                                <li>
+                                    <span onclick="openModal('modal1')">O společnosti</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('aktuality_content.html'); closeModal('modal1')">
+                                            Aktuality a tiskové zprávy
+                                        </li>
+                                        <li onclick="window.loadContent && window.loadContent('struktura_spolecnosti_content.html'); closeModal('modal1')">
+                                            Struktury společnosti
+                                        </li>
+                                        <li onclick="window.loadContent && window.loadContent('povinna-sdeleni_content.html'); closeModal('modal1')">
+                                            Povinná sdělení
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span onclick="openModal('modal2')">Kontakty</span>
+                                    <ul>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-1'), 150)">Fakturační údaje</li>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-2'), 150)">Korespondenční adresa</li>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-3'), 150)">Sídlo společnosti</li>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-4'), 150)">Call centrum EDC</li>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-5'), 150)">YouTube kanál EDC</li>
+                                    </ul>
+                                </li>
+                                <li onclick="window.loadContent && window.loadContent('kariera_content.html')">Kariéra</li>
+                                <li onclick="window.loadContent && window.loadContent('interoperabilita_content.html')">Interoperabilita dat</li>
+                                <li>
+                                    <span onclick="openModal('modal5')">M2M komunikace</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('M2M_sdileni_content.html'); closeModal('modal5')">
+                                            M2M komunikace sdílení, akumulace
+                                        </li>
+                                        <li onclick="window.loadContent && window.loadContent('M2M_semafor_content.html'); closeModal('modal5')">
+                                            M2M komunikace síťový semafor
+                                        </li>
+                                        <li onclick="window.loadContent && window.loadContent('M2M_flexibilita_content.html'); closeModal('modal5')">
+                                            M2M komunikace agregace, technická flexibilita
+                                        </li>
+                                        <li onclick="window.loadContent && window.loadContent('M2M_content.html'); closeModal('modal5')">
+                                            Více informací (hlavní stránka M2M)
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span onclick="openModal('modal6')">Sdílení</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('sdileni_video_content.html'); closeModal('modal6')">Videomanuály</li>
+                                        <li onclick="window.loadContent && window.loadContent('sdileni_dokumenty_content.html'); closeModal('modal6')">Dokumenty ke stažení</li>
+                                        <li onclick="window.loadContent && window.loadContent('sdileni_FAQ_content.html'); closeModal('modal6')">Sdílení souhrn</li>
+                                        <li onclick="window.location.href =('sdileni_mapa.html'); closeModal('modal6')">Proces sdílení v kostce</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span onclick="openModal('modal7')">Akumulace</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('akumulace_video_content.html'); closeModal('modal7')">Videomanuály</li>
+                                        <li onclick="window.loadContent && window.loadContent('akumulace_dokumenty_content.html'); closeModal('modal7')">Dokumenty ke stažení</li>
+                                        <li onclick="window.loadContent && window.loadContent('akumulace_FAQ_content.html'); closeModal('modal7')">Akumulace souhrn</li>
+                                        <li onclick="window.loadContent && window.loadContent('akumulace_content.html'); closeModal('modal7')">Více informací</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span onclick="openModal('modal8')">Flexibilita</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('flexibilita_video_content.html'); closeModal('modal8')">Videomanuály</li>
+                                        <li onclick="window.loadContent && window.loadContent('flexibilita_dokumenty_content.html'); closeModal('modal8')">Dokumenty ke stažení</li>
+                                        <li onclick="window.loadContent && window.loadContent('flexibilita_FAQ_content.html'); closeModal('modal8')">Flexibilita souhrn</li>
+                                        <li onclick="window.loadContent && window.loadContent('flexibilita_content.html'); closeModal('modal8')">Více informací</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span onclick="openModal('modal9')">Síťový semafor</span>
+                                    <ul>
+                                        <li onclick="window.loadContent && window.loadContent('semafor_video_content.html'); closeModal('modal9')">Videomanuály</li>
+                                        <li onclick="window.loadContent && window.loadContent('semafor_dokumenty_content.html'); closeModal('modal9')">Dokumenty ke stažení</li>
+                                        <li onclick="window.loadContent && window.loadContent('semafor_FAQ_content.html'); closeModal('modal9')">Semafor souhrn</li>
+                                        <li onclick="window.location.href =('semafor_mapa.html'); closeModal('modal9')">Proces v kostce</li>
+                                    </ul>
+                                </li>
+                                <li onclick="window.loadContent && window.loadContent('slovnik_content.html')">EDC slovník energetiky</li>
+                                <li onclick="window.loadContent && window.loadContent('FAQ_content.html')">FAQ</li>
+                                <li onclick="window.loadContent && window.loadContent('workshop_content.html')">EDC-informace</li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                `;
+            }
+
+                        // Scroll na začátek stránky
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // SPECIFICKÉ SKRIPTY – FAQ STRÁNKA
+            const faqDropdownBtn = document.querySelector('.faq-dropdown-btn');
+            if (faqDropdownBtn) {
+                const faqDropdown = document.querySelector('.faq-dropdown');
+                
+                // Dropdown obsah
+                faqDropdownBtn.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Zabrání okamžitému zavření
+                    faqDropdown.classList.toggle('active');
+                });
+                
+                // Klik na odkaz v obsahu → scroll + highlight + zavření
+                document.querySelectorAll('.faq-dropdown-content a').forEach(function (link) {
+                    link.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                            document.querySelectorAll('.aktualita-row').forEach(row => row.classList.remove('highlight'));
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            targetElement.classList.add('highlight');
+                            faqDropdown.classList.remove('active');
+                            
+                            // Po 3 sekundách odeber highlight
+                            setTimeout(() => {
+                                targetElement.classList.remove('highlight');
+                            }, 3000);
+                        }
+                    });
+                });
+                
+                // Klik mimo dropdown → zavřít
+                document.addEventListener('click', function (e) {
+                    if (faqDropdown.classList.contains('active') && 
+                        !faqDropdown.contains(e.target)) {
+                        faqDropdown.classList.remove('active');
+                    }
+                });
+                
+                // ESC klávesa → zavřít dropdown
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && faqDropdown.classList.contains('active')) {
+                        faqDropdown.classList.remove('active');
+                    }
+                });
+    
+
+
+                // Kategorie FAQ
+                (function () {
+                    const categoryWrapper = document.querySelector('.faq-category-select');
+                    if (!categoryWrapper) return;
+
+                    const btnToggle = categoryWrapper.querySelector('.faq-category-btn');
+                    const categoryButtons = categoryWrapper.querySelectorAll('[data-faq-category]');
+                    const rows = document.querySelectorAll('.aktualita-row');
+                    const faqLinks = document.querySelectorAll('.faq-dropdown-content a');
+
+                    btnToggle.addEventListener('click', function () {
+                        categoryWrapper.classList.toggle('active');
+                    });
+
+                    categoryButtons.forEach(function (catBtn) {
+                        catBtn.addEventListener('click', function () {
+                            const selected = this.getAttribute('data-faq-category');
+                            btnToggle.textContent = this.textContent;
+
+                            rows.forEach(function (row) {
+                                const cat = row.getAttribute('data-category') || 'all';
+                                row.style.display = (selected === 'all' || cat === selected) ? '' : 'none';
+                                row.classList.remove('highlight');
+                            });
+
+                            faqLinks.forEach(function (link) {
+                                const linkCat = link.getAttribute('data-category') || 'all';
+                                link.style.display = (selected === 'all' || linkCat === selected) ? 'flex' : 'none';
+                            });
+
+                            categoryWrapper.classList.remove('active');
+                        });
+                    });
+
+                    // Klik mimo → zavřít
+                    document.addEventListener('click', function (e) {
+                        if (!categoryWrapper.contains(e.target)) {
+                            categoryWrapper.classList.remove('active');
+                        }
+                    });
+                })();
+            }
+
+            // SPECIFICKÉ SKRIPTY – SLOVNÍK ENERGETIKY
+            const slovnikSearch = document.getElementById('slovnikSearch');
+            if (slovnikSearch) {
+                // DATA POJMŮ – ukázka (doplň další)
+                const TERMS = [
+                    { letter: 'a', term: 'A', full: 'Ampér', text: 'Základní jednotka elektrického proudu v soustavě SI' },
+                    { letter: 'a', term: 'Agregátor', full: '', text: 'Subjekt, který sdružuje flexibilitu od více výrobců nebo spotřebitelů a nabízí ji na trzích s elektřinou nebo SVR' },
+                    { letter: 'a', term: 'Aktivní zákazník', full: '', text: 'Zákazník, který vyrábí elektřinu pro vlastní spotřebu a může sdílet přebytky v rámci skupiny sdílení (Lex OZE II)' },
+                    { letter: 'a', term: 'Akumulace', full: '', text: 'Ukládání elektřiny do zařízení (např. baterií) pro pozdější využití; zavedeno novelou Lex OZE III pro stabilizaci sítě a integraci OZE' },
+                    { letter: 'a', term: 'Alokační klíč', full: '', text: 'Pravidlo rozdělení vyrobené elektřiny mezi odběrná místa ve skupině sdílení; může být statický, dynamický nebo hybridní (zavedeno Lex OZE II)' },
+                    { letter: 'b', term: 'BOT', full: '', text: 'Banka Operátora trhu' },
+                    { letter: 'b', term: 'BSD', full: '', text: 'Bezpečnostní standard dodávek' },
+                    { letter: 'b', term: 'Bioplyn', full: '', text: 'Plyn vznikající anaerobní fermentací biomasy, využívaný jako obnovitelný zdroj energie' },
+                    { letter: 'b', term: 'Biometan', full: '', text: 'Čištěný bioplyn s kvalitou zemního plynu, vhodný pro injektáž do sítě nebo jako palivo' },
+                    { letter: 'b', term: 'Baseline', full: '', text: 'Referenční (předpokládaná) spotřeba nebo výroba, sloužící k výpočtu poskytnuté flexibility při agregaci' },
+                    { letter: 'c', term: 'CC ČNB', full: '', text: 'Clearingové centrum České národní banky' },
+                    { letter: 'c', term: 'CDS', full: '', text: 'Centrum datových služeb Operátora trhu' },
+                    { letter: 'c', term: 'Clearing', full: '', text: 'Vypořádání rozdílu Operátorem trhu mezi spotřebou elektřiny v regionech TDD určenou odečtem v OPM konečných zákazníků, kteří změnili dodavatele, a spotřebou elektřiny určenou pomocí metody TDD' },
+                    { letter: 'c', term: 'CO', full: 'Oxid uhelnatý', text: 'Oxid uhelnatý' },
+                    { letter: 'c', term: 'CO2', full: 'Oxid uhličitý', text: 'Oxid uhličitý (carbon dioxide)' },
+                    { letter: 'c', term: 'CS OTE', full: '', text: 'Centrální informační systém Operátora trhu' },
+                    { letter: 'c', term: 'cos φ', full: 'Účiník', text: 'Bezrozměrná veličina vyjadřující poměr činného a zdánlivého výkonu' },
+                    { letter: 'č', term: 'ČEPS, a.s.', full: 'České energetické přenosové soustavy, a.s.', text: 'Společnost ČEPS, a.s., státní akciová společnost, která vlastní a provozuje přenosovou soustavu v ČR' },
+                    { letter: 'č', term: 'ČR', full: 'Česká republika', text: 'Česká republika' },
+                    { letter: 'd', term: 'Den D', full: '', text: 'Den dodávky, resp. den realizace uzavřených kontraktů na dodávku elektřiny' },
+                    { letter: 'd', term: 'DB', full: 'Databáze', text: 'Databáze obecně' },
+                    { letter: 'd', term: 'DPH', full: 'Daň z přidané hodnoty', text: 'Daň z přidané hodnoty' },
+                    { letter: 'd', term: 'DS', full: 'Distribuční soustava', text: 'Distribuční soustava' },
+                    { letter: 'd', term: 'DT', full: 'Denní trh s elektřinou', text: 'Denní trh s elektřinou je krátkodobý trh, na kterém se obchoduje elektřina na následující den v jednotlivých hodinových nebo blokových produktech.' },
+                    { letter: 'd', term: 'DÚF', full: 'Doplňující údaje pro fakturaci', text: 'Doplňující údaje pro fakturaci' },
+                    { letter: 'd', term: 'Dynamický alokační klíč', full: '', text: 'Typ alokačního klíče, který rozděluje vyrobenou elektřinu podle aktuální spotřeby odběrných míst pro maximální využití (z Lex OZE II)' },
+                    { letter: 'e', term: 'EAN', full: 'Mezinárodní systém kódování a identifikace', text: 'Zkratka EAN označuje mezinárodní systém kódování a identifikace zboží, služeb a organizací; v energetice se používá jako unikátní identifikátor odběrného místa.' },
+                    { letter: 'e', term: 'EANd', full: 'Mezinárodní systém kódování a identifikace', text: 'EANd (zkratka pro „EAN for delivery“) je registrační číslo předávacího místa, které patří výrobně elektřiny (např. fotovoltaické elektrárně) a ze kterého se elektřina sdílí či odesílá do sítě nebo skupiny sdílení. Je to unikátní 18místný kód, přidělený provozovatelem distribuční soustavy ve smlouvě o připojení – často v reakci na žádost výrobce.' },
+                    { letter: 'e', term: 'EANo', full: 'Mezinárodní systém kódování a identifikace', text: 'EANo („EAN for off-take“), což je registrační číslo odběrného místa, tedy místa, kde elektřinu sdílení přijímá spotřebitel (např. váš dům či byt).' },
+                    { letter: 'e', term: 'EDC', full: 'Elektroenergetické datové centrum', text: 'Elektroenergetické datové centrum; společnost zajišťující sběr dat v energetice, jejich standardizaci a sdílení' },
+                    { letter: 'e', term: 'EIC', full: 'Energy Identification Code', text: 'Zkratka pro Energy Identification Code, 16místný kód, který slouží k identifikaci odběrného místa plynu' },
+                    { letter: 'e', term: 'ERÚ', full: 'Energetický regulační úřad', text: 'Energetický regulační úřad' },
+                    { letter: 'e', term: 'ES ČR', full: 'Elektrizační soustava České republiky', text: 'Elektrizační soustava České republiky' },
+                    { letter: 'e', term: 'EU', full: 'Evropská unie', text: 'Evropská unie' },
+                    { letter: 'e', term: 'EZ', full: 'Energetický zákon', text: 'Energetický zákon, zákon č. 458/2000 Sb., o podmínkách podnikání a výkonu státní správy v energetických odvětvích a o změně některých zákonů, ve znění pozdějších předpisů' },
+                    { letter: 'e', term: 'Energetické společenství', full: '', text: 'Právnická osoba umožňující sdílení elektřiny mezi členy (až 1000 odběrných míst), založená podle Lex OZE II' },
+                    { letter: 'f', term: 'FZ', full: 'Finanční zajištění', text: 'Finanční zajištění, poskytnuté Subjektem zúčtování Operátorovi trhu k pokrytí finančních závazků plynoucích z působení Subjektu zúčtování na trhu s elektřinou nebo plynem' },
+                    { letter: 'f', term: 'FVE', full: 'Fotovoltaická elektrárna', text: 'Elektrárna využívající sluneční energii k výrobě elektřiny prostřednictvím fotovoltaických panelů' },
+                    { letter: 'f', term: 'F', full: 'Farad', text: 'Jednotka elektrické kapacity' },
+                    { letter: 'f', term: 'Flexibilita', full: '', text: 'Schopnost cíleně měnit výrobu nebo spotřebu elektřiny v reakci na potřeby soustavy, často za úplatu; zavedeno Lex OZE III' },
+                    { letter: 'g', term: 'GWh', full: 'Gigawatthodina', text: 'Jednotka velmi velkého množství energie, 1 GWh = 1 000 MWh' },
+                    { letter: 'h', term: 'HTTPS', full: 'Hypertext Transfer Protocol Secure', text: 'Zabezpečený internetový protokol' },
+                    { letter: 'h', term: 'HW', full: 'Hardware', text: 'Hardware, počítačové zařízení a periferie' },
+                    { letter: 'h', term: 'Hz', full: 'Hertz', text: 'Jednotka frekvence, počet period za sekundu; v síti obvykle 50 Hz' },
+                    { letter: 'h', term: 'H', full: 'Henry', text: 'Jednotka elektrické indukčnosti' },
+                    { letter: 'i', term: 'IČO', full: 'Identifikační číslo organizace', text: 'Identifikační číslo organizace' },
+                    { letter: 'i', term: 'IDA', full: 'Intraday aukce', text: 'Vnitrodenní aukce, součást vnitrodenního obchodování s elektřinou' },
+                    { letter: 'i', term: 'ID', full: 'Identifikátor', text: 'Identifikátor obecně' },
+                    { letter: 'i', term: 'IS', full: 'Informační systém', text: 'Informační systém obecně' },
+                    { letter: 'i', term: 'ISO 27001', full: 'Mezinárodní standard řízení bezpečnosti informací', text: 'Mezinárodní standard upravující systém řízení bezpečnosti informací' },
+                    { letter: 'j', term: 'J, MJ, GJ, TJ', full: 'Joule, Megajoule, Gigajoule, Terajoule', text: 'Jednotka práce (energie) 1 TJ = 10¹² J 1 TJ = 10³ GJ 1 TJ = 10⁶ MJ 1 J = 1 Ws' },
+                    { letter: 'k', term: 'Konečný zákazník, KZ', full: '', text: 'Odběratel, který používá dodanou energii pouze pro svoji spotřebu, nikoliv pro další prodej' },
+                    { letter: 'k', term: 'kV', full: 'Kilovolt', text: 'Jednotka vyššího elektrického napětí, 1 kV = 1 000 V' },
+                    { letter: 'k', term: 'kW', full: 'Kilowatt', text: 'Jednotka činného výkonu, 1 kW = 1 000 W' },
+                    { letter: 'k', term: 'kWh', full: 'Kilowatthodina', text: 'Běžná fakturační jednotka elektrické energie, 1 kWh = 1 000 Wh' },
+                    { letter: 'k', term: 'kVA', full: 'Kilovoltampér', text: 'Jednotka zdánlivého výkonu, 1 kVA = 1 000 VA' },
+                    { letter: 'k', term: 'kVAr', full: 'Kilovoltampér reaktanční', text: 'Jednotka jalového výkonu, 1 kVAr = 1 000 VAr' },
+                    { letter: 'k', term: 'kA', full: 'Kiloampér', text: 'Jednotka velkého elektrického proudu, 1 kA = 1 000 A' },
+                    { letter: 'k', term: 'KVET', full: 'Kombinovaná výroba elektřiny a tepla', text: 'Kombinovaná výroba elektřiny a tepla (kogenerace), vysoce účinná výroba elektřiny a tepla v jednom procesu' },
+                    { letter: 'l', term: 'LDS', full: 'Lokální distribuční soustava', text: 'Lokální distribuční soustava, DS nepřipojená k přenosové soustavě' },
+                    { letter: 'm', term: 'MPO', full: 'Ministerstvo průmyslu a obchodu', text: 'Ministerstvo průmyslu a obchodu' },
+                    { letter: 'm', term: 'MV', full: 'Megavolt', text: 'Jednotka velmi vysokého elektrického napětí, 1 MV = 1 000 kV' },
+                    { letter: 'm', term: 'MW', full: 'Megawatt', text: 'Jednotka velkého činného výkonu, 1 MW = 1 000 kW' },
+                    { letter: 'm', term: 'MWh', full: 'Megawatthodina', text: 'Jednotka velkého množství energie, 1 MWh = 1 000 kWh' },
+                    { letter: 'm', term: 'MVA', full: 'Megavoltampér', text: 'Jednotka velkého zdánlivého výkonu, 1 MVA = 1 000 kVA' },
+                    { letter: 'm', term: 'MVAr', full: 'Megavoltampér reaktanční', text: 'Jednotka velkého jalového výkonu, 1 MVAr = 1 000 kVAr' },
+                    { letter: 'n', term: 'NET4GAS, s.r.o.', full: 'NET4GAS, s.r.o.', text: 'Provozovatel přepravní soustavy plynu v České republice' },
+                    { letter: 'n', term: 'NOx', full: 'Oxidy dusíku', text: 'Oxidy dusíku' },
+                    { letter: 'n', term: 'NPpS', full: 'Náklady na podpůrné služby', text: 'Průměrné hodinové hodnoty nákladů na aktivované PpS (regulační energii)' },
+                    { letter: 'o', term: 'Obchodník s elektřinou', full: '', text: 'Fyzická či právnická osoba, která je držitelem licence na obchod s elektřinou a nakupuje elektřinu za účelem jejího dalšího prodeje' },
+                    { letter: 'o', term: 'Obchodník s plynem', full: '', text: 'Fyzická či právnická osoba, která je držitelem licence na obchod s plynem a nakupuje plyn za účelem jeho dalšího prodeje' },
+                    { letter: 'o', term: 'OPE', full: 'Obchodní podmínky OTE pro elektroenergetiku', text: 'Obchodní podmínky OTE, a.s., pro elektroenergetiku; dostupné na webových stránkách OTE' },
+                    { letter: 'o', term: 'OPM', full: 'Odběrné/předávací místo', text: 'Odběrné / předávací místo' },
+                    { letter: 'o', term: 'OPP', full: 'Obchodní podmínky OTE pro plynárenství', text: 'Obchodní podmínky OTE, a.s., pro plynárenství; dostupné na webových stránkách OTE' },
+                    { letter: 'o', term: 'OTE, Operátor trhu', full: 'Operátor trhu s elektřinou a plynem, a.s.', text: 'Akciová společnost OTE, a.s., která působí na trhu s elektřinou v ČR od roku 2001 a na trhu s plynem od roku 2010, jejímž zakladatelem a jediným akcionářem je stát Česká republika. Výkon akcionářských práv provádí z pověření státu Ministerstvo průmyslu a obchodu.' },
+                    { letter: 'o', term: 'OZE', full: 'Obnovitelné zdroje energie', text: 'Obnovitelné zdroje energie; podle zákona o životním prostředí: přírodní zdroje, které mají schopnost se při postupném spotřebovávání částečně nebo úplně obnovovat, a to samy nebo za přispění člověka; podle zákona o podpoře využívání obnovitelných zdroj: energie větru, energie slunečního záření, geotermální energie, energie vody, energie půdy, energie vzduchu, energie biomasy, energie skládkového plynu, energie kalového plynu a energie bioplynu' },
+                    { letter: 'o', term: 'Ω', full: 'Ohm', text: 'Jednotka elektrického odporu' },
+                    { letter: 'p', term: 'PC', full: 'Parametrická cena', text: 'Parametrická cena, vyjadřuje očekávanou jednotkovou ceny odchylky' },
+                    { letter: 'p', term: 'PDS', full: 'Provozovatel distribuční soustavy', text: 'Provozovatel distribuční soustavy' },
+                    { letter: 'p', term: 'PLDS', full: 'Provozovatel lokální distribuční soustavy', text: 'Provozovatel lokální distribuční soustavy' },
+                    { letter: 'p', term: 'PKI', full: 'Public Key Infrastructure', text: 'Technologie elektronického podpisu a šifrování (Public Key Infrastructure)' },
+                    { letter: 'p', term: 'Podpůrné služby', full: '', text: 'Činnosti fyzických nebo právnických osob k zajištění systémových služeb' },
+                    { letter: 'p', term: 'POF', full: 'Podklady pro fakturaci', text: 'Podklady pro fakturaci' },
+                    { letter: 'p', term: 'POZE', full: 'Podporované zdroje energie', text: 'Podporované zdroje energie; systém podpory výroby energie z obnovitelných a druhotných zdrojů a na výrobu elektřiny z decentrálních zdrojů a z vysoce účinné kombinované výroby.' },
+                    { letter: 'p', term: 'PPS', full: 'Provozovatel přenosové soustavy', text: 'Provozovatel přenosové soustavy' },
+                    { letter: 'p', term: 'PpS', full: 'Podpůrné služby', text: 'Podpůrné služby (regulační energie)' },
+                    { letter: 'p', term: 'PVE', full: 'Přečerpávací vodní elektrárna', text: 'Vodní elektrárna s akumulací energie přečerpáváním vody do vyšší nádrže' },
+                    { letter: 's', term: 'S', full: 'Siemens', text: 'Jednotka elektrické vodivosti, převrácená hodnota ohmu' },
+                    { letter: 's', term: 'SCADA', full: 'Supervisory Control and Data Acquisition', text: 'Systém dispečerského řízení a sběru dat pro monitorování a ovládání technických procesů v energetice' },
+                    { letter: 's', term: 'Sdílení elektřiny', full: '', text: 'Možnost sdílet vyrobenou elektřinu mezi členy skupiny sdílení nebo energetického společenství, zavedená novelou energetického zákona (Lex OZE II)' },
+                    { letter: 's', term: 'Statický alokační klíč', full: '', text: 'Typ alokačního klíče s pevně stanoveným procentuálním rozdělením vyrobené elektřiny bez ohledu na aktuální spotřebu (základní varianta z Lex OZE II)' },
+                    { letter: 's', term: 'SVR', full: 'Služby výkonové rovnováhy', text: 'Služby zajišťující rovnováhu mezi výrobou a spotřebou elektřiny v elektrizační soustavě, poskytované ČEPS' },
+                    { letter: 'ú', term: 'Úložiště energie', full: '', text: 'Zařízení pro akumulaci elektřiny (např. bateriová úložiště); samostatná úložiště podporována od října 2025 díky Lex OZE III' },
+                    { letter: 'v', term: 'V', full: 'Volt', text: 'Jednotka elektrického napětí' },
+                    { letter: 'v', term: 'VA', full: 'Voltampér', text: 'Jednotka zdánlivého výkonu v AC soustavách' },
+                    { letter: 'v', term: 'var', full: 'Voltampér reaktanční', text: 'Jednotka jalového výkonu v AC soustavách' },
+                    { letter: 'v', term: 'VTE', full: 'Větrná turbína elektrárna', text: 'Elektrárna využívající energii větru k výrobě elektřiny' },
+                    { letter: 'w', term: 'W', full: 'Watt', text: 'Jednotka činného elektrického výkonu' },
+                    { letter: 'w', term: 'Wh', full: 'Watthodina', text: 'Jednotka elektrické energie odpovídající výkonu 1 W po dobu 1 hodiny' }
+                ];
+
+                const searchInput = document.getElementById('slovnikSearch');
+                const letterButtons = document.querySelectorAll('.letter-btn');
+                const modal = document.getElementById('slovnikModal');
+                const modalClose = document.getElementById('slovnikModalClose');
+                const modalInner = modal.querySelector('.modal-inner');
+
+                let activeLetter = 'vse';
+
+                // OTEVŘENÍ MODÁLU S VÝSLEDKY
+                function showResults() {
+                    const query = (searchInput.value || '').trim().toLowerCase();
+
+                    const filtered = TERMS.filter(item => {
+                        const matchLetter = activeLetter === 'vse' || item.letter === activeLetter;
+                        const haystack = (item.term + ' ' + item.full + ' ' + item.text).toLowerCase();
+                        const matchSearch = !query || haystack.includes(query);
+                        return matchLetter && matchSearch;
+                    });
+
+                    // Vyčisti obsah modálu
+                    modalInner.innerHTML = '';
+
+                    if (filtered.length === 0) {
+                        modalInner.innerHTML = '<p style="text-align:center; font-size:1.2rem;">Pro zadané filtrování nebyl nalezen žádný pojem.</p>';
+                    } else {
+                        const countText = filtered.length === 1 ? '1 výsledek' : `${filtered.length} výsledky`;
+                        modalInner.innerHTML = `<h2 style="text-align:center; margin-bottom:2rem;">Nalezeno: ${countText}</h2>`;
+
+                        filtered.forEach(item => {
+                                const itemHTML = `
+                                    <div class="slovnik-result-item">
+                                        <div class="slovnik-result-header">
+                                            <div>
+                                                <strong>${item.term}</strong>
+                                                ${item.full ? '<span class="full-text">– ' + item.full + '</span>' : ''}
+                                            </div>
+                                            <span class="slovnik-arrow">▼</span>
+                                        </div>
+                                        <div class="slovnik-result-body">
+                                            <p>${item.text}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            modalInner.insertAdjacentHTML('beforeend', itemHTML);
+                        });
+                    }
+
+                    modal.style.display = 'flex';
+                    document.body.classList.add('modal-open');
+                }
+
+                // ZAVŘENÍ MODÁLU
+                function closeModal() {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                }
+
+                // EVENT LISTENERS
+                modalClose.addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+
+                // Klik na písmeno → filtr + otevři modál s výsledky
+                letterButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        letterButtons.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        activeLetter = btn.dataset.letter;
+                        showResults();
+                    });
+                });
+
+                // Enter ve vyhledávání → filtr + otevři modál
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        showResults();
+                    }
+                });
+
+                // Accordion funkce – rozbalení/sbalení popisu po kliknutí na řádek
+                modalInner.addEventListener('click', (e) => {
+                    const header = e.target.closest('.slovnik-result-header');
+                    if (!header) return;
+
+                    const item = header.parentElement;
+                    const body = item.querySelector('.slovnik-result-body');
+                    const arrow = header.querySelector('.slovnik-arrow');
+
+                    item.classList.toggle('open');
+                    if (item.classList.contains('open')) {
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                        arrow.textContent = '▲';
+                    } else {
+                        body.style.maxHeight = '0';
+                        arrow.textContent = '▼';
+                    }
+                });
+            }
+        }
+
+        // ====================== ROUTING ======================
+        document.addEventListener('DOMContentLoaded', () => {
+            const filename = window.location.pathname.split('/').pop() || 'index.html';
+            const hash = window.location.hash.substring(1);
+
+            let contentPath = 'index_content.html';
+
+            const contentMap = {
+                'index.html': 'index_content.html',
+                'aktuality.html': 'aktuality_content.html',
+                'kariera.html': 'kariera_content.html',
+                'FAQ.html': 'faq_content.html',
+                'interoperabilita.html': 'interoperabilita_content.html',
+                'slovnik.html': 'slovnik_content.html',
+
+                // Akumulace
+                'akumulace.html': 'akumulace_content.html',
+                'akumulace-dokumenty.html': 'akumulace_dokumenty_content.html',
+                'akumulace-video.html': 'akumulace_video_content.html',
+                'akumulace-faq.html': 'akumulace_faq_content.html'
+            };
+
+            if (contentMap[filename]) {
+                contentPath = contentMap[filename];
+            }
+
+            if (hash && contentMap[hash + '.html']) {
+                contentPath = contentMap[hash + '.html'];
+            }
+
+            loadContent(contentPath);
+        });
+
+        // ====================== COOKIE BANNER ======================
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+            return matches ? decodeURIComponent(matches[1]) : undefined;
+        }
+
+        const banner = document.getElementById('cookie-banner');
+        if (!getCookie('cookie_consent')) {
+            banner.style.display = 'block';
+        }
+
+        document.getElementById('accept-all')?.addEventListener('click', () => {
+            setCookie('cookie_consent', 'all', 365);
+            banner.style.display = 'none';
+        });
+
+        document.getElementById('necessary-only')?.addEventListener('click', () => {
+            setCookie('cookie_consent', 'necessary', 365);
+            banner.style.display = 'none';
+        });
+
+        document.getElementById('reject-all')?.addEventListener('click', () => {
+            setCookie('cookie_consent', 'rejected', 365);
+            banner.style.display = 'none';
+        });
+
+        // ====================== ERROR BANNER ======================
+        const errorBanner = document.getElementById('error-banner');
+        const closeBtn = errorBanner?.querySelector('.close-btn');
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                errorBanner.classList.add('hidden');
+                localStorage.setItem('error-banner-hidden', 'true');
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !errorBanner?.classList.contains('hidden')) {
+                errorBanner.classList.add('hidden');
+                localStorage.setItem('error-banner-hidden', 'true');
+            }
+        });
+    </script>
+     <!-- Header, footer a chatbot -->
+    <script src="include.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,2394 @@
+/* styles.css – OPTIMALIZOVANÁ VERZE (26.12.2025)
+   Upraveno: Sloučeny všechny duplicitní pravidla (přednost má vždy poslední výskyt v původním souboru).
+   - Odstraněny opakující se deklarace pro stejné selektory.
+   - Zachována 100% původní funkčnost, hodnoty a pořadí kaskády.
+   - Pouze řazení, slučování a odstranění nadbytečných opakovaní.
+*/
+/* ===================================================================
+   PROMĚNNÉ A GLOBÁLNÍ ZÁKLADNÍ STYLY (používané na všech stránkách)
+   =================================================================== */
+:root { --primary: #94e3c2; --light: #ecfcf5; --white: #fff; --gray: #f7f7f7; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, var(--light) 0%, var(--white) 50%, var(--gray) 100%);
+    color: #333;
+    line-height: 1.6;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+main { margin-top: 90px; padding: 4rem 0 2.5rem 0; }
+/* Blokování scrollování pozadí při otevřeném modálu nebo mobilním menu */
+body.modal-open,
+body.menu-open {
+    overflow: hidden;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+}
+/* ===================================================================
+   HLAVIČKA A NAVIGACE (index.html + všechny stránky)
+   =================================================================== */
+header {
+    background: rgba(255, 255, 255, .95);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, .08);
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+.logo-area img { height: 50px; }
+.desktop-nav .nav-links {
+    display: flex;
+    gap: 1rem; /* Finální hodnota (přepsala původní 2.5rem) */
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.desktop-nav .nav-links li {
+    margin: 0;
+}
+.desktop-nav .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+.desktop-nav .nav-links a:hover { color: var(--primary); }
+
+/* Sloučené styly pro tlačítka v navigaci – poslední definice mají přednost */
+.login-btn, .newsletter-btn, .wcag-accessibility-link {
+    padding: 0.6rem 1.8rem; /* Poslední konkrétní padding pro wcag přepsal předchozí */
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    height: 44px;
+    box-sizing: border-box;
+    line-height: 1.2; /* Z wcag – zachováno jako poslední */
+}
+.login-btn {
+    background: var(--primary);
+    color: white;
+    padding: .7rem 1.8rem; /* Poslední definice pro login-btn přepsala obecnou */
+}
+.newsletter-btn {
+    background: #FFD60A;
+    color: #0a3d3d;
+    padding: .7rem 1.8rem; /* Poslední definice přepsala obecnou */
+}
+.wcag-accessibility-link {
+    background: #000000;
+    color: #ffffff !important;
+    border: 4px solid #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Hover efekty – sloučeny */
+.login-btn:hover, .newsletter-btn:hover, .wcag-accessibility-link:hover,
+.wcag-accessibility-link:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(5,40,42);
+    
+}
+
+/* Změna písma na černou při hoover efektu */
+.login-btn:hover,
+.login-btn:focus {
+    background: #7dd1b1; /* nebo jinou tmavší variantu primární barvy */
+    color: rgb(3, 3, 3) !important; /* důležité – zajistí, že text zůstane bílý */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(5,40,42,0.3);
+}
+
+.wcag-accessibility-link:hover,
+.wcag-accessibility-link:focus {
+    background: #333333;
+    outline: 8px solid #000000;
+    outline-offset: 4px;
+}
+
+/* Mobilní úprava wcag tlačítka */
+@media (max-width: 992px) {
+    .wcag-accessibility-link {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+}
+
+.skip-link:focus {
+  top: 10px;
+  left: 10px;
+}
+
+/* Hamburger menu + animovaný křížek */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 40px;
+    height: 36px;
+    position: relative;
+    z-index: 1001;
+}
+.hamburger span {
+    display: block;
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    background: #0a3d3d;
+    border-radius: 5px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .3s ease-in-out;
+}
+.hamburger span:nth-child(1) { top: 0px; }
+.hamburger span:nth-child(2) { top: 15px; }
+.hamburger span:nth-child(3) { top: 30px; }
+.hamburger.active span:nth-child(1) { top: 15px; transform: rotate(135deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; left: -60px; }
+.hamburger.active span:nth-child(3) { top: 15px; transform: rotate(-135deg); }
+
+/* Mobilní menu a overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100dvh;
+    background: rgba(255, 255, 255, .98);
+    backdrop-filter: blur(12px);
+    padding: 100px 30px 40px;
+    transition: right .4s;
+    z-index: 1000;
+}
+.mobile-nav.active { right: 0; }
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+.nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Mobilní menu – lepší rozestupy */
+.mobile-nav .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.mobile-nav .nav-links li {
+    width: 100%;
+}
+.mobile-nav .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Specifické styly tlačítek v mobilním menu */
+.mobile-nav .wcag-accessibility-link {
+    background: #000000;
+    color: #ffffff !important;
+    border: 4px solid #ffffff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+.mobile-nav .newsletter-btn {
+    background: #FFD60A;
+    color: #0a3d3d;
+}
+.mobile-nav .login-btn {
+    background: var(--primary);
+    color: white;
+}
+
+/* Hover/focus v mobilním menu */
+.mobile-nav .nav-links a:hover,
+.mobile-nav .nav-links a:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    outline: 4px solid #ffffff;
+    outline-offset: 4px;
+}
+
+/* ===================================================================
+   HERO SEKCE A DLAŽDICE (převážně index.html)
+   =================================================================== */
+.hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem 2rem;   /* nahoře 6rem, dole 4rem – mnohem méně mezery */
+    background: linear-gradient(135deg, var(--primary), var(--light));
+    color: #0a0a0a;
+    border-radius: 20px;
+    margin-bottom: 2rem;            /* zmenšeno z 3rem */
+    box-shadow: 0 15px 35px rgba(148, 227, 194, .3);
+}
+.hero h1 { font-size: 3.2rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.3rem; }
+.modals-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+.modal-trigger {
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+}
+.modal-trigger:hover {
+    transform: translateY(-8px);
+    background: var(--light);
+    box-shadow: 0 15px 30px rgba(148, 227, 194, .3);
+}
+
+/* ===================================================================
+   GLOBÁLNÍ MODÁLY A SUBMODÁLY (index.html, povinna_sdeleni.html atd.)
+   =================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .8);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.sub-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 2000;
+    pointer-events: none;
+}
+
+.sub-modal > .sub-modal-content {
+    pointer-events: auto;
+}
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    height: 80vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .5);
+    background-size: cover;
+    background-position: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 96vh;
+    padding-right: 1.5rem;
+}
+.modal-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 61, 61, .85);
+}
+.modal-inner {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 80px 40px 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.modal-btn {
+    margin-top: auto;
+    padding: 1rem 3rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all .3s;
+}
+.modal-btn:hover { background: #7dd1b1; transform: scale(1.05); }
+.close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 3;
+}
+
+/* Submodální dlaždice */
+.sub-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    margin: 2.5rem 0;
+    padding: 0 20px;
+}
+.sub-modal-trigger {
+    background: rgba(255, 255, 255, .98);
+    border: 2px solid var(--primary);
+    border-radius: 18px;
+    padding: 2.2rem 1.5rem;
+    cursor: pointer;
+    transition: all .35s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 170px;
+    height: 100%;
+    gap: .8rem;
+    text-align: center;
+}
+.sub-modal-trigger:hover {
+    background: #94e3c2;
+    border-color: #FFD60A;
+    transform: translateY(-12px);
+    box-shadow: 0 22px 50px rgba(148, 227, 194, .45);
+}
+.sub-modal-trigger h3, .sub-modal-trigger p { margin: 0; }
+.sub-modal-trigger h3 { font-size: 1.35rem; color: #0a3d3d; line-height: 1.3; }
+.sub-modal-trigger p { font-size: .95rem; color: #555; }
+a.sub-modal-trigger, .sub-modal-trigger.no-link-style { text-decoration: none; color: inherit; }
+
+/* Speciální sub-modál pro Kontakty */
+.sub-modal-content {
+    background-color: #94e3c2;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .15);
+    max-width: 400px;
+    margin: 0 auto;
+    color: #000 !important;
+    position: relative;
+}
+.sub-modal-content h2 {
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.sub-modal-content strong { color: #000; }
+.sub-modal-content a {
+    color: #000;
+    text-decoration: underline;
+    font-weight: 600;
+}
+.sub-modal-content a:hover { color: #0a3d3d; }
+.sub-close {
+    color: #000;
+    font-size: 2rem;
+    opacity: 0.7;
+}
+.sub-close:hover { opacity: 1; }
+.sub-modal-content svg { fill: #ff0000; }
+
+
+
+
+
+
+/* ===================================================================
+   VIDEO WRAPPER (používané v modálech na více stránkách)
+   =================================================================== */
+.video-wrapper {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    min-height: 0;
+    padding-bottom: 56.25%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    background: #000;
+}
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+}
+
+/* ===================================================================
+   CHATBOT TEREZA – FINÁLNÍ VERZE
+   =================================================================== */
+.tereza-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    z-index: 9999;
+    pointer-events: none;
+}
+.tereza-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #05282a, #94e3c2);
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(10, 61, 61, .4);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform .3s ease;
+    pointer-events: auto;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tereza-toggle:hover {
+    transform: scale(1.1);
+}
+.tereza-toggle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+}
+.tereza-pulse-ring {
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    width: 106px;
+    height: 106px;
+    border: 5px solid #94e3c2;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation: pulse-ring 2.8s infinite ease-out;
+}
+@keyframes pulse-ring {
+    0% {
+        transform: scale(0.88);
+        opacity: 0;
+    }
+    40% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.55);
+        opacity: 0;
+    }
+}
+.tereza-modern {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 420px;
+    max-width: calc(100vw - 40px);
+    height: 680px;
+    max-height: calc(100vh - 140px);
+    background: rgba(255, 255, 255, .98);
+    backdrop-filter: blur(20px);
+    border-radius: 28px;
+    box-shadow: 0 20px 60px #05282a;
+    overflow: hidden;
+    display: none;
+    flex-direction: row;
+    z-index: 9998;
+    border: 1px solid rgba(148, 227, 194, .3);
+}
+.tereza-modern.open {
+    display: flex;
+}
+.tereza-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(135deg, #05282a, #94e3c2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 10;
+}
+.tereza-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.tereza-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #94e3c2;
+}
+.tereza-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.tereza-status {
+    font-size: .85rem;
+    opacity: .9;
+}
+.tereza-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tereza-sidebar {
+    width: 140px;
+    background: linear-gradient(to bottom, #05282a, #27504c);
+    color: #fff;
+    padding: 100px 12px 20px;
+    flex-shrink: 0;
+    transition: all .3s ease;
+    overflow: hidden;
+}
+.tereza-title {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: .8;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.tereza-item {
+    padding: 11px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    background: rgba(255,255,255,.1);
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: .85rem;
+    transition: .3s;
+}
+.tereza-item:hover {
+    background: #94e3c2;
+    color: #0a3d3d;
+}
+.tereza-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+.tereza-messages {
+    flex: 1;
+    padding: 90px 20px 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    scrollbar-width: thin;
+}
+.tereza-bot, .tereza-user {
+    display: flex;
+    gap: 12px;
+    max-width: 100%;
+    align-self: flex-start;
+}
+.tereza-user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+.tereza-bot {
+    flex-direction: column;
+    align-items: flex-start;
+}
+.tereza-bot img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #94e3c2;
+    flex-shrink: 0;
+}
+.tereza-bubble {
+    padding: 14px 18px;
+    border-radius: 20px;
+    line-height: 1.5;
+    word-break: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.tereza-bot .tereza-bubble {
+    background: #fff;
+    color: #333;
+    border-bottom-left-radius: 6px;
+}
+.tereza-user .tereza-bubble {
+    background: linear-gradient(135deg, #94e3c2, #7dd1b1);
+    color: #0a3d3d;
+    border-bottom-right-radius: 6px;
+    width: 100%;
+    max-width: 100%;
+}
+.tereza-typing {
+    display: none;
+    padding: 0 20px 16px;
+    gap: 6px;
+    align-items: center;
+}
+.tereza-typing span {
+    width: 10px;
+    height: 10px;
+    background: #94e3c2;
+    border-radius: 50%;
+    display: inline-block;
+    animation: typing 1.4s infinite;
+}
+.tereza-typing span:nth-child(2) { animation-delay: .2s; }
+.tereza-typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes typing {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-12px); }
+}
+.tereza-input {
+    display: flex;
+    padding: 16px 20px;
+    background: #f8fcfb;
+    border-top: 1px solid rgba(148, 227, 194, .3);
+    gap: 12px;
+}
+#tereza-input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 1px solid #bcd9d0;
+    border-radius: 30px;
+    background: #fff;
+    font-size: 1rem;
+    color: #000;
+    outline: none;
+}
+#tereza-input::placeholder {
+    color: #888;
+}
+#tereza-send {
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#tereza-send:hover {
+    background: #7dd1b1;
+}
+#tereza-send svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* Responsivní úpravy chatbota */
+@media (max-width: 900px) {
+    .tereza-sidebar {
+        display: none !important;
+    }
+    .tereza-modern {
+        width: 94vw !important;
+        max-width: none;
+        left: 50% !important;
+        right: auto;
+        transform: translateX(-50%) !important;
+        bottom: 90px;
+        height: 80vh;
+    }
+}
+@media (max-width: 480px) {
+    .tereza-toggle {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 15px;
+    }
+    .tereza-modern {
+        width: calc(100vw - 20px) !important;
+        height: calc(100vh - 40px) !important;
+        left: 10px !important;
+        right: 10px !important;
+        bottom: 20px !important;
+        top: auto;
+        transform: none !important;
+        border-radius: 24px;
+    }
+    .tereza-header {
+        height: 70px;
+        padding: 0 16px;
+        border-radius: 24px 24px 0 0;
+    }
+    .tereza-messages {
+        padding: 80px 18px 18px;
+    }
+    .tereza-input {
+        padding: 14px 18px;
+    }
+    #tereza-input {
+        font-size: 16px;
+        padding: 16px 20px;
+    }
+    #tereza-send {
+        width: 50px;
+        height: 50px;
+    }
+    .tereza-bubble {
+        padding: 16px 20px;
+        font-size: 1.05rem;
+    }
+}
+
+/* ===================================================================
+   STRUKTURA SPOLEČNOSTI (struktura_spolecnosti.html)
+   =================================================================== */
+.edc-intro {
+    background: linear-gradient(135deg, rgba(148, 227, 194, 0.12), rgba(148, 227, 194, 0.06));
+    padding: 100px 0 120px;
+    margin-bottom: 60px;
+}
+.edc-intro .container {
+    display: grid;
+    grid-template-columns: 1fr 480px;
+    gap: 60px;
+    align-items: center;
+}
+.edc-intro h1 { font-size: 2.8rem; color: #0a3d3d; margin-bottom: 2rem; line-height: 1.2; }
+.edc-intro p { font-size: 1.1rem; line-height: 1.8; color: #444; margin-bottom: 1.5rem; }
+.edc-intro .quote {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    font-style: italic;
+    margin: 2rem 0;
+    position: relative;
+}
+.edc-intro .quote::before { content: '„'; font-size: 6rem; color: var(--primary); position: absolute; top: -20px; left: 20px; opacity: 0.3; }
+.edc-intro .quote-author { margin-top: 1rem; font-weight: 600; color: #0a3d3d; font-style: normal; }
+.edc-intro-img { border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15); }
+.edc-intro-img img { width: 100%; height: auto; display: block; }
+.edc-services {
+    background: var(--light);
+    padding: 80px 0;
+    margin: 0 0 60px 0;
+}
+.edc-services .container {
+    background: white;
+    padding: 50px 60px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid var(--primary);
+}
+.edc-services h2 { color: #0a3d3d; font-size: 2.2rem; margin-bottom: 1.5rem; }
+.edc-services p, .edc-services li { font-size: 1.1rem; line-height: 1.8; color: #333; }
+.edc-services ul { margin: 1.5rem 0; padding-left: 1.8rem; }
+.edc-services ul li { margin-bottom: 0.9rem; }
+.edc-activities .container { text-align: center; }
+.edc-activities h2 { font-size: 2.2rem; color: #0a3d3d; margin-bottom: 1.5rem; }
+.image-full img { width: 100%; height: auto; }
+.edc-organs .container { text-align: center; }
+.edc-organs h2 { font-size: 2.2rem; color: #0a3d3d; margin-bottom: 1.5rem; }
+.organs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.organ-section h3 {
+    font-size: 1.8rem;
+    color: #0a3d3d;
+    margin-bottom: 1rem;
+}
+.member-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1rem;
+    transition: all 0.35s ease;
+    text-align: center;
+}
+.member-card:hover {
+    transform: scale(1.05);
+    background: #94e3c2;
+    box-shadow: 0 15px 35px rgba(148, 227, 194, 0.4);
+    z-index: 10;
+}
+.member-card:hover .member-name { color: #0a3d3d; font-weight: 700; }
+.member-card:hover .member-role { color: #0a3d3d; font-weight: 500; }
+.member-name {
+    font-weight: 600;
+    color: #0a3d3d;
+    margin-bottom: 0.4rem;
+    font-size: 1.2rem;
+}
+.member-role {
+    font-style: italic;
+    color: #555;
+    font-size: 1rem;
+}
+.edc-structure .container { text-align: center; }
+.edc-structure h2 { font-size: 2.2rem; color: #0a3d3d; margin-bottom: 1.5rem; }
+.pie-chart-container { margin: 2rem auto; max-width: 400px; }
+.structure-highlight { font-size: 1.1rem; color: #444; margin-top: 1rem; }
+.edc-services p,
+.edc-services li {
+    hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobilní úpravy pro strukturu */
+@media (max-width: 992px) {
+    .edc-services .container {
+        padding: 40px 30px;
+        border-radius: 16px;
+    }
+    .edc-services h2 {
+        font-size: 2rem;
+    }
+    .edc-services p,
+    .edc-services li {
+        font-size: 1.05rem;
+    }
+}
+@media (max-width: 768px) {
+    .edc-services .container {
+        padding: 35px 25px;
+    }
+    .edc-services h2 {
+        font-size: 1.9rem;
+    }
+}
+@media (max-width: 480px) {
+    .edc-services {
+        padding: 60px 0;
+    }
+    .edc-services .container {
+        padding: 30px 20px;
+        border-radius: 12px;
+        border-left-width: 4px;
+    }
+    .edc-services h2 {
+        font-size: 1.7rem;
+        line-height: 1.3;
+    }
+    .edc-services p,
+    .edc-services li {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    .edc-services ul {
+        padding-left: 1.4rem;
+    }
+    .edc-services ul li {
+        margin-bottom: 0.8rem;
+    }
+}
+
+/* ===================================================================
+   SDÍLENÍ VIDEO MANUÁLY (sdileni_video.html)
+   =================================================================== */
+.hero-video-manuals { text-align: center; padding: 6rem 2rem; }
+.hero-video-manuals h1 { font-size: 3rem; margin-bottom: 1.5rem; font-weight: 400; }
+.hero-video-manuals .highlight { font-size: 1.35rem; margin: 2rem 0; color: #0a3d3d; }
+.video-steps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 3rem 0;
+}
+.step {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+    width: 280px;
+    border-left: 5px solid var(--primary);
+}
+.step-number {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: #0a3d3d;
+    border-radius: 50%;
+    font-weight: bold;
+    line-height: 36px;
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+.closing-text { font-size: 1.3rem; margin: 3rem auto; max-width: 900px; color: #222; }
+.cta-buttons { margin-top: 3rem; }
+.cta-buttons a {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    margin: 0 .75rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all .3s;
+}
+.btn-primary { background: var(--primary); color: #0a3d3d; }
+.btn-primary:hover { background: #7dd1b1; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(148, 227, 194, .4); }
+.btn-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.btn-secondary:hover { background: var(--primary); color: white; }
+
+/* ===================================================================
+   POVINNÁ SDĚLENÍ (povinna_sdeleni.html)
+   =================================================================== */
+.info-section { margin: 80px 0; text-align: center; }
+.info-section h2 {
+    font-size: 2.4rem;
+    color: #0a3d3d;
+    margin-bottom: 40px;
+    position: relative;
+}
+.info-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 5px;
+    background: #94e3c2;
+    margin: 20px auto 0;
+    border-radius: 3px;
+}
+.single-tile .modal-trigger { max-width: 600px; margin: 0 auto; }
+.large-tile { padding: 60px 40px; font-size: 1.2rem; }
+.large-tile h3 { font-size: 2rem; }
+.modal-trigger { position: relative; cursor: pointer; }
+.zakazky-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 20px;
+    color: #333;
+    line-height: 1.8;
+}
+
+/* ===================================================================
+   KARIÉRA (kariera.html)
+   =================================================================== */
+.hero.kariera .responsive-img,
+.hero-video-manuals .responsive-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 3rem auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+}
+.modal.modal-kariera {
+    background: #000000CC;
+}
+.modal-kariera .modal-content {
+    background: #94e3c2;
+    background-image: none !important;
+    border-radius: 30px;
+    padding: 60px 80px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 90%;
+    max-width: 950px;
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+    color: #0a3d3d;
+    font-size: 1.2rem;
+    line-height: 1.9;
+}
+.modal-kariera .modal-content::before {
+    background: transparent !important;
+    content: none !important;
+}
+.modal-kariera .modal-content::-webkit-scrollbar-track { background: #94e3c2; }
+.modal-kariera .modal-content::-webkit-scrollbar-thumb {
+    background: #0a3d3d99;
+    border-radius: 10px;
+}
+.modal-kariera h2 {
+    font-size: 2.6rem;
+    text-align: center;
+    color: #0a3d3d;
+    margin-bottom: 50px;
+}
+.modal-kariera h3 {
+    font-size: 2rem;
+    text-align: center;
+    color: #0a3d3d;
+    margin: 60px 0 30px;
+    position: relative;
+}
+.modal-kariera h3::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 6px;
+    background: white;
+    opacity: 0.8;
+    margin: 20px auto 0;
+    border-radius: 4px;
+}
+.modal-kariera ul { padding-left: 30px; margin: 25px 0; }
+.modal-kariera ul li { margin-bottom: 18px; color: #0a3d3d; }
+.modal-kariera .close {
+    color: #0a3d3d;
+    font-size: 3rem;
+    opacity: 0.9;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 10;
+}
+.modal-kariera .close:hover { opacity: 1; }
+.modal-kariera .modal-btn {
+    display: block;
+    width: fit-content;
+    margin: 70px auto 40px;
+    padding: 1.4rem 4.5rem;
+    font-size: 1.5rem;
+    background: white;
+    color: #0a3d3d;
+    border: 4px solid #0a3d3d;
+    border-radius: 50px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* ===================================================================
+   AKTUALITY (aktuality.html nebo podobné stránky)
+   =================================================================== */
+.aktuality {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: var(--light);
+}
+.aktuality h1 {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    color: #0a3d3d;
+}
+.aktuality-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.aktualita-row {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+    transition: transform .3s, box-shadow .3s;
+    flex-wrap: nowrap;
+}
+.aktualita-row:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+}
+.aktualita-title {
+    flex: 0 0 250px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #0a3d3d;
+    text-align: left;
+}
+.aktualita-text {
+    flex: 1;
+    text-align: left;
+    color: #555;
+    line-height: 1.7;
+    padding: 0 2rem;
+}
+.aktualita-buttons {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 1.2rem;
+}
+.btn-cist {
+    background: var(--primary);
+    color: #0a3d3d;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .3s;
+}
+.btn-cist:hover {
+    background: #7dd1b1;
+    transform: translateY(-3px);
+}
+.btn-stahnout {
+    background: #FFD60A;
+    color: #0a3d3d;
+    padding: 0.9rem 2.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .3s;
+}
+.btn-stahnout:hover {
+    background: #ffea4d;
+    transform: translateY(-3px);
+}
+.aktualita-row.highlight {
+    background-color: #e6f0ff;
+    border-left: 4px solid #0066cc;
+    padding-left: 16px;
+    transition: all 0.4s ease;
+    animation: fadeHighlight 3s forwards;
+}
+@keyframes fadeHighlight {
+    0% { background-color: #d4e6ff; border-left-color: #0066cc; }
+    100% { background-color: transparent; border-left-color: transparent; padding-left: 20px; }
+}
+.aktualita-row[id^="q"] {
+    scroll-margin-top: 90px;
+}
+#faq-start {
+    margin-top: -80px;
+    padding-top: 80px;
+    display: block;
+}
+
+/* ===================================================================
+   ZPRÁVY A OBECNÉ OBSAHOVÉ STRÁNKY
+   =================================================================== */
+.zprava-content {
+    background: linear-gradient(135deg, rgba(148, 227, 194, 0.12), rgba(148, 227, 194, 0.06));
+    padding: 100px 0 120px;
+    margin-bottom: 60px;
+}
+.zprava-content .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.zprava-content h1 {
+    font-size: 2.8rem;
+    color: #0a3d3d;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    text-align: center;
+}
+.zprava-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+}
+.zprava-content .quote {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    font-style: italic;
+    margin: 2rem auto;
+    max-width: 900px;
+    position: relative;
+    text-align: center;
+}
+.zprava-content .quote::before {
+    content: '„';
+    font-size: 6rem;
+    color: var(--primary);
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    opacity: 0.3;
+}
+.zprava-content .quote-author {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #0a3d3d;
+    font-style: normal;
+    text-align: right;
+}
+.zprava-back-wrapper {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+.zprava-back-wrapper .login-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.2rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border: 2px solid var(--primary);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+.zprava-back-wrapper .login-btn:hover,
+.zprava-back-wrapper .login-btn:focus {
+  background: #ffffff;
+  color: #0a3d3d;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .18);
+  outline: none;
+}
+.edc-content-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.edc-content-page h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #003366;
+    margin: 2rem 0 2.5rem;
+    line-height: 1.2;
+}
+.edc-content-page h2 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #003366;
+    margin: 3.5rem 0 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 3px solid #004488;
+}
+.edc-content-page h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #004488;
+    margin: 3rem 0 1rem;
+}
+.edc-content-page h4 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #003366;
+    margin: 2.5rem 0 0.8rem;
+    background-color: #f0f8ff;
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+}
+.edc-content-page p {
+    font-size: 1.1rem;
+    margin-bottom: 1.4rem;
+    line-height: 1.7;
+}
+.edc-content-page p strong { color: #003366; }
+.edc-content-page ul {
+    list-style-type: disc;
+    padding-left: 2.8rem;
+    margin: 1.5rem 0;
+}
+.edc-content-page ul li {
+    font-size: 1.1rem;
+    margin-bottom: 0.9rem;
+    position: relative;
+}
+.edc-content-page ul li::marker { color: #004488; }
+.edc-content-page .quote {
+    background-color: #e9f5ff;
+    border-left: 6px solid #004488;
+    padding: 2rem;
+    margin: 3rem 0;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: #003366;
+    border-radius: 0 8px 8px 0;
+}
+.edc-content-page .quote-author {
+    margin-top: 1.2rem;
+    font-weight: 600;
+    color: #004488;
+    font-style: normal;
+    text-align: right;
+}
+.edc-content-page .content-block {
+    padding: 2.5rem 2rem;
+    margin: 2rem 0;
+    border-radius: 12px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+.edc-content-page .content-block:nth-of-type(even) {
+    background-color: #c4f0de;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+main.container.edc-content-page { padding-top: 100px; }
+
+/* Oprava: posun obsahu pod fixní header na obsahových stránkách */
+.edc-content-page {
+    padding-top: 120px; /* nebo 110px – podle přesné výšky headeru */
+}
+
+/* Volitelně: jemnější varianta přes container */
+.container.edc-content-page {
+    padding-top: 120px;
+}
+
+/* ====================== MAPA WEBU ====================== */
+.mapa-webu-section h1 {
+    margin-bottom: 0.5rem;
+}
+
+.mapa-webu-section p {
+    margin-bottom: 2rem;
+    color: #555;
+    font-size: 1rem;
+}
+
+.site-map-tree {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.site-map-tree ul {
+    padding-left: 24px;
+    margin: 8px 0;
+}
+
+.site-map-tree li {
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.site-map-tree span,
+.site-map-tree li[onclick] {
+    cursor: pointer;
+    color: #0a3d3d;
+    transition: color 0.2s ease;
+}
+
+.site-map-tree span:hover,
+.site-map-tree li[onclick]:hover {
+    color: #00a0a0;
+    text-decoration: underline;
+}
+
+/* Hlavní úroveň (Domovská stránka) – tučnější */
+.site-map-tree > li > span {
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+/* Volitelně: lehké odsazení a ikony pro lepší přehlednost */
+.site-map-tree li::before {
+    content: "└─ ";
+    color: #aaa;
+    font-family: monospace;
+}
+
+.site-map-tree ul li::before {
+    content: "├─ ";
+}
+
+.site-map-tree li:last-child::before {
+    content: "└─ ";
+}
+
+/* ===================================================================
+   SLOVNÍK (slovnik.html)
+   =================================================================== */
+.hero-slovnik { padding-top: 6rem; }
+.slovnik-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+.slovnik-search label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+.slovnik-search input {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #d0d5dd;
+    font-size: 0.95rem;
+}
+.slovnik-letters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+.letter-btn {
+    border: 1px solid #d0d5dd;
+    background: #fff;
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.letter-btn.active {
+    background: #94e3c2;
+    color: #fff;
+    border-color: #c4f0de;
+}
+.slovnik-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0 3rem;
+}
+.slovnik-item {
+    position: static;
+    border-radius: 0.75rem;
+    border: 1px solid #e4e7ec;
+    padding: 1rem 1.25rem;
+    background: #fff;
+}
+.slovnik-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+.slovnik-term {
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: baseline;
+}
+.slovnik-term-full {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #667085;
+}
+.slovnik-toggle {
+    border: none;
+    background: transparent;
+    color: #0052cc;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.slovnik-detail {
+    margin-top: 0.75rem;
+    display: none;
+    font-size: 0.9rem;
+    color: #344054;
+}
+.slovnik-item.open .slovnik-detail { display: block; }
+.slovnik-source {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #98a2b3;
+}
+.slovnik-note { margin-bottom: 3rem; }
+.slovnik-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #94e3c2;
+    z-index: 9999;
+}
+.slovnik-modal-content {
+    background: #fff;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.modal-inner {
+    overflow-y: auto;
+    max-height: 70vh;
+}
+.modal-slovnik .modal-content {
+    background: #0a3d3d;
+    background-image: none;
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    max-height: 80vh;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,.5);
+    padding-right: 0;
+}
+.modal-slovnik .modal-content::before { content: none !important; }
+.modal-slovnik .modal-inner {
+    position: relative;
+    z-index: 1;
+    color: #ecfcf5;
+    text-align: left;
+    padding: 40px 30px 30px;
+    display: block;
+    max-height: 80vh;
+    overflow-y: auto;
+    gap: 0;
+}
+.slovnik-result-item {
+    background: #ecfcf5;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+.slovnik-result-header {
+    padding: 1.2rem 1.5rem;
+    background: var(--primary);
+    color: #05282a;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+.slovnik-result-header:hover { background: #c4f0de; }
+.slovnik-arrow {
+    font-size: 1.4rem;
+    transition: transform .3s;
+}
+.slovnik-result-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease;
+    padding: 0 1.5rem;
+    background: #c4f0de;
+}
+.slovnik-result-body p {
+    padding: 1.5rem 0;
+    color: #27504c;
+}
+.slovnik-result-item.open .slovnik-result-body { padding: 1.5rem; }
+
+/* ===================================================================
+   FAQ (faq.html) – sloučené duplicitní dropdowny
+   =================================================================== */
+.faq-category-select,
+.faq-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 500px;
+}
+.faq-category-btn,
+.faq-dropdown-btn {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+    transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.faq-category-btn:hover,
+.faq-dropdown-btn:hover {
+    background-color: #e9ecef;
+}
+.faq-category-btn::after,
+.faq-dropdown-btn::after {
+    content: "▼";
+    float: right;
+    font-size: 14px;
+    transition: transform 0.3s;
+}
+.faq-category-select.active .faq-category-btn,
+.faq-dropdown.active .faq-dropdown-btn {
+    background: #ffffff;
+    border-color: #94e3c2;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    color: #0a3d3d;
+}
+.faq-category-select.active .faq-category-btn::after,
+.faq-dropdown.active .faq-dropdown-btn::after {
+    transform: rotate(180deg);
+}
+.faq-category-content,
+.faq-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 100%;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+    z-index: 20;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid #e4e7ec;
+    padding: 6px 0;
+    max-height: 400px; /* Přidáno: Maximální výška před zobrazením scrollbaru */
+    overflow-y: auto; /* Přidáno: Vertikální scrollbar */
+    scrollbar-width: thin; /* Přidáno: Pro moderní prohlížeče (Firefox) */
+    scrollbar-color: #94e3c2 #f0f0f0; /* Přidáno: Barva scrollbaru */
+}
+.faq-category-select.active .faq-category-content,
+.faq-dropdown.active .faq-dropdown-content {
+    display: block;
+}
+.faq-category-content button,
+.faq-dropdown-content a {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 15px;
+    color: #101828;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
+    font-weight: 500;
+}
+.faq-category-content button::before,
+.faq-dropdown-content a::before {
+    content: "●";
+    font-size: 8px;
+    color: #94e3c2;
+}
+.faq-category-content button:hover,
+.faq-dropdown-content a:hover {
+    background-color: #f5f8ff;
+    color: #004488;
+    padding-left: 20px;
+}
+.faq-category-content button + button,
+.faq-dropdown-content a + a {
+    border-top: 1px solid #f1f3f5;
+}
+
+/* Přidáno: Styly pro scrollbar pro Webkit prohlížeče (Chrome, Safari, Edge) */
+.faq-category-content::-webkit-scrollbar,
+.faq-dropdown-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.faq-category-content::-webkit-scrollbar-track,
+.faq-dropdown-content::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.faq-category-content::-webkit-scrollbar-thumb,
+.faq-dropdown-content::-webkit-scrollbar-thumb {
+    background: #94e3c2;
+    border-radius: 4px;
+    border: 2px solid #f0f0f0;
+}
+
+.faq-category-content::-webkit-scrollbar-thumb:hover,
+.faq-dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #7dd1b1;
+}
+.faq-category-content,
+.faq-dropdown-content {
+    /* ... další styly ... */
+    max-height: min(400px, 60vh); /* Použije menší z hodnot: 400px nebo 60% výšky okna */
+    overflow-y: auto;
+}
+
+/* ===================================================================
+   PATIČKA (všechny stránky)
+   =================================================================== */
+footer {
+    background: #0a3d3d;
+    color: #ccc;
+    padding: 40px 0;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 1rem;
+}
+.footer-logo-img { height: 60px; }
+.copyright {
+    text-align: center;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+}
+footer a,
+.footer a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: inherit;
+}
+footer a:hover,
+.footer a:hover {
+    text-decoration: underline;
+}
+footer a .download-info,
+.footer a .download-info {
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+/* ===================================================================
+   VCAG neviditelné popisky
+   =================================================================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===================================================================
+   ČERVENÁ HLÁŠKA V INDEX.HTML
+   =================================================================== */
+.error-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
+    color: #ffffff;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+.error-banner.hidden {
+    transform: translateY(-100%);
+}
+.error-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.error-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+}
+.error-text {
+    flex: 1;
+    min-width: 250px;
+    hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+.close-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    outline: none;
+}
+.close-btn:hover,
+.close-btn:focus {
+    background: rgba(255,255,255,0.3);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+    transform: scale(1.05);
+}
+.close-btn:active {
+    transform: scale(0.98);
+}
+.close-icon {
+    line-height: 1;
+}
+
+/*Modál hlavní strana - vysvětlení webu*/
+.fullscreen-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1200;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.fullscreen-modal .modal-content {
+  min-height: 100dvh;
+  padding: 5rem 1.5rem 4rem;
+  position: relative;
+  color: white;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.fullscreen-modal .modal-close-btn {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  font-size: 48px;
+  color: white;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  z-index: 1300;
+  transition: all 0.2s;
+}
+
+.fullscreen-modal .modal-close-btn:hover {
+  color: #ddd;
+  transform: scale(1.15);
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+.fullscreen-modal .modal-body {
+  background: #0f0f0f;
+  padding: 2.5rem;
+  border-radius: 12px;
+  line-height: 1.65;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .fullscreen-modal .modal-content {
+    padding: 4rem 1rem 3rem;
+  }
+  
+  .fullscreen-modal .modal-close-btn {
+    top: 12px;
+    right: 15px;
+    font-size: 40px;
+  }
+}
+
+/* pro lepší čitelnost na mobilech */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 3rem 1rem 1rem;
+  }
+  
+  .modal-close {
+    top: 12px;
+    right: 15px;
+    font-size: 36px;
+  }
+}
+
+/* Mobilní optimalizace error banneru */
+@media (max-width: 768px) {
+    .error-content {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .error-text {
+        font-size: 0.95rem;
+        order: -1;
+    }
+    .close-btn {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+    }
+}
+@media (max-width: 480px) {
+    .error-banner {
+        font-size: 0.9rem;
+    }
+    .error-content {
+        padding: 0.875rem 1rem;
+    }
+}
+
+/* =========================== NEWSLETTER SUB-MODÁL =========================== */
+#newsletterModal {
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    display: none;
+}
+#newsletterModal .sub-modal-content {
+    background: linear-gradient(135deg, #94e3c2 0%, #7dd1b1 100%);
+    padding: 4rem 3.5rem;
+    border-radius: 28px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    color: #0a3d3d;
+    transform: scale(0.95);
+    transition: transform 0.4s ease;
+}
+#newsletterModal[style*="flex"] .sub-modal-content,
+#newsletterModal[style*="block"] .sub-modal-content {
+    transform: scale(1);
+}
+#newsletterModal h2 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin: 0 0 1.2rem 0;
+    color: #0a3d3d;
+}
+#newsletterModal #newsletterDesc {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+}
+#newsletterModal form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+#newsletterModal input[type="email"] {
+    padding: 1.3rem 1.8rem;
+    font-size: 1.15rem;
+    border: none;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #0a3d3d;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+}
+#newsletterModal input[type="email"]:focus {
+    outline: none;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+}
+#newsletterModal .sub-modal-btn {
+    padding: 1.3rem 2rem;
+    background: #FFD60A;
+    color: #0a3d3d;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(255, 214, 10, 0.4);
+}
+#newsletterModal .sub-modal-btn:hover {
+    background: #ffc107;
+    transform: translateY(-4px);
+    box-shadow: 0 14px 35px rgba(255, 214, 10, 0.5);
+}
+#newsletterModal .privacy-note {
+    font-size: 0.95rem;
+    color: rgba(10, 61, 61, 0.85);
+    margin-top: 1.5rem;
+    line-height: 1.5;
+}
+#newsletterModal .sub-close {
+    position: absolute;
+    top: 1.8rem;
+    right: 1.8rem;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0a3d3d;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+#newsletterModal .sub-close:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
+}
+@media (max-width: 480px) {
+    #newsletterModal .sub-modal-content {
+        padding: 3rem 2rem;
+        max-width: 92%;
+        border-radius: 24px;
+    }
+    #newsletterModal h2 { font-size: 2rem; }
+    #newsletterModal #newsletterDesc { font-size: 1.1rem; }
+    #newsletterModal input[type="email"],
+    #newsletterModal .sub-modal-btn {
+        font-size: 1.1rem;
+        padding: 1.2rem 1.6rem;
+    }
+}
+
+
+
+/* ===================================================================
+   MEDIA QUERIES (sloučené, odstraněny duplicity)
+   =================================================================== */
+@media (max-width: 992px) {
+    .desktop-nav { display: none; }
+    .hamburger { display: block; }
+    .nav-container { justify-content: space-between; padding: 1rem; }
+    .edc-intro .container { grid-template-columns: 1fr; text-align: center; }
+    .edc-intro-img { order: -1; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .aktualita-row { flex-wrap: wrap; padding: 2rem; }
+    .aktualita-title { flex: 1 1 100%; margin-bottom: 1rem; text-align: center; }
+    .aktualita-text { flex: 1 1 100%; padding: 0 0 1.5rem 0; text-align: center; }
+    .aktualita-buttons { justify-content: center; width: 100%; }
+    .zprava-content { padding: 80px 0 100px; }
+    .zprava-content h1 { font-size: 2.5rem; }
+    .zprava-content p { text-align: left; }
+    .zprava-content .quote { padding: 25px; }
+    .edc-content-page h1 { font-size: 2.4rem; }
+    .edc-content-page h2 { font-size: 2rem; }
+    .edc-content-page .content-block {
+        padding: 2rem 1.8rem;
+        margin: 1.8rem 0;
+        border-radius: 10px;
+    }
+}
+@media (max-width: 768px) {
+    .modal-content { padding: 1rem; }
+    h2, p { font-size: 1.1rem; }
+    .hero.kariera { padding: 3rem 1rem; }
+    .hero.kariera h1 { font-size: 2rem; }
+    .hero.kariera .highlight { font-size: 1.1rem; }
+    .hero.kariera .closing-text { font-size: 1.1rem; }
+    .hero.kariera .responsive-img { margin: 2rem auto; }
+    .info-section h2 { font-size: 2rem; }
+    .large-tile { padding: 40px 20px; }
+    .large-tile h3 { font-size: 1.7rem; }
+    .modal.modal-kariera { padding-top: 2vh; }
+    .modal-kariera .modal-content { padding: 50px 40px; border-radius: 24px; width: 95%; max-height: 92vh; }
+    .modal-kariera h2 { font-size: 2.2rem; }
+    .modal-kariera h3 { font-size: 1.8rem; }
+    .aktuality h1 { font-size: 2.4rem; }
+    .aktualita-row { padding: 1.5rem; }
+    .slovnik-item-header { flex-direction: column; align-items: flex-start; }
+    .faq-dropdown { max-width: 100%; }
+    .faq-dropdown-btn { font-size: 15px; padding: 12px 16px; }
+    .edc-content-page h1 { font-size: 2.2rem; }
+    .edc-content-page h2 { font-size: 1.9rem; }
+    .edc-content-page h3 { font-size: 1.6rem; }
+    .edc-content-page p, .edc-content-page ul li { font-size: 1.05rem; }
+    .edc-content-page .quote { padding: 1.5rem; font-size: 1.15rem; }
+    .edc-content-page .content-block {
+        padding: 1.8rem 1.5rem;
+        margin: 1.5rem 0;
+    }
+    .edc-content-page h1 {
+        font-size: 2.4rem;
+    }
+    .edc-content-page h3 {
+        font-size: 1.7rem;
+    }
+}
+@media (max-width: 600px) {
+    .edc-intro { padding: 80px 0 100px; }
+    .edc-intro h1 { font-size: 2.3rem; }
+    .zprava-content { padding: 60px 0 80px; }
+    .zprava-content h1 { font-size: 2.3rem; }
+    .zprava-content p { font-size: 1.05rem; }
+    .zprava-content .quote::before { font-size: 5rem; left: 15px; }
+    .edc-content-page .container { padding: 0 15px; }
+}
+@media (max-width: 480px) {
+    .tereza-modern { width: 96%; left: 2%; right: 2%; bottom: 100px; height: 80vh; }
+    .tereza-sidebar { display: none; }
+    #tereza-send { width: 60px; height: 60px; }
+    #tereza-input { padding: 18px 22px; font-size: 1.1rem; }
+    .tereza-bubble { padding: 16px 20px; }
+    .tereza-toggle { width: 80px; height: 80px; bottom: 20px; right: 20px; }
+    .hero.kariera h1 { font-size: 1.75rem; }
+    .hero.kariera .highlight, .hero.kariera .closing-text { font-size: 1rem; }
+    .modal-kariera .modal-content { padding: 40px 25px; }
+    .modal-kariera h2 { font-size: 2rem; }
+    .edc-content-page h1, .edc-content-page h2, .edc-content-page h3 { font-size: smaller; }
+    .hero {
+        padding: 3rem 1.5rem !important;
+        border-radius: 12px !important;
+        margin: 0 8px 2rem 8px !important;
+    }
+    .hero h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.25 !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        margin: 0 0 1rem 0 !important;
+        word-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    .hero p {
+        font-size: 1rem !important;
+        line-height: 1.5 !important;
+        max-width: 100%;
+        word-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    main {
+        margin-top: 120px !important;
+    }
+    .modal {
+        padding: 0 !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .modal-content {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: auto !important;
+        max-height: 90vh; /* Max 90% viewportu, aby zůstal prostor pro okraje */
+        margin: 0 !important;
+        border-radius: 0 !important;
+        padding-right: 0 !important;
+        overflow-x: hidden !important;
+        overflow-y: auto; /* Zachová scroll jen pokud je potřeba */
+        box-sizing: border-box !important;
+        background-position: center top !important;
+    }
+    .modal-inner {
+
+        text-align: center;
+        height: auto !important; /* Nechá růst podle obsahu */
+        min-height: auto; /* Žádná minimální výška */
+        padding: 60px 40px 80px; /* Mírně snížit padding dole/nahoře pro úsporu místa */
+    }
+    .sub-modal-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+        padding: 0 !important;
+    }
+    .sub-modal-trigger {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .aktuality {
+        padding: 4rem 0.75rem;
+    }
+    .aktualita-row {
+        display: block;
+        padding: 1.5rem 1rem;
+        border-radius: 18px;
+        box-sizing: border-box;
+    }
+    .aktualita-title {
+        width: 100%;
+        text-align: center;
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+    }
+    .aktualita-text {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+    }
+    .aktualita-buttons {
+        width: 100%;
+        display: flex;
+        gap: 0.75rem;
+        justify-content: space-between;
+    }
+    .aktualita-buttons .btn-cist,
+    .aktualita-buttons .btn-stahnout {
+        flex: 1 1 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.9rem 0;
+    }
+    .aktualita-buttons .btn-stahnout {
+        font-weight: 700;
+    }
+    .edc-content-page .container {
+        padding: 0 12px;
+    }
+    .edc-content-page .content-block {
+        padding: 1.6rem 1.2rem;
+        margin: 1.4rem 0;
+        border-radius: 12px;
+    }
+    .edc-content-page .content-block:nth-of-type(even) {
+        background-color: rgba(196, 240, 222, 0.6);
+    }
+    .edc-content-page h1 {
+        font-size: 2.1rem;
+        line-height: 1.3;
+    }
+    .edc-content-page h3 {
+        font-size: 1.6rem;
+        margin: 1.8rem 0 1rem;
+    }
+    .edc-content-page p,
+    .edc-content-page ul li {
+        font-size: 1.05rem;
+        line-height: 1.75;
+    }
+    .edc-content-page ul {
+        padding-left: 1.6rem;
+    }
+    .edc-content-page ul li {
+        margin-bottom: 0.9rem;
+    }
+}
+@media (max-width: 768px) and (min-width: 481px) {
+    .tereza-modern { width: 90%; max-width: 500px; left: auto; right: 20px; height: 85vh; }
+}
+@media (max-width: 480px) {
+    .slovnik-result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 14px 16px;
+    }
+    .slovnik-result-header .full-text {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        font-size: 1rem;
+        color: #444;
+        margin-left: 0;
+        line-height: 1.4;
+    }
+    .slovnik-arrow {
+        position: absolute;
+        right: 16px;
+        top: 14px;
+    }
+}
+
+/* === MOBIL: Skrýt ikonu chatbota při otevřeném stavu === */
+@media (max-width: 480px) {
+    #tereza-chat.open {
+        --toggle-display: none;   /* proměnná pro snadnou úpravu */
+    }
+    
+    .tereza-toggle,
+    .tereza-pulse-ring {
+        display: var(--toggle-display, block);
+    }
+    
+    /* Pro jistotu ještě větší priorita */
+    #tereza-chat.open ~ .tereza-wrapper,
+    body:has(#tereza-chat.open) .tereza-toggle,
+    body:has(#tereza-chat.open) .tereza-pulse-ring {
+        display: none !important;
+    }
+
+    /* Malá pojistka – input a send tlačítko musí být vidět */
+    #tereza-chat.open .tereza-input {
+        bottom: 0 !important;
+        padding-bottom: 8px;
+        background: white;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    }
+    
+    #tereza-chat.open #tereza-send {
+        right: 12px !important;
+        bottom: 12px !important;
+    }
+}
+

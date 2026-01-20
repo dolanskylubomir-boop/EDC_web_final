@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portál EDC - Interaktivní Průvodce Manuálem pro Externí Uživatele</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to bottom, #f0f7f7, #e0f2f1);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(to right, #006666, #008080);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #004d4d;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 8px 15px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #008080;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .accordion {
+            cursor: pointer;
+            padding: 20px;
+            background: linear-gradient(to right, #b2dfdb, #80cbc4);
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #004d4d;
+            transition: background 0.4s;
+        }
+        .accordion:hover {
+            background: linear-gradient(to right, #80cbc4, #4db6ac);
+        }
+        .panel {
+            display: none;
+            padding: 25px;
+            background-color: #f9f9f9;
+        }
+        .panel p {
+            line-height: 1.6;
+        }
+        .flip-card {
+            background-color: transparent;
+            width: 320px;
+            height: 220px;
+            perspective: 1000px;
+            margin: 25px auto;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.9s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .flip-card-front {
+            background: linear-gradient(135deg, #008080, #004d4d);
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+        .flip-card-back {
+            background: linear-gradient(135deg, #004d4d, #002b2b);
+            color: #e0f7fa;
+            transform: rotateY(180deg);
+            font-size: 1.1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #80cbc4;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #008080;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #e0f2f1;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #004d4d;
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Portál EDC</h1>
+        <p>Interaktivní průvodce manuálem pro externí uživatele (verze 2025)</p>
+        <p>Moderní design s akordeonovým rozbalováním a 3D flip kartami pro klíčové informace</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#zkratky">1. Seznam zkratek</a></li>
+            <li><a href="#uvod">2. Úvod</a></li>
+            <li><a href="#podpora">3. Uživatelská podpora</a></li>
+            <li><a href="#registrace">5. Registrace a smlouva</a></li>
+            <li><a href="#sdileni">6. Registrace sdílení</a></li>
+            <li><a href="#vyhodnoceni">7. Vyhodnocení sdílení</a></li>
+            <li><a href="#udaje">8. Poskytování údajů</a></li>
+            <li><a href="#reklamace">9. Reklamace</a></li>
+            <li><a href="#specificke">10. Specifické funkce</a></li>
+            <li><a href="#technicke">11. Technické informace</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <div class="section" id="zkratky">
+            <div class="accordion" onclick="togglePanel(this)">1. Seznam zkratek a použitých pojmů</div>
+            <div class="panel">
+                <p>Klíčové zkratky a pojmy používané v Portálu EDC a při sdílení elektřiny:</p>
+                <table>
+                    <tr><th>Pojem</th><th>Význam</th></tr>
+                    <tr><td>CSV</td><td>Formát souboru pro stahování tabulkových dat</td></tr>
+                    <tr><td>DIČ</td><td>Daňové identifikační číslo</td></tr>
+                    <tr><td>EAN</td><td>Identifikace odběru nebo dodávky (European Article Number)</td></tr>
+                    <tr><td>EANd</td><td>EAN předávacího místa pro dodávku elektřiny do soustavy (zdroj)</td></tr>
+                    <tr><td>EANo</td><td>EAN předávacího místa pro odběr ze soustavy (spotřeba)</td></tr>
+                    <tr><td>EDC</td><td>Elektroenergetické datové centrum, a.s.</td></tr>
+                    <tr><td>FVE</td><td>Fotovoltaická elektrárna</td></tr>
+                    <tr><td>IS EDC</td><td>Informační systém EDC</td></tr>
+                    <tr><td>OTE</td><td>Operátor trhu, společnost OTE, a.s.</td></tr>
+                    <tr><td>SSE</td><td>Skupina sdílení elektřiny</td></tr>
+                </table>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Klíčový pojem: SSE</div>
+                        <div class="flip-card-back">Skupina sdílení elektřiny – umožňuje sdílet vyrobenou elektřinu mezi více odběrnými místy (např. v bytovém domě s FVE na střeše).</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="uvod">
+            <div class="accordion" onclick="togglePanel(this)">2. Úvod</div>
+            <div class="panel">
+                <p><strong>2.1 Účel dokumentu</strong><br>
+                Tento manuál poskytuje externím uživatelům všechny potřebné informace pro efektivní práci s Portálem EDC – od registrace až po využívání všech funkcí.</p>
+
+                <p><strong>2.2 Elektroenergetické datové centrum</strong><br>
+                EDC (IČO: 21020264) vzniklo dle energetického zákona. Od 1. 8. 2024 zajišťuje klíčové služby pro komunitní sdílení elektřiny:</p>
+                <ul>
+                    <li>Registrace účastníků a SSE</li>
+                    <li>Sběr a zpracování naměřených dat</li>
+                    <li>Vyhodnocování sdílení pro zúčtování</li>
+                    <li>Řešení reklamací</li>
+                </ul>
+
+                <p><strong>2.3 Legislativní rámec</strong><br>
+                Hlavní předpisy:</p>
+                <ul>
+                    <li>Zákon č. 458/2000 Sb. (energetický zákon)</li>
+                    <li>Vyhláška č. 408/2015 Sb. o Pravidlech trhu s elektřinou</li>
+                    <li>Vyhláška č. 359/2020 Sb. o měření elektřiny</li>
+                    <li>Řád datového centra</li>
+                </ul>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Kdy začalo sdílení?</div>
+                        <div class="flip-card-back">Klíčový milník: 1. srpna 2024 – EDC začalo poskytovat služby pro sdílení elektřiny v rámci komunitní energetiky.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="podpora">
+            <div class="accordion" onclick="togglePanel(this)">3. Uživatelská podpora</div>
+            <div class="panel">
+                <p><strong>3.1 Call-centrum</strong></p>
+                <ul>
+                    <li>Email: <strong>info@edc-cr.cz</strong></li>
+                    <li>Telefon (CZ): <strong>+420 800 720 204</strong> (bezplatně)</li>
+                    <li>Telefon (zahraničí): <strong>+420 519 799 300</strong></li>
+                </ul>
+                <p>Provozní doba je uvedena na <a href="https://www.edc-cr.cz" target="_blank">www.edc-cr.cz</a>. Hovory jsou nahrávány pro zajištění kvality.</p>
+                <p><strong>Call-centrum neposkytuje</strong> energetické poradenství (nabídky dodavatelů, projekty FVE apod.).</p>
+
+                <p><strong>3.2 Help Desk</strong><br>
+                Specializovaná podpora pro provozovatele distribučních soustav (včetně LDS). Kontakty jsou dostupné po přihlášení do neveřejné části Portálu EDC.</p>
+
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">Jak získat pomoc?</div>
+                        <div class="flip-card-back">Nejrychleji emailem na info@edc-cr.cz nebo bezplatnou linkou 800 720 204. Ideální pro dotazy k registraci, sdílení i reklamacím.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Další sekce budou přidány podobně – pokračování manuálu -->
+
+        <div class="section" id="registrace">
+            <div class="accordion" onclick="togglePanel(this)">5. Registrace a uzavření smlouvy o přístupu do IS EDC</div>
+            <div class="panel">
+                <p>Tato kapitola popisuje:</p>
+                <ul>
+                    <li>Registraci do Portálu EDC</li>
+                    <li>Postup zapomenutého hesla</li>
+                    <li>Žádost o uzavření smlouvy</li>
+                    <li>Přidělování uživatelských rolí</li>
+                    <li>Administraci účtu</li>
+                </ul>
+                <p>Po úspěšné registraci a uzavření smlouvy získáte plný přístup k funkcím Portálu EDC.</p>
+            </div>
+        </div>
+
+        <div class="section" id="sdileni">
+            <div class="accordion" onclick="togglePanel(this)">6. Registrace sdílení elektřiny</div>
+            <div class="panel">
+                <p>Nejdůležitější proces v systému – registrace Skupiny sdílení elektřiny (SSE):</p>
+                <ul>
+                    <li>6.1.1 Registrace EANd (zdroje – typicky FVE)</li>
+                    <li>6.1.2 Registrace SSE</li>
+                    <li>6.1.3 Přiřazení EANo (odběrných míst) do SSE</li>
+                    <li>6.2 Časové lhůty pro registraci</li>
+                </ul>
+                <p>Po správné registraci může začít sdílení vyrobené elektřiny mezi členy SSE.</p>
+            </div>
+        </div>
+
+        <!-- Zbytek sekcí – stručný přehled -->
+
+        <div class="section" id="vyhodnoceni">
+            <div class="accordion" onclick="togglePanel(this)">7. Vyhodnocení sdílení elektřiny</div>
+            <div class="panel">
+                <p>EDC pravidelně vyhodnocuje nasdílenou elektřinu podle algoritmu definovaného vyhláškou č. 408/2015 Sb.</p>
+            </div>
+        </div>
+
+        <div class="section" id="udaje">
+            <div class="accordion" onclick="togglePanel(this)">8. Poskytování údajů</div>
+            <div class="panel">
+                <p>Oprávněné subjekty (dodavatelé, subjekty zúčtování) zde získávají data o nasdílené elektřině pro fakturaci.</p>
+            </div>
+        </div>
+
+        <div class="section" id="reklamace">
+            <div class="accordion" onclick="togglePanel(this)">9. Reklamace</div>
+            <div class="panel">
+                <p>Postup pro podání a vyřízení reklamací souvisejících se sdílením elektřiny.</p>
+            </div>
+        </div>
+
+        <div class="section" id="specificke">
+            <div class="accordion" onclick="togglePanel(this)">10. Popis specifických funkcí pro licencované subjekty</div>
+            <div class="panel">
+                <p>Obsahuje funkce pouze pro držitele licence (dodavatele a subjekty zúčtování):</p>
+                <ul>
+                    <li>Delegace odběrných míst</li>
+                    <li>Export delegací</li>
+                    <li>Hromadné poskytování dat</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="technicke">
+            <div class="accordion" onclick="togglePanel(this)">11. Technické informace</div>
+            <div class="panel">
+                <p>Podpora prohlížečů, využívání cookies, automatická komunikace přes API.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Interaktivní průvodce vytvořen podle manuálu Portál EDC – verze květen 2025</p>
+        <p>© Elektroenergetické datové centrum, a.s.</p>
+    </footer>
+
+    <script>
+        function togglePanel(element) {
+            const panel = element.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                // Zavřít všechny ostatní panely
+                document.querySelectorAll('.panel').forEach(p => p.style.display = "none");
+                panel.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

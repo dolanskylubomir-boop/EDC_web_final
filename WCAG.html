@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDC – Sdílení elektřiny | WCAG</title>
+
+  <link rel="stylesheet" href="wcag.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 1.25rem;
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+      color: #000000;
+      background: #ffffff;
+    }
+
+    .plain-heading strong,
+    .plain-heading {
+      font-size: 1.8rem;
+      font-weight: 900;
+      line-height: 1.6;
+    }
+
+    .plain-text-content p,
+    .plain-intro,
+    .plain-list,
+    .plain-link {
+      font-size: 1.25rem;
+      line-height: 1.9;
+      margin: 1.2em 0;
+    }
+
+    .plain-link a {
+      font-weight: 700;
+      color: #000000;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 0.4em;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 900;
+      line-height: 1.5;
+      margin: 1.5em 0 1em 0;
+    }
+
+    ul, ol {
+      padding-left: 1.5em;
+      line-height: 1.9;
+    }
+
+    li {
+      margin: 0.6em 0;
+    }
+
+    .tts-block {
+      position: relative;
+      margin-bottom: 60px;
+    }
+
+    .tts-play-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      padding: 16px 28px;
+      background: #000000;
+      color: #ffffff;
+      font-size: 1.4rem;
+      font-weight: 700;
+      border: 5px solid #000000;
+      border-radius: 16px;
+      cursor: pointer;
+      min-height: 64px;
+      transition: background 0.3s, outline 0.3s;
+    }
+
+    .tts-play-btn:hover,
+    .tts-play-btn:focus {
+      background: #333333;
+      outline: 8px solid #ffffff;
+      outline-offset: 8px;
+    }
+
+    .tts-icon {
+      font-size: 1.8rem;
+    }
+
+    .tts-controls {
+      margin: 20px 0;
+      display: none;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .tts-controls.active {
+      display: flex;
+    }
+
+    .tts-btn {
+      padding: 12px 20px;
+      background: #000000;
+      color: #ffffff;
+      border: 4px solid #000000;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .tts-btn:hover, .tts-btn:focus {
+      background: #333333;
+      outline: 6px solid #ffffff;
+      outline-offset: 4px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .focus-visible {
+      outline: 8px solid #ffffff !important;
+      outline-offset: 8px !important;
+    }
+
+    /* Kariéra + dokumenty */
+    .kariera-triggers {
+      margin: 80px 0;
+    }
+
+    .kariera-triggers a.trigger-link {
+      display: block;
+      padding: 40px 50px;
+      margin: 35px 0;
+      background: #ffffff;
+      border-radius: 24px;
+      border: 8px solid #000000;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 800;
+      color: #000000;
+      text-decoration: underline;
+      text-decoration-thickness: 5px;
+      text-underline-offset: 0.6em;
+      line-height: 1.7;
+      text-align: center;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      transition: background 0.4s, outline 0.4s;
+    }
+
+    .kariera-triggers a.trigger-link:hover,
+    .kariera-triggers a.trigger-link:focus {
+      color: #000000;
+      background: #e8e8e8;
+      outline: 10px solid #000000;
+      outline-offset: 12px;
+      border-radius: 24px;
+    }
+
+    .auto-downloads {
+      margin: 160px 0 120px 0;
+      padding-top: 120px;
+      border-top: 8px solid #000000;
+    }
+
+    .auto-downloads h2 {
+      font-size: 2.8em;
+      font-weight: 900;
+      color: #000000;
+      margin-bottom: 80px;
+      line-height: 1.5;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .auto-downloads .download-item {
+      margin: 35px 0;
+      background: #ffffff;
+      border-radius: 24px;
+      border: 8px solid #000000;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      min-height: 160px;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .auto-downloads a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      font-size: clamp(1.8rem, 5.5vw, 3rem);
+      font-weight: 900;
+      color: #000000 !important;
+      text-decoration: underline;
+      text-decoration-thickness: 5px;
+      text-underline-offset: 0.6em;
+      line-height: 1.5;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .auto-downloads a:hover,
+    .auto-downloads a:focus {
+      color: #000000 !important;
+      background: #e8e8e8;
+      outline: 12px solid #000000;
+      outline-offset: 14px;
+      border-radius: 24px;
+    }
+
+    .no-downloads {
+      margin: 35px 0;
+      padding: 40px;
+      background: #f5f5f5;
+      border-radius: 24px;
+      border: 8px solid #000000;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      font-style: italic;
+      color: #000000;
+      font-size: clamp(1.8rem, 5.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.6;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body class="wcag-page">
+
+<main id="main" tabindex="-1">
+  <h1>Vítejte na této stránce EDC elektroenergetického datového centra, níže najdete informace ke sdílení elektřiny, akumulace, flexibilita, síťový semafor a další.</h1>
+  <div class="wcag-content">Načítání obsahu...</div>
+</main>
+
+<script>
+  const urls = [
+    'index.html','struktura_spolecnosti_content.html','povinna-sdeleni_content.html','sdileni_dokumenty_content.html',
+    'sdileni_video_content.html','sdileni_FAQ_content.html','sdileni_content.html','akumulace_dokumenty_content.html',
+    'akumulace_video_content.html','akumulace_FAQ_content.html','akumulace_content.html','flexibilita_dokumenty_content.html',
+    'flexibilita_video_content.html','flexibilita_FAQ_content.html','flexibilita_content.html','M2M_sdileni_content.html',
+    'M2M_flexibilita_content.html','M2M_content.html','M2M_semafor_content.html','semafor_dokumenty_content.html',
+    'semafor_video_content.html','semafor_FAQ_content.html','semafor_content.html','kariera_content.html'
+  ];
+
+  const introTexts = [
+    'Základní informace o EDC a portálu.','Struktura společnosti EDC.','Povinná sdělení společnosti EDC.',
+    'Dokumenty ke stažení k sdílení elektřiny.','Video návody, jak sdílet elektřinu v EDC.',
+    'Často kladené dotazy k portálu a sdílení.','Obecné informace ke sdílení elektřiny.',
+    null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'Kariéra v EDC'
+  ];
+
+  const downloadExtensions = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar'];
+  let autoDownloadLinks = [];
+
+  function isDownloadHref(href) {
+    if (!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('mailto:')) return false;
+    const lower = href.toLowerCase();
+    return downloadExtensions.some(ext => lower.endsWith(ext));
+  }
+
+  function collectFromLinks(doc) {
+    doc.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (isDownloadHref(href)) {
+        const text = a.textContent.trim() || href.split('/').pop();
+        const fileName = href.split('/').pop();
+        autoDownloadLinks.push({ href, label: text, downloadName: fileName });
+      }
+    });
+  }
+
+  function collectFromOnclick(doc) {
+    doc.querySelectorAll('[onclick]').forEach(el => {
+      const onclick = el.getAttribute('onclick');
+      if (!onclick) return;
+      const hrefMatch = onclick.match(/link\.href\s*=\s*['"]([^'"]+\.(pdf|doc|docx|xls|xlsx|ppt|pptx|zip|rar))['"]/i);
+      if (hrefMatch) {
+        const href = hrefMatch[1];
+        const fileName = href.split('/').pop();
+        const titleEl = el.querySelector('h3');
+        const label = titleEl ? titleEl.textContent.trim() : fileName;
+        autoDownloadLinks.push({ href, label, downloadName: fileName });
+      }
+    });
+  }
+
+  function collectPlainNodes(root) {
+    const out = [];
+    function walk(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const t = node.textContent.trim().replace(/\s+/g, ' ');
+        if (t) out.push({ type: 'text', text: t });
+        return;
+      }
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+      
+      const el = node;
+      if (el.classList.contains('modal-trigger') || el.classList.contains('btn') || el.classList.contains('btn-primary') || el.classList.contains('btn-secondary')) return;
+
+      const tag = el.tagName.toLowerCase();
+      if (/^h[1-6]$/.test(tag)) { out.push({ type: 'heading', text: el.textContent.trim().replace(/\s+/g, ' ') }); return; }
+      if (tag === 'p') { out.push({ type: 'paragraph', text: el.textContent.trim().replace(/\s+/g, ' ') }); return; }
+      if (tag === 'li') { out.push({ type: 'list', text: el.textContent.trim().replace(/\s+/g, ' ') }); return; }
+      if (tag === 'a') {
+        const href = el.getAttribute('href') || '';
+        const text = el.textContent.trim().replace(/\s+/g, ' ');
+        if (text && href && !isDownloadHref(href)) {
+          out.push({ type: 'link', text, href });
+        }
+        return;
+      }
+      el.childNodes.forEach(walk);
+    }
+    root.childNodes.forEach(walk);
+    return out;
+  }
+
+  async function findZpravyUrls() {
+    const items = [];
+    for (let num = 1; num <= 500; num++) {
+      const url = `zpravy_rizeni_content_${num}.html`;
+      try {
+        const resp = await fetch(url, { method: 'HEAD' });
+        if (resp.ok) {
+          items.push({ url, num });
+        }
+      } catch (e) {}
+    }
+    items.sort((a, b) => b.num - a.num);
+    return items;
+  }
+
+  (async () => {
+    const target = document.querySelector('.wcag-content');
+    let finalHtml = '';
+    let blockCounter = 1;
+    let karieraLinksHtml = '';
+
+    try {
+      for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        let html = '';
+        try {
+          const resp = await fetch(url);
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          html = await resp.text();
+        } catch (e) {
+          console.error('Chyba načtení ' + url, e);
+          continue;
+        }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        collectFromLinks(doc);
+        collectFromOnclick(doc);
+
+        let sections;
+        const mainEl = doc.querySelector('main');
+        if (mainEl) sections = mainEl.querySelectorAll('section');
+        else sections = doc.querySelectorAll('section');
+        if (sections.length === 0) sections = doc.querySelectorAll('.container');
+
+        let sectionHtml = '';
+        if (introTexts[i]) {
+          sectionHtml += `<p class="plain-intro"><strong>${introTexts[i]}</strong></p>`;
+        }
+
+        // === SPECIÁLNÍ ZPRACOVÁNÍ KARIÉRY ===
+        if (url === 'kariera_content.html') {
+          const modalTriggers = doc.querySelectorAll('.modal-trigger');
+
+          modalTriggers.forEach((trigger, index) => {
+            const stepNumber = trigger.querySelector('.step-number');
+            const h3 = trigger.querySelector('h3');
+            const p = trigger.querySelector('p');
+
+            const number = stepNumber ? stepNumber.textContent.trim() : (index + 1);
+            const title = h3 ? h3.textContent.trim() : 'Neznámá pozice';
+            const location = p ? p.textContent.trim() : '';
+
+            let itemText = title;
+            if (location) itemText += ` – ${location}`;
+            if (number) itemText = `${number}. ${itemText}`;
+
+            // Získání ID modálu z onclick (např. openModal('modal1'))
+            const onclick = trigger.getAttribute('onclick') || '';
+            const modalIdMatch = onclick.match(/openModal\(['"]([^'"]+)['"]\)/);
+            let applyHref = '#';
+            if (modalIdMatch) {
+              const modalId = modalIdMatch[1];
+              const modal = doc.getElementById(modalId);
+              const applyBtn = modal ? modal.querySelector('.apply-btn') : null;
+              if (applyBtn && applyBtn.href) {
+                applyHref = applyBtn.href;
+              }
+            }
+
+            karieraLinksHtml += `
+              <li>
+                <a href="${applyHref}" class="trigger-link" target="_blank" rel="noopener noreferrer">
+                  ${itemText}
+                  <span class="visually-hidden"> – Mám zájem o pozici (otevře se v novém okně)</span>
+                </a>
+              </li>`;
+          });
+
+          // Přeskočíme normální zpracování sekcí – nechceme duplicitní obsah
+          continue;
+        }
+
+        // Normální zpracování pro ostatní stránky
+        sections.forEach(sec => {
+          if (sec.classList.contains('modals-section') || sec.classList.contains('info-section')) return;
+          
+          collectPlainNodes(sec).forEach(item => {
+            if (item.type === 'heading') sectionHtml += `<p class="plain-heading"><strong>${item.text}</strong></p>`;
+            else if (item.type === 'paragraph' || item.type === 'text') sectionHtml += `<p>${item.text}</p>`;
+            else if (item.type === 'list') sectionHtml += `<ul><li>${item.text}</li></ul>`;
+            else if (item.type === 'link') sectionHtml += `<p class="plain-link"><a href="${item.href}" class="wcag-link" target="_blank" rel="noopener noreferrer">${item.text}</a></p>`;
+          });
+        });
+
+        if (sectionHtml) {
+          const blockId = `tts-block-${blockCounter}`;
+          finalHtml += `
+            <section class="edc-content-page tts-block" id="${blockId}" data-tts-text="${sectionHtml.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')}">
+              <div class="plain-text-content">
+                <button class="tts-play-btn" aria-controls="controls-${blockCounter}" aria-expanded="false" data-rate="1">
+                  <span class="tts-icon">🔊</span> Přehrát text to speech tohoto bloku
+                  <span class="visually-hidden">(klávesnice: mezerník nebo Enter pro spuštění)</span>
+                </button>
+                <div id="controls-${blockCounter}" class="tts-controls">
+                  <button class="tts-btn">Stop</button>
+                  <button class="tts-btn">0.8x</button>
+                  <button class="tts-btn">1x</button>
+                  <button class="tts-btn">1.5x</button>
+                  <span id="rate-display-${blockCounter}">Rychlost: 1x</span>
+                </div>
+                ${sectionHtml}
+              </div>
+            </section>
+          `;
+          blockCounter++;
+        }
+      }
+
+      // ===== SLOVNÍK =====
+      let slovnikHtml = '<p class="plain-heading"><strong>EDC energetický slovník</strong></p>';
+      slovnikHtml += '<p>Srozumitelně vysvětlujeme pojmy z energetiky, trhu s elektřinou a plynem, které jsou důležité pro fungování EDC a české energetiky.</p>';
+      slovnikHtml += '<p>Termíny vychází primárně ze slovníku pojmů OTE a dalších souvisejících dokumentů energetické legislativy.</p>';
+
+      try {
+        const resp = await fetch('index.html');
+        if (!resp.ok) throw new Error('Nelze načíst index.html');
+        const html = await resp.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        let termsData = null;
+        const scripts = doc.querySelectorAll('script');
+        for (const script of scripts) {
+          if (script.src) continue;
+          const content = script.textContent || script.innerText;
+          const match = content.match(/const\s+TERMS\s*=\s*(\[\s*\{[\s\S]*?\}\s*\]);/);
+          if (match) {
+            try {
+              termsData = eval('(' + match[1] + ')');
+              if (Array.isArray(termsData)) break;
+            } catch (e) {
+              console.warn('Chyba při parsování TERMS', e);
+            }
+          }
+        }
+
+        if (termsData && Array.isArray(termsData) && termsData.length > 0) {
+          termsData.sort((a, b) => {
+            if (a.letter !== b.letter) return a.letter.localeCompare(b.letter);
+            return a.term.localeCompare(b.term);
+          });
+
+          let currentLetter = '';
+          termsData.forEach(item => {
+            const letterUpper = (item.letter || '').toUpperCase();
+            if (letterUpper && letterUpper !== currentLetter) {
+              currentLetter = letterUpper;
+              slovnikHtml += `<p class="plain-heading"><strong>${currentLetter}</strong></p>`;
+            }
+            const fullPart = item.full ? ` – ${item.full}` : '';
+            slovnikHtml += `<p class="plain-heading"><strong>${item.term}${fullPart}</strong></p>`;
+            slovnikHtml += `<p>${item.text || ''}</p>`;
+          });
+        } else {
+          slovnikHtml += '<p>Žádné položky slovníku nenalezeny.</p>';
+        }
+      } catch (e) {
+        console.error('Chyba při načítání slovníku z index.html', e);
+        slovnikHtml += '<p>Chyba při načítání slovníku.</p>';
+      }
+
+      const blockIdSlovnik = `tts-block-${blockCounter}`;
+      finalHtml += `
+        <section class="edc-content-page tts-block" id="${blockIdSlovnik}" data-tts-text="${slovnikHtml.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')}">
+          <div class="plain-text-content">
+            <button class="tts-play-btn" aria-controls="controls-${blockCounter}" aria-expanded="false" data-rate="1">
+              <span class="tts-icon">🔊</span> Přehrát text to speech tohoto bloku
+              <span class="visually-hidden">(klávesnice: mezerník nebo Enter pro spuštění)</span>
+            </button>
+            <div id="controls-${blockCounter}" class="tts-controls">
+              <button class="tts-btn">Stop</button>
+              <button class="tts-btn">0.8x</button>
+              <button class="tts-btn">1x</button>
+              <button class="tts-btn">1.5x</button>
+              <span id="rate-display-${blockCounter}">Rychlost: 1x</span>
+            </div>
+            ${slovnikHtml}
+          </div>
+        </section>
+      `;
+      blockCounter++;
+
+      // ===== AKTUALITY =====
+      let zpravyItems = [];
+      try {
+        zpravyItems = await findZpravyUrls();
+      } catch (e) {}
+
+      let zpravyIntroAdded = false;
+      for (const item of zpravyItems) {
+        const url = item.url;
+        let html = '';
+        try {
+          const resp = await fetch(url);
+          if (!resp.ok) continue;
+          html = await resp.text();
+        } catch (e) { continue; }
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        doc.querySelectorAll('.zprava-back-wrapper').forEach(el => el.remove());
+
+        collectFromLinks(doc);
+        collectFromOnclick(doc);
+
+        let sections;
+        const mainEl = doc.querySelector('main');
+        if (mainEl) sections = mainEl.querySelectorAll('section');
+        else sections = doc.querySelectorAll('section');
+        if (sections.length === 0) sections = doc.querySelectorAll('.container');
+
+        let sectionHtml = '';
+        if (!zpravyIntroAdded) {
+          sectionHtml += `<p class="plain-intro"><strong>Aktuality a zprávy EDC</strong></p>`;
+          zpravyIntroAdded = true;
+        }
+
+        sections.forEach(sec => {
+          if (sec.classList.contains('modals-section') || sec.classList.contains('info-section')) return;
+          collectPlainNodes(sec).forEach(item => {
+            if (item.type === 'heading') sectionHtml += `<p class="plain-heading"><strong>${item.text}</strong></p>`;
+            else if (item.type === 'paragraph' || item.type === 'text') sectionHtml += `<p>${item.text}</p>`;
+            else if (item.type === 'list') sectionHtml += `<ul><li>${item.text}</li></ul>`;
+            else if (item.type === 'link') sectionHtml += `<p class="plain-link"><a href="${item.href}" class="wcag-link" target="_blank" rel="noopener noreferrer">${item.text}</a></p>`;
+          });
+        });
+
+        if (sectionHtml) {
+          const blockId = `tts-block-${blockCounter}`;
+          finalHtml += `
+            <section class="edc-content-page tts-block" id="${blockId}" data-tts-text="${sectionHtml.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ')}">
+              <div class="plain-text-content">
+                <button class="tts-play-btn" aria-controls="controls-${blockCounter}" aria-expanded="false" data-rate="1">
+                  <span class="tts-icon">🔊</span> Přehrát text to speech tohoto bloku
+                  <span class="visually-hidden">(klávesnice: mezerník nebo Enter pro spuštění)</span>
+                </button>
+                <div id="controls-${blockCounter}" class="tts-controls">
+                  <button class="tts-btn">Stop</button>
+                  <button class="tts-btn">0.8x</button>
+                  <button class="tts-btn">1x</button>
+                  <button class="tts-btn">1.5x</button>
+                  <span id="rate-display-${blockCounter}">Rychlost: 1x</span>
+                </div>
+                ${sectionHtml}
+              </div>
+            </section>
+          `;
+          blockCounter++;
+        }
+      }
+
+      // ===== KARIÉRA – VELKÉ KLIKACÍ DLAŽDICE NA KONCI =====
+      let karieraSection = '<p class="plain-heading"><strong>Kariéra – volné pozice</strong></p>';
+      if (karieraLinksHtml) {
+        karieraSection += `<ul class="kariera-triggers" aria-label="Seznam volných pozic">${karieraLinksHtml}</ul>`;
+      } else {
+        karieraSection += '<p>Žádné volné pozice.</p>';
+      }
+
+      finalHtml += `
+        <section class="edc-content-page">
+          <div class="plain-text-content">
+            ${karieraSection}
+          </div>
+        </section>
+      `;
+
+      // ===== DOKUMENTY KE STAŽENÍ =====
+      let downloadsHtml = '<p class="plain-heading"><strong>Dokumenty ke stažení</strong></p>';
+      if (autoDownloadLinks.length === 0) {
+        downloadsHtml += '<p class="no-downloads">Žádné dokumenty ke stažení nebyly nalezeny.</p>';
+      } else {
+        downloadsHtml += '<ul class="auto-downloads" aria-label="Seznam dokumentů ke stažení">';
+        const unique = Array.from(new Map(autoDownloadLinks.map(item => [item.href, item])).values());
+        unique.forEach(doc => {
+          const ext = doc.downloadName.split('.').pop().toUpperCase();
+          downloadsHtml += `
+            <li class="download-item">
+              <a href="${doc.href}" download="${doc.downloadName}" aria-label="${doc.label} – ${ext} ke stažení">
+                ${doc.label} (${ext})
+              </a>
+            </li>
+          `;
+        });
+        downloadsHtml += '</ul>';
+      }
+      finalHtml += `<div class="plain-text-content">${downloadsHtml}</div>`;
+
+      target.innerHTML = finalHtml;
+      initTTS();
+
+    } catch (err) {
+      console.error('Kritická chyba při načítání obsahu:', err);
+      target.innerHTML = '<p style="color:red;">Došlo k chybě při načítání obsahu. Viz konzole pro detaily.</p>';
+    }
+  })();
+</script>
+
+<!-- TTS ENGINE -->
+<script>
+  let currentUtterance = null;
+  let currentButton = null;
+  let availableVoices = [];
+  let shortcutsEnabled = true;
+
+  function loadVoices() {
+    availableVoices = speechSynthesis.getVoices();
+  }
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
+
+  function getCzechVoice() {
+    return availableVoices.find(v => v.lang === 'cs-CZ' && v.name.includes('Google')) ||
+           availableVoices.find(v => v.lang === 'cs-CZ');
+  }
+
+  function getBlockCounter(block) {
+    if (!block) return null;
+    const controls = block.querySelector('.tts-controls');
+    if (!controls || !controls.id) return null;
+    return parseInt(controls.id.split('-')[1], 10);
+  }
+
+  function updateUI(button, state) {
+    if (!button) return;
+    const counter = getBlockCounter(button.closest('.tts-block'));
+    const icon = button.querySelector('.tts-icon');
+    const controls = document.getElementById(`controls-${counter}`);
+    const statusEl = button.querySelector('.tts-status');
+
+    button.setAttribute('aria-expanded', state !== 'stopped' ? 'true' : 'false');
+    button.setAttribute('aria-pressed', state === 'playing' || state === 'paused' ? 'true' : 'false');
+    button.setAttribute('aria-label', 
+      state === 'playing' ? 'Pozastavit přehrávání textu tohoto bloku' :
+      state === 'paused' ? 'Pokračovat v přehrávání textu tohoto bloku' :
+      'Přehrát text to speech tohoto bloku'
+    );
+
+    if (icon) icon.textContent = state === 'playing' ? '⏸' : state === 'paused' ? '▶' : '🔊';
+
+    if (statusEl) {
+      statusEl.textContent = 
+        state === 'playing' ? 'Přehrávání spuštěno' :
+        state === 'paused' ? 'Přehrávání pozastaveno' :
+        'Přehrávání zastaveno';
+    }
+
+    if (controls) controls.classList.toggle('active', state !== 'stopped');
+  }
+
+  function startTTS(button) {
+    const block = button.closest('.tts-block');
+    if (!block) return;
+
+    const text = (block.dataset.ttsText || '').trim();
+    if (!text) return;
+
+    if (currentButton && currentButton !== button) stopTTS(currentButton);
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'cs-CZ';
+    const voice = getCzechVoice();
+    if (voice) utterance.voice = voice;
+    utterance.rate = Math.min(parseFloat(button.dataset.rate || 1), 2);
+
+    utterance.onstart = () => updateUI(button, 'playing');
+    utterance.onpause = () => updateUI(button, 'paused');
+    utterance.onresume = () => updateUI(button, 'playing');
+    utterance.onend = utterance.onerror = () => {
+      updateUI(button, 'stopped');
+      currentButton = null;
+      currentUtterance = null;
+    };
+
+    currentUtterance = utterance;
+    currentButton = button;
+    updateUI(button, 'playing');
+    speechSynthesis.speak(utterance);
+  }
+
+  function toggleTTS(button) {
+    if (!currentButton || currentButton !== button) {
+      startTTS(button);
+    } else {
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+      } else if (speechSynthesis.speaking) {
+        speechSynthesis.pause();
+      } else {
+        startTTS(button);
+      }
+    }
+  }
+
+  function stopTTS(button) {
+    if (!button && currentButton) button = currentButton;
+    speechSynthesis.cancel();
+    if (button) updateUI(button, 'stopped');
+    currentUtterance = null;
+    currentButton = null;
+  }
+
+  function changeRate(button, rate) {
+    if (!button) return;
+    button.dataset.rate = rate;
+
+    const counter = getBlockCounter(button.closest('.tts-block'));
+    const display = document.getElementById(`rate-display-${counter}`);
+    if (display) display.textContent = `Rychlost: ${rate}x`;
+
+    if (!currentButton || currentButton !== button || !currentUtterance) return;
+
+    const text = currentUtterance.text;
+    const wasPaused = speechSynthesis.paused;
+    speechSynthesis.cancel();
+
+    const newUtt = new SpeechSynthesisUtterance(text);
+    newUtt.lang = 'cs-CZ';
+    newUtt.rate = rate;
+    const voice = getCzechVoice();
+    if (voice) newUtt.voice = voice;
+
+    newUtt.onstart = () => updateUI(button, 'playing');
+    newUtt.onpause = () => updateUI(button, 'paused');
+    newUtt.onresume = () => updateUI(button, 'playing');
+    newUtt.onend = newUtt.onerror = () => {
+      updateUI(button, 'stopped');
+      currentButton = null;
+      currentUtterance = null;
+    };
+
+    currentUtterance = newUtt;
+    updateUI(button, wasPaused ? 'paused' : 'playing');
+
+    setTimeout(() => {
+      speechSynthesis.speak(newUtt);
+      if (wasPaused) speechSynthesis.pause();
+    }, 20);
+  }
+
+  function initTTS() {
+    document.querySelectorAll('.tts-play-btn').forEach(btn => {
+      if (!btn.querySelector('.tts-status')) {
+        const status = document.createElement('span');
+        status.className = 'tts-status visually-hidden';
+        status.setAttribute('aria-live', 'polite');
+        status.setAttribute('aria-atomic', 'true');
+        status.textContent = 'Přehrávání zastaveno';
+        btn.appendChild(status);
+      }
+
+      btn.addEventListener('click', () => toggleTTS(btn));
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleTTS(btn);
+        }
+      });
+
+      btn.addEventListener('focus', () => {
+        btn.classList.add('focus-visible');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      btn.addEventListener('blur', () => btn.classList.remove('focus-visible'));
+    });
+
+    document.querySelectorAll('.tts-btn').forEach(btn => {
+      btn.setAttribute('tabindex', '0');
+      btn.setAttribute('role', 'button');
+
+      btn.addEventListener('click', () => {
+        const playBtn = btn.closest('.tts-block').querySelector('.tts-play-btn');
+        if (btn.textContent.trim() === 'Stop') {
+          stopTTS(playBtn);
+        } else {
+          const rate = parseFloat(btn.textContent.trim());
+          if (!isNaN(rate)) changeRate(playBtn, rate);
+        }
+      });
+
+      btn.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+
+      btn.addEventListener('focus', () => {
+        btn.classList.add('focus-visible');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      btn.addEventListener('blur', () => btn.classList.remove('focus-visible'));
+    });
+
+    document.querySelectorAll('.tts-block').forEach(block => {
+      block.setAttribute('role', 'region');
+      block.setAttribute('aria-label', 'Blok s přehráváním textu');
+    });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (shortcutsEnabled && e.key === 'Escape' && currentButton) {
+      stopTTS(currentButton);
+      currentButton.focus();
+    }
+  });
+
+  document.addEventListener('focusin', e => {
+    if (!currentButton) return;
+    const currentBlock = currentButton.closest('.tts-block');
+    if (currentBlock && e.target && !currentBlock.contains(e.target)) {
+      stopTTS(currentButton);
+    }
+  });
+</script>
+
+<script src="include.js"></script>
+</body>
+</html>
