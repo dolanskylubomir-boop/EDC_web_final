@@ -162,6 +162,7 @@
                     <div class="sub-modal-trigger" onclick="openSubModal('sub2-3')"><h3>Sídlo společnosti</h3></div>
                     <div class="sub-modal-trigger" onclick="openSubModal('sub2-4')"><h3>Call centrum EDC</h3></div>
                     <div class="sub-modal-trigger" onclick="openSubModal('sub2-5')"><h3>YouTube kanál EDC</h3></div>
+                    <div class="sub-modal-trigger" onclick="openSubModal('sub2-6')"><h3>Workshopy a semináře</h3></div>
                 </div>
             </div>
         </div>
@@ -361,6 +362,18 @@
             </p>
         </div>
     </div>
+    <div id="sub2-6" class="sub-modal">
+        <div class="sub-modal-content">
+            <span class="sub-close" onclick="closeSubModal('sub2-6')">×</span>
+            <h2>Workshopy a semináře</h2>
+            <strong>Kontaktní email slouží pro Vaše dotazy k workshopům a seminářím</strong><br><br>
+            <strong>E-mail:</strong> <a href="mailto:ws@edc-cr.cz">ws@edc-cr.cz</a>
+        </div>
+    </div>
+
+
+        
+
 
     <!-- ====================== JEDEN CENTRÁLNÍ SKRIPT ====================== -->
     <script>
@@ -550,6 +563,7 @@
                                         <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-3'), 150)">Sídlo společnosti</li>
                                         <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-4'), 150)">Call centrum EDC</li>
                                         <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-5'), 150)">YouTube kanál EDC</li>
+                                        <li onclick="openModal('modal2'); setTimeout(() => openSubModal('sub2-6'), 150)">Workshopy a semináře</li>
                                     </ul>
                                 </li>
                                 <li onclick="window.loadContent && window.loadContent('kariera_content.html')">Kariéra</li>
@@ -1275,4 +1289,3 @@
 </body>
 
 </html>
-
