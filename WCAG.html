@@ -353,7 +353,7 @@
   async function findZpravyUrls() {
     const items = [];
     for (let num = 1; num <= 500; num++) {
-      const url = `zpravy_rizeni_content_${num}.html`;
+      const url = `aktuality/zpravy_rizeni_content_${num}.html`;
       try {
         const resp = await fetch(url, { method: 'HEAD' });
         if (resp.ok) {
@@ -892,4 +892,5 @@
 
 <script src="include.js"></script>
 </body>
+
 </html>
