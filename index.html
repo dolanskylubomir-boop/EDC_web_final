@@ -26,7 +26,6 @@
     <link rel="canonical" href="https://tvojedomena.cz/">
 
     <!-- Favicon + Apple Touch -->
-    <link rel="icon" href="Obrázky/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="Obrázky/apple-touch-icon.png">
 
     <link rel="stylesheet" href="styles.css?v=20260106123456">
@@ -532,6 +531,46 @@
                 generateSiteMap();
             }
 
+                        // ==================== STÁHNUTÍ SLOVNÍKU (3 sloupce) ====================
+            const downloadDictionary = () => {
+                if (typeof TERMS === 'undefined' || TERMS.length === 0) {
+                    alert('Data slovníku nejsou načtena. Zkuste stránku obnovit.');
+                    return;
+                }
+
+                // Hlavička → české Excel → středník jako oddělovač
+                const rows = ['Term;Full;Text'];
+
+                TERMS.forEach(item => {
+                    // Nahradíme uvozovky zdvojením (standard CSV)
+                    const term = (item.term || '').toString().replace(/"/g, '""');
+                    const full = (item.full  || '').toString().replace(/"/g, '""');
+                    const text = (item.text  || '').toString().replace(/"/g, '""');
+
+                    // Řádek s uvozovkami kolem každého pole → bezpečně zvládne čárky, středníky i nové řádky v textu
+                    rows.push(`"${term}";"${full}";"${text}"`);
+                });
+
+                const csvContent = '\ufeff' + rows.join('\r\n');  // BOM + CRLF (Windows/Excel friendly)
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'EDC_energetický_slovník.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            };
+
+            // Připojení události (může zůstat stejné)
+            const downloadBtn = document.getElementById('downloadDictionary');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', downloadDictionary);
+            }
+
             function generateSiteMap() {
                 const mapDiv = document.getElementById('auto-site-map');
                 if (!mapDiv) return;
@@ -729,7 +768,7 @@
             const slovnikSearch = document.getElementById('slovnikSearch');
             if (slovnikSearch) {
                 // DATA POJMŮ – ukázka (doplň další)
-                const TERMS = [
+                window.TERMS = [
                     { letter: 'a', term: 'A', full: 'Ampér', text: 'Základní jednotka elektrického proudu v soustavě SI.' },
                     { letter: 'a', term: 'AC', full: 'Střídavý proud', text: 'Směr proudu se periodicky mění (klasická zásuvka, kterou máme doma).' },
                     { letter: 'a', term: 'Agregátor', full: '', text: 'Subjekt, který sdružuje flexibilitu od více výrobců nebo spotřebitelů a nabízí ji na trzích s elektřinou nebo SVR.' },
