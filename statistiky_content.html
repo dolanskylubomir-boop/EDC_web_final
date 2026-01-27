@@ -10,6 +10,7 @@
         <!-- Responzivní obrázek -->
         <img src="obrázky/statistiky.png" alt="EDC – mozek moderní energetiky" class="responsive-img">
     </div>
+    
 </section>
 
 <section class="modals-section">
@@ -46,7 +47,64 @@
             </div>-->
             
         </section>
-    </main>
+
+
+<!--  Banner stránky se připravují i se style-->
+        <div class="construction-banner" style="
+            position: fixed;
+            top: 90px; /* Začíná pod hlavičkou */
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            font-weight: 900;
+            font-size: 2rem;
+            padding: 1.2rem 1.5rem;
+            text-align: center;
+            z-index: 9998; /* Méně než hlavička (1000) ale více než obsah */
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            pointer-events: none;
+            animation: pulse 2s infinite;
+            border-bottom: 3px solid #ffcccc;
+        ">
+            <span style="animation: blink 1s infinite;">⚠️</span> 
+            Stránky se připravují 
+            <span style="animation: blink 1s infinite 0.5s;">⚠️</span>
+        </div>
+
+        <style>
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.9; }
+            }
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.3; }
+            }
+            
+            /* Mobilní úpravy */
+            @media (max-width: 768px) {
+                .construction-banner {
+                    top: 100px !important; /* Mobilní hlavička může být vyšší */
+                    font-size: 1.5rem !important;
+                    padding: 1rem !important;
+                    letter-spacing: 2px !important;
+                }
+                
+                .hero-video-manuals .responsive-img {
+                    margin-top: 90px !important;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .construction-banner {
+                    font-size: 1.2rem !important;
+                    padding: 0.8rem !important;
+                    letter-spacing: 1px !important;
+                }
+            }
+        </style>
 
 
 </section>
