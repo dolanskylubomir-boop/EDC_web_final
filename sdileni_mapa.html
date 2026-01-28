@@ -164,7 +164,6 @@
             transform-style: preserve-3d;
         }
 
-        /* Skleněná baňka */
         .bulb-glass {
             width: 80%;
             height: 65%;
@@ -191,7 +190,6 @@
             z-index: 2;
         }
 
-        /* Efekt rozžhavené žárovky */
         .bulb-container:hover .bulb-glass,
         .bulb-container.active .bulb-glass {
             background: radial-gradient(
@@ -234,7 +232,6 @@
             }
         }
 
-        /* Patice žárovky */
         .bulb-base {
             width: 42%;
             height: 35%;
@@ -261,7 +258,6 @@
             overflow: hidden;
         }
 
-        /* Detaily na patici */
         .bulb-base::before {
             content: '';
             position: absolute;
@@ -279,7 +275,6 @@
             border-radius: inherit;
         }
 
-        /* Kontaktní patky na spodku */
         .bulb-base::after {
             content: '';
             position: absolute;
@@ -293,7 +288,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* Vlákna žárovky - realističtější */
         .bulb-filament {
             width: 40%;
             height: 50%;
@@ -313,7 +307,6 @@
             transition: all 0.5s ease;
         }
 
-        /* Hlavní vlákno ve tvaru spirály */
         .filament-wire:nth-child(1) {
             width: 2px;
             height: 60%;
@@ -329,7 +322,6 @@
             );
         }
 
-        /* Podpůrná vlákna */
         .filament-wire:nth-child(2),
         .filament-wire:nth-child(3) {
             width: 1.5px;
@@ -349,7 +341,6 @@
             transform: rotate(25deg);
         }
 
-        /* Spirála na konci vlákna */
         .filament-wire:nth-child(4) {
             width: 15%;
             height: 15%;
@@ -375,7 +366,6 @@
                 0 0 35px rgba(255, 87, 34, 0.5);
         }
 
-        /* Závit žárovky */
         .bulb-thread {
             position: absolute;
             background: linear-gradient(to right, 
@@ -388,35 +378,11 @@
             border-radius: 1px;
         }
 
-        .bulb-thread:nth-child(1) {
-            width: 60%;
-            height: 2px;
-            top: 15%;
-            left: 20%;
-        }
+        .bulb-thread:nth-child(1) { width: 60%; height: 2px; top: 15%; left: 20%; }
+        .bulb-thread:nth-child(2) { width: 2px; height: 15%; top: 15%; left: 20%; }
+        .bulb-thread:nth-child(3) { width: 2px; height: 15%; top: 15%; right: 20%; }
+        .bulb-thread:nth-child(4) { width: 60%; height: 2px; bottom: 15%; left: 20%; }
 
-        .bulb-thread:nth-child(2) {
-            width: 2px;
-            height: 15%;
-            top: 15%;
-            left: 20%;
-        }
-
-        .bulb-thread:nth-child(3) {
-            width: 2px;
-            height: 15%;
-            top: 15%;
-            right: 20%;
-        }
-
-        .bulb-thread:nth-child(4) {
-            width: 60%;
-            height: 2px;
-            bottom: 15%;
-            left: 20%;
-        }
-
-        /* === LABELY ŽÁROVEK === */
         .bulb-label {
             margin-top: 20px;
             color: #1e3c72;
@@ -483,14 +449,8 @@
         }
 
         @keyframes slideDown {
-            from {
-                transform: translateY(-60px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            from { transform: translateY(-60px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
         }
 
         .close {
@@ -528,7 +488,6 @@
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .audio-player {
@@ -548,11 +507,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .audio-player h3::before {
-            content: '🎵';
-            font-size: 1.4rem;
         }
 
         .audio-player audio {
@@ -585,11 +539,6 @@
             gap: 10px;
         }
 
-        .video-wrapper h3::before {
-            content: '🎬';
-            font-size: 1.4rem;
-        }
-
         .video-wrapper iframe,
         .video-wrapper video {
             position: absolute;
@@ -617,11 +566,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .links-section h3::before {
-            content: '📎';
-            font-size: 1.4rem;
         }
 
         .links-section a {
@@ -655,172 +599,43 @@
 
         /* === RESPONZIVNÍ ÚPRAVY === */
         @media (min-width: 768px) {
-            .header-top {
-                padding: 25px 0;
-                margin-bottom: 50px;
-            }
-            
-            .logo img {
-                max-width: 220px;
-            }
-            
-            .process-map {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 80px 50px;
-            }
-            
-            .bulb {
-                max-width: 160px;
-            }
-            
-            .bulb-label {
-                font-size: 0.9rem;
-                min-height: 3.5em;
-                padding: 15px 10px;
-            }
-            
-            .modal-content {
-                padding: 40px;
-                margin: 10vh auto;
-            }
+            .header-top { padding: 25px 0; margin-bottom: 50px; }
+            .logo img { max-width: 220px; }
+            .process-map { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 80px 50px; }
+            .bulb { max-width: 160px; }
+            .bulb-label { font-size: 0.9rem; min-height: 3.5em; padding: 15px 10px; }
+            .modal-content { padding: 40px; margin: 10vh auto; }
         }
 
         @media (min-width: 1024px) {
-            .process-map {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 90px 60px;
-            }
-            
-            .bulb {
-                max-width: 180px;
-            }
-            
-            .bulb-label {
-                font-size: 1rem;
-                max-width: 180px;
-            }
-            
-            .modal-content {
-                width: 85%;
-                padding: 50px;
-            }
+            .process-map { grid-template-columns: repeat(4, 1fr); gap: 90px 60px; }
+            .bulb { max-width: 180px; }
+            .bulb-label { font-size: 1rem; max-width: 180px; }
+            .modal-content { width: 85%; padding: 50px; }
         }
 
         @media (max-width: 767px) {
-            .header-top-inner {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
-            
-            .header-left {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 100%;
-            }
-            
-            .page-title {
-                text-align: center;
-                width: 100%;
-            }
-            
-            .header-buttons {
-                justify-content: center;
-                width: 100%;
-            }
-            
-            .btn {
-                flex: 1;
-                min-width: 140px;
-            }
-            
-            .process-map {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 60px 30px;
-                padding: 10px;
-            }
+            .header-top-inner { flex-direction: column; text-align: center; gap: 20px; }
+            .header-left { flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+            .page-title { text-align: center; width: 100%; }
+            .header-buttons { justify-content: center; width: 100%; }
+            .btn { flex: 1; min-width: 140px; }
+            .process-map { grid-template-columns: repeat(2, 1fr); gap: 60px 30px; padding: 10px; }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 10px 5px;
-                background: linear-gradient(135deg, #f0f7ff 0%, #e4edf5 100%);
-            }
-            
-            .container {
-                padding: 0 15px;
-            }
-            
-            .header-top {
-                padding: 20px 0;
-                margin-bottom: 30px;
-                border-radius: 12px;
-            }
-            
-            .logo img {
-                max-width: 180px;
-            }
-            
-            .process-map {
-                grid-template-columns: 1fr;
-                gap: 50px;
-                margin: 30px auto;
-            }
-            
-            .bulb-container {
-                max-width: 170px;
-            }
-            
-            .bulb {
-                max-width: 150px;
-            }
-            
-            .bulb-label {
-                font-size: 0.85rem;
-                min-height: 4em;
-                padding: 10px 8px;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 5vh auto;
-                padding: 25px;
-            }
-            
-            .links-section a {
-                display: block;
-                margin: 10px 0;
-                text-align: center;
-                justify-content: center;
-            }
+            body { padding: 10px 5px; }
+            .container { padding: 0 15px; }
+            .header-top { padding: 20px 0; margin-bottom: 30px; border-radius: 12px; }
+            .logo img { max-width: 180px; }
+            .process-map { grid-template-columns: 1fr; gap: 50px; margin: 30px auto; }
+            .bulb-container { max-width: 170px; }
+            .bulb { max-width: 150px; }
+            .bulb-label { font-size: 0.85rem; min-height: 4em; padding: 10px 8px; }
+            .modal-content { width: 95%; margin: 5vh auto; padding: 25px; }
+            .links-section a { display: block; margin: 10px 0; text-align: center; justify-content: center; }
         }
 
-        @media (max-width: 350px) {
-            .process-map {
-                gap: 40px;
-            }
-            
-            .bulb-container {
-                max-width: 150px;
-            }
-            
-            .bulb {
-                max-width: 130px;
-            }
-            
-            .bulb-label {
-                font-size: 0.8rem;
-                min-height: 4.5em;
-            }
-            
-            .btn {
-                min-width: 120px;
-                padding: 10px 20px;
-            }
-        }
-
-        /* Efekt pozadí */
         body::before {
             content: '';
             position: fixed;
@@ -859,11 +674,11 @@
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close">×</span>
             <h2 class="modal-header" id="modalTitle">Modul</h2>
             
             <div class="audio-player">
-                <h3>Audio:</h3>
+                <h3>Audio vysvětlení:</h3>
                 <audio id="modalAudio" controls>
                     <source src="" type="audio/mpeg">
                     Váš prohlížeč nepodporuje audio element.
@@ -871,11 +686,11 @@
             </div>
 
             <div class="video-wrapper" id="videoWrapper">
-                <h3>Video náhled:</h3>
+                <h3>Video ukázka:</h3>
             </div>
 
             <div class="links-section">
-                <h3>Odkazy:</h3>
+                <h3>Dokumenty a odkazy:</h3>
                 <div id="modalLinks"></div>
             </div>
         </div>
@@ -946,7 +761,7 @@
                 id: 7,
                 title: "Registrace EANo - odběrové místo",
                 audio: "audio/audio7.mp3",
-                video: "video7.mp4",
+                video: "https://www.youtube.com/embed/7OBXBuBNufE",
                 links: [
                     { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
                     { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
@@ -956,50 +771,58 @@
                 id: 8,
                 title: "Správa účtu v portálu EDC",
                 audio: "audio/audio8.mp3",
-                video: "video8.mp4",
+                video: "https://www.youtube.com/embed/2JZ-_Ab6Jr8?list=PLtKjhdmNYudWp9ZVqS2WqpLnDgVubK_Lc",
                 links: [
-                    { text: "Metriky", url: "#metrics8" },
-                    { text: "Logy", url: "#logs8" }
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
                 ]
             },
             {
                 id: 9,
                 title: "Správa dat sdílení SSE",
                 audio: "audio/audio9.mp3",
-                video: "video9.mp4",
+                video: [
+                    "https://www.youtube.com/embed/AhVfHL1zjic",
+                    "https://www.youtube.com/embed/kC8r8J7c--Q",
+                    "https://www.youtube.com/embed/OsXJn84kpF4"
+                ],
                 links: [
-                    { text: "Performance", url: "#perf9" },
-                    { text: "Tipy", url: "#tips9" }
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
                 ]
             },
             {
                 id: 10,
                 title: "Postup pro importování odběrových EAN do portálu EDC",
                 audio: "audio/audio10.mp3",
-                video: "video10.mp4",
+                video: "https://www.youtube.com/embed/Ki9-VV5ckvk",
                 links: [
-                    { text: "Aktualizace", url: "#update10" },
-                    { text: "Záplaty", url: "#patch10" }
+                    { text: "Nejčastější dotazy", url: "https://www.edc-cr.cz/wp-content/uploads/2025/06/Nejcastejsi-dotazy-FAQ_24_06_2025.pdf" },
+                    { text: "Manuál pro externí uživatele portálu EDC", url: "https://www.edc-cr.cz/wp-content/uploads/2025/05/Portal_EDC_Uzivatelsky_manual_2025_kveten.pdf" }
                 ]
             },
             {
                 id: 11,
                 title: "Dotace - potvrzení sdílení",
                 audio: "audio/audio11.mp3",
-                video: "video11.mp4",
+                // video: "video11.mp4",   // může zůstat zakomentované nebo úplně chybět
                 links: [
-                    { text: "Kapacita", url: "#cap11" },
-                    { text: "Růst", url: "#growth11" }
+                    {
+                        text: "Stáhnout žádost o dotaci + potvrzení sdílení (PDF)",
+                        url: "dokumenty/dotace.pdf"
+                    }
+
                 ]
             },
             {
                 id: 12,
                 title: "Kontakty na naši infolinku",
                 audio: "audio/audio12.mp3",
-                video: "video12.mp4",
+                // video: null,
                 links: [
-                    { text: "Report", url: "#report12" },
-                    { text: "Zpětná vazba", url: "#feedback12" }
+                    { text: "Telefon: +420 800 720 204"},
+                    { text: "E-mail: info@edc-cr.cz", url: "mailto:info@edc-cr.cz" },
+                    { text: "Webové stránky EDC", url: "https://www.edc-cr.cz/kontakty" }
                 ]
             }
         ];
@@ -1031,14 +854,10 @@
             
             bulbContainer.addEventListener('click', () => openModal(module));
             bulbContainer.addEventListener('mouseenter', () => {
-                document.querySelectorAll('.bulb-container').forEach(bc => {
-                    if (bc !== bulbContainer) bc.classList.remove('active');
-                });
+                document.querySelectorAll('.bulb-container').forEach(bc => bc.classList.remove('active'));
                 bulbContainer.classList.add('active');
             });
-            bulbContainer.addEventListener('mouseleave', () => {
-                bulbContainer.classList.remove('active');
-            });
+            bulbContainer.addEventListener('mouseleave', () => bulbContainer.classList.remove('active'));
             
             processMap.appendChild(bulbContainer);
         });
@@ -1051,89 +870,134 @@
         const closeBtn = document.querySelector('.close');
 
         function isYouTubeUrl(url) {
-            return url.includes('youtube.com') || url.includes('youtu.be');
+            return typeof url === 'string' && (url.includes('youtube.com') || url.includes('youtu.be'));
         }
 
         function openModal(module) {
             // Reset všech žárovek
-            document.querySelectorAll('.bulb-container').forEach(bc => {
-                bc.classList.remove('active');
-            });
-            
-            // Aktivace kliknuté žárovky
+            document.querySelectorAll('.bulb-container').forEach(bc => bc.classList.remove('active'));
             const activeBulb = document.querySelector(`[data-id="${module.id}"]`);
             if (activeBulb) activeBulb.classList.add('active');
-            
-            modalTitle.textContent = module.title;
-            modalAudio.src = module.audio;
-            
-            // Vyčistit video wrapper
-            videoWrapper.innerHTML = '<h3>Video náhled:</h3>';
-            
-            // Zjistit typ videa a vytvořit příslušný element
-            if (isYouTubeUrl(module.video)) {
-                const iframe = document.createElement('iframe');
-                iframe.src = module.video;
-                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                iframe.allowFullscreen = true;
-                videoWrapper.appendChild(iframe);
-            } else {
-                const video = document.createElement('video');
-                video.controls = true;
-                video.style.width = '100%';
-                const source = document.createElement('source');
-                source.src = module.video;
-                source.type = 'video/mp4';
-                video.appendChild(source);
-                videoWrapper.style.paddingBottom = '0';
-                videoWrapper.style.height = 'auto';
-                videoWrapper.appendChild(video);
+
+            modalTitle.textContent = module.title || "Modul bez názvu";
+
+            // Audio
+            modalAudio.src = module.audio || "";
+            if (module.audio) {
+                modalAudio.load();
             }
+
             
+
+            // Video sekce
+            videoWrapper.innerHTML = '<h3>Video ukázka:</h3>';
+            if (module.video) {
+                const videos = Array.isArray(module.video) ? module.video : [module.video];
+                videos.forEach(vid => {
+                    if (isYouTubeUrl(vid)) {
+                        const iframe = document.createElement('iframe');
+                        iframe.src = vid;
+                        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                        iframe.allowFullscreen = true;
+                        videoWrapper.appendChild(iframe);
+                    } else if (typeof vid === 'string') {
+                        const video = document.createElement('video');
+                        video.controls = true;
+                        video.style.width = '100%';
+                        video.style.marginBottom = '15px';
+                        const source = document.createElement('source');
+                        source.src = vid;
+                        source.type = 'video/mp4';
+                        video.appendChild(source);
+                        videoWrapper.appendChild(video);
+                    }
+                });
+                if (videos.length > 0 && !isYouTubeUrl(videos[0])) {
+                    videoWrapper.style.paddingBottom = '0';
+                    videoWrapper.style.height = 'auto';
+                }
+            } else {
+                const p = document.createElement('p');
+                p.textContent = "K tomuto kroku není video k dispozici.";
+                p.style.color = "#888";
+                p.style.padding = "20px";
+                p.style.textAlign = "center";
+                videoWrapper.appendChild(p);
+            }
+
+ // Nahraď celou sekci „// Odkazy“ v openModal touto verzí
+
+            // Odkazy
             modalLinks.innerHTML = '';
-            module.links.forEach(link => {
-                const a = document.createElement('a');
-                let url = link.url;
-                if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('#')) {
-                    url = 'https://' + url;
-                }
-                a.href = url;
-                a.textContent = link.text;
-                a.target = '_blank';
-                if (!url.startsWith('#')) {
-                    a.download = '';
-                }
-                modalLinks.appendChild(a);
-            });
-            
+            const links = module.links || [];
+            if (links.length > 0) {
+                links.forEach(link => {
+                    const a = document.createElement('a');
+                    let url = (link.url || '').trim();
+
+                    a.textContent = link.text || "Stáhnout dokument";
+                    a.target = "_blank";               // pro jistotu
+
+                    // === ROZHODUJÍCÍ ČÁST – jak zacházet s cestou ===
+                    if (url.startsWith('dokumenty/') || url.startsWith('./dokumenty/')) {
+                        // relativní cesta → chceme STÁHNOUT
+                        a.href = url;
+                        a.download = url.split('/').pop();   // zachová původní jméno souboru (dotace.pdf)
+                    } 
+                    else if (url.startsWith('http')) {
+                        // externí URL → normální chování (otevře se)
+                        a.href = url;
+                        // pokud by to byl externí PDF a chtěl bys ho stáhnout → a.download = "";
+                    } 
+                    else {
+                        // něco divného → stejně jako relativní
+                        a.href = url;
+                        a.download = "";
+                    }
+
+                    // vizuální odlišení lokálních PDF
+                    if (a.download) {
+                        a.style.background = 'linear-gradient(135deg, #4caf50, #66bb6a)';
+                        a.innerHTML = '⬇ ' + a.textContent;
+                    }
+
+                    modalLinks.appendChild(a);
+                });
+            } else {
+                const p = document.createElement('p');
+                p.textContent = "Žádné dokumenty.";
+                p.style.color = "#777";
+                modalLinks.appendChild(p);
+            }
+
             modal.style.display = 'block';
-            modalAudio.play().catch(e => console.log("Autoplay blocked:", e));
+
+            // Pokus o autoplay (většina prohlížečů to blokuje bez interakce)
+            if (module.audio) {
+                modalAudio.play().catch(() => {});
+            }
         }
 
         closeBtn.onclick = function() {
             modal.style.display = 'none';
             modalAudio.pause();
-            document.querySelectorAll('.bulb-container').forEach(bc => {
-                bc.classList.remove('active');
-            });
-        }
+            modalAudio.currentTime = 0;
+            document.querySelectorAll('.bulb-container').forEach(bc => bc.classList.remove('active'));
+        };
 
         window.onclick = function(event) {
-            if (event.target == modal) {
+            if (event.target === modal) {
                 modal.style.display = 'none';
                 modalAudio.pause();
-                document.querySelectorAll('.bulb-container').forEach(bc => {
-                    bc.classList.remove('active');
-                });
+                modalAudio.currentTime = 0;
+                document.querySelectorAll('.bulb-container').forEach(bc => bc.classList.remove('active'));
             }
-        }
+        };
 
-        // Zajištění správného zobrazení při načtení stránky
-        window.addEventListener('load', function() {
-            // Kontrola a úprava rozložení pro velmi krátké texty
+        // Malá optimalizace štítků při načtení
+        window.addEventListener('load', () => {
             document.querySelectorAll('.bulb-label').forEach(label => {
-                const text = label.textContent.trim();
-                if (text.length < 20) {
+                if (label.textContent.trim().length < 20) {
                     label.style.minHeight = '3em';
                 }
             });
