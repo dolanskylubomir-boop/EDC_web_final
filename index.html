@@ -761,16 +761,20 @@
                 });
         };
 
-        function initializePageAfterLoad() {
-            // Řazení aktualit od nejnovější
-            const list = document.querySelector('.aktuality-list');
-            if (list) {
-                const rows = Array.from(list.querySelectorAll('.aktualita-row')).reverse();
-                rows.forEach(row => list.appendChild(row));
-                
-                // PŘIDÁNO: Inicializace filtrování podle kategorie
-                initCategoryFilter();
-            }
+            function initializePageAfterLoad() {
+                // Řazení aktualit od nejnovější
+                const list = document.querySelector('.aktuality-list');
+                if (list) {
+                    const rows = Array.from(list.querySelectorAll('.aktualita-row')).reverse();
+                    rows.forEach(row => list.appendChild(row));
+                    
+                    // PŘIDÁNO: Inicializace filtrování podle kategorie
+                    // POUZE pokud NENÍ FAQ stránka
+                    const isFAQ = document.querySelector('.faq-category-select') !== null;
+                    if (!isFAQ) {
+                        initCategoryFilter();
+                    }
+                }
 
             // Obnovení onclick pro stahování PDF
             document.querySelectorAll('.modal-trigger[onclick*="download"]').forEach(trigger => {
