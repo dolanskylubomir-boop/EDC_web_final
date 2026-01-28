@@ -2217,14 +2217,14 @@ footer a .download-info,
         text-align: center !important;
         margin: 0 0 1rem 0 !important;
         word-wrap: break-word !important;
-        hyphens: auto !important;
+        hyphens: none !important;
     }
     .hero p {
         font-size: 1rem !important;
         line-height: 1.5 !important;
         max-width: 100%;
         word-wrap: break-word !important;
-        hyphens: auto !important;
+        hyphens: none !important;
     }
     main {
         margin-top: 120px !important;
@@ -2431,6 +2431,7 @@ footer {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
 }
+
 
 
 
