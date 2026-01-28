@@ -12,22 +12,18 @@
     <title>EDC – Elektroenergetické datové centrum | Sdílení, akumulace a flexibilita energie</title>
     <link rel="canonical" href="https://tvojedomena.cz/">
     
-    <!-- Favicon + Apple Touch -->
-    <link rel="icon" type="image/x-icon" href="obrázky/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="obrázky/apple-touch-icon.png">
+<!-- Dočasné favicony - nahraďte až budete mít reálné -->
+    <link rel="icon" type="image/x-icon" href="https://favicon.io/static/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://favicon.io/static/favicons/apple-touch-icon.png">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="EDC – Elektroenergetické datové centrum">
-    <meta property="og:description" content="Oficiální stránky EDC – klíčový pilíř moderní české energetiky.">
-    <meta property="og:image" content="https://tvojedomena.cz/obrázky/og-image.jpg">
+    <!-- Dočasné OG image - nahraďte až budete mít reálný obrázek -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1629654291660-3c98113a0437?w=1200&h=630&fit=crop&crop=center">
     <meta property="og:url" content="https://tvojedomena.cz">
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="EDC – Elektroenergetické datové centrum">
     <meta name="twitter:description" content="Centrální platforma pro sdílení dat v české energetice">
-    <meta name="twitter:image" content="https://tvojedomena.cz/obrázky/og-image.jpg">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1629654291660-3c98113a0437?w=1200&h=630&fit=crop&crop=center">
 
     <link rel="stylesheet" href="styles.css?v=20260106123456">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1145,6 +1141,128 @@
             
             // Načtení hlavního obsahu
             window.loadContent(contentPath);
+        });
+
+        // ====================== KLAVESOVÉ OVLÁDÁNÍ ======================
+        document.addEventListener('keydown', function(event) {
+            // Ignorovat při psaní do inputů/textareas
+            if (event.target.tagName === 'INPUT' || 
+                event.target.tagName === 'TEXTAREA' ||
+                event.target.isContentEditable) {
+                return;
+            }
+            
+            console.log('Klávesa stisknuta:', event.key);
+            
+            // Šipka vlevo - zpět
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                console.log('Navigace zpět');
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else if (typeof loadContent === 'function') {
+                    loadContent('index_content.html');
+                }
+            }
+            // Šipka vpravo - vpřed
+            else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                console.log('Navigace vpřed');
+                if (window.history.length > 1) {
+                    window.history.forward();
+                }
+            }
+            // Šipka nahoru - scroll nahoru
+            else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                console.log('Scroll nahoru');
+                window.scrollBy({ top: -300, behavior: 'smooth' });
+            }
+            // Šipka dolů - scroll dolů
+            else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                console.log('Scroll dolů');
+                window.scrollBy({ top: 300, behavior: 'smooth' });
+            }
+            // Escape - zavřít vše
+            else if (event.key === 'Escape') {
+                console.log('Zavírání modálů');
+                // Zavřít všechny modály
+                document.querySelectorAll('.modal, .sub-modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+                
+                // Zavřít všechny dropdowny
+                document.querySelectorAll('.dropdown-content, .aktuality-category-content').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+                
+                document.body.classList.remove('modal-open');
+            }
+            // Hledat - focus na vyhledávání
+            else if (event.key === '/' && !event.ctrlKey && !event.metaKey) {
+                event.preventDefault();
+                console.log('Focus na vyhledávání');
+                const searchInput = document.querySelector('#slovnikSearch, input[type="search"]');
+                if (searchInput) {
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            }
+        });
+
+        // ====================== SWIPE GESTA PRO MOBILY ======================
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            
+            // Minimální vzdálenost pro swipe
+            const minSwipeDistance = 50;
+            
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                // Horizontální swipe
+                if (Math.abs(diffX) > minSwipeDistance) {
+                    if (diffX > 0) {
+                        // Swipe vpravo = vpřed
+                        console.log('Swipe vpravo - vpřed');
+                        if (window.history.length > 1) {
+                            window.history.forward();
+                        }
+                    } else {
+                        // Swipe vlevo = zpět
+                        console.log('Swipe vlevo - zpět');
+                        if (window.history.length > 1) {
+                            window.history.back();
+                        } else if (typeof loadContent === 'function') {
+                            loadContent('index_content.html');
+                        }
+                    }
+                }
+            } else {
+                // Vertikální swipe
+                if (Math.abs(diffY) > minSwipeDistance) {
+                    if (diffY > 0) {
+                        // Swipe dolů = scroll dolů
+                        console.log('Swipe dolů');
+                        window.scrollBy({ top: 300, behavior: 'smooth' });
+                    } else {
+                        // Swipe nahoru = scroll nahoru
+                        console.log('Swipe nahoru');
+                        window.scrollBy({ top: -300, behavior: 'smooth' });
+                    }
+                }
+            }
         });
     </script>
     
