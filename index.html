@@ -1652,6 +1652,297 @@
                 banner.classList.remove('hidden');
             }
         };
+
+        // Funkce pro ovládání zasranýho Applu 
+
+ // Přidat do hlavního scriptu v index.html
+
+        class ModalAccessibility {
+            constructor() {
+                this.modals = [];
+                this.focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+                this.firstFocusableElement = null;
+                this.lastFocusableElement = null;
+                this.activeModal = null;
+                this.previousFocus = null;
+                
+                this.init();
+            }
+            
+            init() {
+                this.modals = document.querySelectorAll('.modal, .sub-modal');
+                
+                // Inicializace ARIA atributů
+                this.modals.forEach(modal => {
+                    modal.setAttribute('role', 'dialog');
+                    modal.setAttribute('aria-modal', 'true');
+                    modal.setAttribute('aria-hidden', 'true');
+                    
+                    const closeBtn = modal.querySelector('.close, .sub-close, .modal-close-btn');
+                    if (closeBtn && !closeBtn.getAttribute('aria-label')) {
+                        closeBtn.setAttribute('aria-label', 'Zavřít');
+                    }
+                });
+                
+                // Globální keydown listener
+                document.addEventListener('keydown', (e) => this.handleKeydown(e));
+            }
+            
+            openModal(modal) {
+                this.activeModal = modal;
+                this.previousFocus = document.activeElement;
+                
+                // Nastavit ARIA
+                modal.setAttribute('aria-hidden', 'false');
+                
+                // Najít focusovatelné elementy
+                const focusableContent = modal.querySelectorAll(this.focusableElements);
+                if (focusableContent.length > 0) {
+                    this.firstFocusableElement = focusableContent[0];
+                    this.lastFocusableElement = focusableContent[focusableContent.length - 1];
+                }
+                
+                // Focus na close tlačítko nebo první element
+                setTimeout(() => {
+                    const closeBtn = modal.querySelector('.close, .sub-close, .modal-close-btn');
+                    if (closeBtn) {
+                        closeBtn.focus();
+                    } else if (this.firstFocusableElement) {
+                        this.firstFocusableElement.focus();
+                    }
+                }, 100);
+                
+                // Zachytit Tab uvnitř modalu
+                modal.addEventListener('keydown', (e) => this.trapTabKey(e));
+            }
+            
+            closeModal(modal) {
+                if (!modal) return;
+                
+                modal.setAttribute('aria-hidden', 'true');
+                this.activeModal = null;
+                
+                // ODSTRANIT event listener pro Tab
+                modal.removeEventListener('keydown', (e) => this.trapTabKey(e));
+                
+                // Kritické: VRÁTIT FOCUS na původní element
+                setTimeout(() => {
+                    if (this.previousFocus && this.previousFocus.isConnected) {
+                        this.previousFocus.focus();
+                        this.previousFocus = null;
+                    } else {
+                        // Fallback: focus na první focusovatelný element na stránce
+                        const firstFocusable = document.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
+                        if (firstFocusable) firstFocusable.focus();
+                    }
+                }, 50);
+            }
+            
+            trapTabKey(e) {
+                if (e.key !== 'Tab' || !this.activeModal) return;
+                
+                const focusableContent = this.activeModal.querySelectorAll(this.focusableElements);
+                if (focusableContent.length === 0) return;
+                
+                this.firstFocusableElement = focusableContent[0];
+                this.lastFocusableElement = focusableContent[focusableContent.length - 1];
+                
+                if (e.shiftKey) { // Shift + Tab
+                    if (document.activeElement === this.firstFocusableElement) {
+                        e.preventDefault();
+                        this.lastFocusableElement.focus();
+                    }
+                } else { // Tab
+                    if (document.activeElement === this.lastFocusableElement) {
+                        e.preventDefault();
+                        this.firstFocusableElement.focus();
+                    }
+                }
+            }
+            
+            handleKeydown(e) {
+                // ESC zavře aktuální modal
+                if (e.key === 'Escape' && this.activeModal) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Najít close tlačítko
+                    const closeBtn = this.activeModal.querySelector('.close, .sub-close, .modal-close-btn, .sub-close');
+                    
+                    if (closeBtn) {
+                        // Zavřít modal pomocí existujících funkcí
+                        if (this.activeModal.classList.contains('sub-modal')) {
+                            // Pro sub-modaly
+                            const subCloseFunc = closeBtn.getAttribute('onclick')?.match(/closeSubModal\('(.*?)'\)/)?.[1];
+                            if (subCloseFunc) {
+                                closeSubModal(subCloseFunc);
+                            } else if (this.activeModal.id) {
+                                closeSubModal(this.activeModal.id);
+                            }
+                        } else {
+                            // Pro hlavní modaly
+                            const mainCloseFunc = closeBtn.getAttribute('onclick')?.match(/closeModal\('(.*?)'\)/)?.[1];
+                            if (mainCloseFunc) {
+                                closeModal(mainCloseFunc);
+                            } else if (this.activeModal.id) {
+                                closeModal(this.activeModal.id);
+                            }
+                        }
+                        
+                        // Zavolat naši closeModal funkci pro správný focus
+                        this.closeModal(this.activeModal);
+                    }
+                }
+                
+                // Enter nebo Space na modal-trigger
+                if ((e.key === 'Enter' || e.key === ' ') && 
+                    e.target.classList.contains('modal-trigger')) {
+                    e.preventDefault();
+                    const onclick = e.target.getAttribute('onclick');
+                    if (onclick) {
+                        if (onclick.includes('openModal')) {
+                            const modalId = onclick.match(/openModal\('(.*?)'\)/)?.[1];
+                            if (modalId) openModal(modalId);
+                        } else if (onclick.includes('window.loadContent')) {
+                            e.target.click(); // Spustit původní klik
+                        }
+                    }
+                }
+            }
+        }
+
+        // Integrace s existujícím systémem
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializovat
+            window.modalA11y = new ModalAccessibility();
+            
+            // Přepsat existující funkce pro správný focus
+            const originalFunctions = {
+                openModal: window.openModal,
+                closeModal: window.closeModal,
+                openSubModal: window.openSubModal,
+                closeSubModal: window.closeSubModal
+            };
+            
+            // openModal s focus management
+            window.openModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    originalFunctions.openModal(id);
+                    setTimeout(() => window.modalA11y.openModal(modal), 10);
+                }
+            };
+            
+            // closeModal s focus management
+            window.closeModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    window.modalA11y.closeModal(modal);
+                    originalFunctions.closeModal(id);
+                }
+            };
+            
+            // openSubModal s focus management
+            window.openSubModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    originalFunctions.openSubModal(id);
+                    setTimeout(() => window.modalA11y.openModal(modal), 10);
+                }
+            };
+            
+            // closeSubModal s focus management
+            window.closeSubModal = function(id) {
+                const modal = document.getElementById(id);
+                if (modal) {
+                    window.modalA11y.closeModal(modal);
+                    originalFunctions.closeSubModal(id);
+                }
+            };
+            
+            // Newsletter modal
+            const originalOpenNewsletter = window.openNewsletterModal;
+            window.openNewsletterModal = function() {
+                originalOpenNewsletter();
+                const modal = document.getElementById('newsletterModal');
+                if (modal) {
+                    setTimeout(() => window.modalA11y.openModal(modal), 10);
+                }
+            };
+            
+            const originalCloseNewsletter = window.closeNewsletterModal;
+            window.closeNewsletterModal = function() {
+                const modal = document.getElementById('newsletterModal');
+                if (modal) {
+                    window.modalA11y.closeModal(modal);
+                }
+                originalCloseNewsletter();
+            };
+            
+            // Manuálně přidat ESC i pro modaly bez našeho systému
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    // Zkontrolovat, zda je nějaký modal otevřený (přímo přes style)
+                    const visibleModal = document.querySelector('.modal[style*="flex"], .modal[style*="block"]');
+                    const visibleSubModal = document.querySelector('.sub-modal[style*="flex"], .sub-modal[style*="block"]');
+                    
+                    if (visibleModal && !window.modalA11y.activeModal) {
+                        const closeBtn = visibleModal.querySelector('.close');
+                        if (closeBtn) closeBtn.click();
+                    }
+                    
+                    if (visibleSubModal && !window.modalA11y.activeModal) {
+                        const closeBtn = visibleSubModal.querySelector('.sub-close');
+                        if (closeBtn) closeBtn.click();
+                    }
+                }
+            });
+        });
+
+        // CSS pro lepší focus viditelnost (přidat do styles.css)
+        const focusStyles = `
+        /* Zlepšení viditelnosti focusu */
+        .modal-trigger:focus,
+        .login-btn:focus,
+        .newsletter-btn:focus,
+        .wcag-accessibility-link:focus,
+        .close:focus,
+        .sub-close:focus,
+        .modal-btn:focus,
+        .sub-modal-btn:focus,
+        #tereza-send:focus,
+        #tereza-input:focus {
+            outline: 3px solid #FFD60A !important;
+            outline-offset: 3px !important;
+            box-shadow: 0 0 0 6px rgba(255, 214, 10, 0.3) !important;
+        }
+
+        /* Focus viditelný i pro mouse/touch uživatele */
+        .modal-trigger:focus-visible {
+            transform: translateY(-4px);
+            background: var(--light);
+        }
+
+        /* Skrytí modalu pro screen readers když je zavřený */
+        .modal[aria-hidden="true"],
+        .sub-modal[aria-hidden="true"] {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        .modal[aria-hidden="false"],
+        .sub-modal[aria-hidden="false"] {
+            visibility: visible;
+            opacity: 1;
+        }
+        `;
+
+        // Přidat CSS do stránky
+        const styleEl = document.createElement('style');
+        styleEl.textContent = focusStyles;
+        document.head.appendChild(styleEl);
+
+
     </script>
      <!-- Header, footer a chatbot -->
     <script src="include.js"></script>
