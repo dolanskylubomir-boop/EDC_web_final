@@ -26,6 +26,10 @@ body.menu-open {
     position: fixed;
     width: 100%;
 }
+
+
+
+
 /* ===================================================================
    HLAVIČKA A NAVIGACE (index.html + všechny stránky)
    =================================================================== */
@@ -246,6 +250,7 @@ header {
     outline-offset: 4px;
 }
 
+
 /* ===================================================================
    HERO SEKCE A DLAŽDICE (převážně index.html)
    =================================================================== */
@@ -325,6 +330,28 @@ header {
     -webkit-overflow-scrolling: touch;
     max-height: 96vh;
     padding-right: 1.5rem;
+}
+
+/* Specifický styl pro modal2 - BEZ SCROLLU! */
+#modal2 .modal-content {
+    overflow-y: visible !important; /* Žádný scroll */
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Třída pro modály bez scrollu */
+.modal-content.no-scroll {
+    overflow-y: visible !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-right: 0 !important;
+}
+
+.modal-content.no-scroll .modal-inner {
+    overflow: visible !important;
+    max-height: none !important;
 }
 .modal-content::before {
     content: "";
@@ -1972,6 +1999,10 @@ footer a .download-info,
   }
 }
 
+.error-banner.hidden {
+    display: none !important;
+}
+
 /* Mobilní optimalizace error banneru */
 @media (max-width: 768px) {
     .error-content {
@@ -2392,7 +2423,6 @@ footer a .download-info,
     }
 }
 
-
 /* === ZABRÁNĚNÍ DĚLENÍ SLOV – MOBIL + TABLET + DESKTOP === */
 body,
 p,
@@ -2431,7 +2461,3 @@ footer {
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
 }
-
-
-
-
