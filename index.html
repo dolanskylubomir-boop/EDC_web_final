@@ -1143,11 +1143,54 @@
             window.loadContent(contentPath);
         });
 
-
+        // Jednoduchá historie pro SPA
+        let pageHistory = ['index_content.html']; // Výchozí stránka
+        let historyIndex = 0;
+        
+        // Přepsat loadContent pro sledování historie
+        const oldLoadContent = window.loadContent;
+        window.loadContent = function(path) {
+            console.log('Načítám s historií:', path);
+            
+            // Přidat do historie jen pokud není aktuální
+            if (pageHistory[historyIndex] !== path) {
+                pageHistory = pageHistory.slice(0, historyIndex + 1);
+                pageHistory.push(path);
+                historyIndex = pageHistory.length - 1;
+            }
+            
+            return oldLoadContent(path);
+        };
+        
+        // Šipky pro SPA historii
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    oldLoadContent(pageHistory[historyIndex]);
+                } else if (window.history.length > 1) {
+                    window.history.back();
+                }
+            }
+            else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (historyIndex < pageHistory.length - 1) {
+                    historyIndex++;
+                    oldLoadContent(pageHistory[historyIndex]);
+                } else if (window.history.length > 1) {
+                    window.history.forward();
+                }
+            }
+        });
+        
     </script>
     
     <!-- Header, footer a chatbot -->
     <script src="js/include.js" defer></script>
 </body>
 </html>
+
 
