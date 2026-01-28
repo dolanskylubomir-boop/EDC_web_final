@@ -2499,3 +2499,77 @@ footer {
         max-height: none !important;
     }
 }
+
+
+/* Přidáno pro zasraný jablko Apple */
+
+/* Zlepšení viditelnosti focusu pro přístupnost */
+.modal-trigger:focus,
+.login-btn:focus,
+.newsletter-btn:focus,
+.wcag-accessibility-link:focus,
+.close:focus,
+.sub-close:focus,
+.modal-btn:focus,
+.sub-modal-btn:focus {
+    outline: 3px solid #FFD60A !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px rgba(255, 214, 10, 0.3) !important;
+}
+
+/* Pro klávesnici - viditelný focus stav */
+.modal-trigger:focus-visible {
+    transform: translateY(-4px);
+    background: var(--light);
+}
+
+/* Zvýraznění aktivního modalu pro screen readers */
+.modal[aria-hidden="false"],
+.sub-modal[aria-hidden="false"] {
+    z-index: 1000;
+}
+
+.modal[aria-hidden="true"],
+.sub-modal[aria-hidden="true"] {
+    display: none !important;
+}
+
+
+const focusStyles = `
+/* Zlepšení viditelnosti focusu */
+.modal-trigger:focus,
+.login-btn:focus,
+.newsletter-btn:focus,
+.wcag-accessibility-link:focus,
+.close:focus,
+.sub-close:focus,
+.modal-btn:focus,
+.sub-modal-btn:focus,
+#tereza-send:focus,
+#tereza-input:focus {
+    outline: 3px solid #FFD60A !important;
+    outline-offset: 3px !important;
+    box-shadow: 0 0 0 6px rgba(255, 214, 10, 0.3) !important;
+}
+
+/* Focus viditelný i pro mouse/touch uživatele */
+.modal-trigger:focus-visible {
+    transform: translateY(-4px);
+    background: var(--light);
+}
+
+/* Skrytí modalu pro screen readers když je zavřený */
+.modal[aria-hidden="true"],
+.sub-modal[aria-hidden="true"] {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.modal[aria-hidden="false"],
+.sub-modal[aria-hidden="false"] {
+    visibility: visible;
+    opacity: 1;
+}`
+
+
+
