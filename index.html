@@ -182,7 +182,7 @@
             <div class="modal-inner">
                 <div>
                     <h2 id="modal1-title">Společnost EDC</h2>
-                    <p>Chcete vědět nejnovější informace a co se o nás píše? Vše o společnosti EDC.</p>
+                    <p>Chcete mít přehled o aktuálních informacích a o společnosti EDC? Vyberte si z následující nabídky:</p>
                 </div>
                 <div class="sub-modal-grid">
                     <div class="sub-modal-trigger" 
@@ -191,7 +191,7 @@
                     </div>
                     <div class="sub-modal-trigger" 
                          onclick="window.loadContent && window.loadContent('struktura_spolecnosti_content.html'); closeModal('modal1')">
-                        <h3>Struktury společnosti</h3>
+                        <h3>Struktura společnosti</h3>
                     </div>
                     <div class="sub-modal-trigger" 
                          onclick="window.loadContent && window.loadContent('povinna-sdeleni_content.html'); closeModal('modal1')">
@@ -1143,10 +1143,11 @@
             window.loadContent(contentPath);
         });
 
+
         // Jednoduchá historie pro SPA
         let pageHistory = ['index_content.html']; // Výchozí stránka
         let historyIndex = 0;
-        
+
         // Přepsat loadContent pro sledování historie
         const oldLoadContent = window.loadContent;
         window.loadContent = function(path) {
@@ -1161,7 +1162,7 @@
             
             return oldLoadContent(path);
         };
-        
+
         // Šipky pro SPA historii
         document.addEventListener('keydown', function(e) {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -1185,12 +1186,60 @@
                 }
             }
         });
-        
+
+
     </script>
-    
-    <!-- Header, footer a chatbot -->
+
+        <!-- Header, footer a chatbot -->
     <script src="js/include.js" defer></script>
+
+    <!-- ====================== BOČNÍ PANEL - ENERGETICKÉ SPOLEČNOSTI ====================== -->
+<button class="side-panel-toggle" onclick="toggleSidePanel()" aria-label="Otevřít energetické informace">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#0a3d3d">
+        <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+    </svg>
+</button>
+
+<aside class="side-panel" id="sidePanel">
+    <button class="side-panel-close" onclick="closeSidePanel()" aria-label="Zavřít panel">
+        ×
+    </button>
+    
+    <!-- Loga energetických společností -->
+    <div class="energy-logos">
+        <div class="logos-grid">
+            <a href="https://www.cezdistribuce.cz/" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/cez.png" alt="ERÚ" class="logo-img cezdi">
+                <span>ČEZ Distribuce</span>
+            </a>
+            <a href="https://www.pre.cz" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/pre.png" alt="ERÚ" class="logo-img pre">
+                <span>Pražská energetika</span>
+            </a>
+            <a href="https://www.egd.cz/" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/egd.png" alt="ERÚ" class="logo-img egd">
+                <span>E.ON Distribuce</span>
+            </a>
+            <a href="https://www.ceps.cz" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/ceps.png" alt="ERÚ" class="logo-img ceps">
+                <span>Česká přenosová soustava</span>
+            </a>
+            <a href="https://www.ote-cr.cz/cs" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/ote.png" alt="ERÚ" class="logo-img ote">
+                <span>OTE</span>
+            </a>
+            <a href="https://eru.gov.cz/" target="_blank" rel="noopener" class="logo-item">
+                <img src="loga/eru.png" alt="ERÚ" class="logo-img eru">
+                <span>ERÚ</span>
+            </a>
+        </div>
+    </div>
+</aside>
+
+
+        
+
+    <script src="js/side-panel.js" defer></script>
+
 </body>
 </html>
-
-
