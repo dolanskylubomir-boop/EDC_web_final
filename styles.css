@@ -2747,13 +2747,18 @@ const focusStyles = `
 /* Responzivita */
 @media (max-width: 768px) {
     .side-panel {
-        width: 100%;
-        max-width: 300px;
+        width: 85%; /* Na mobilu zabere většinu šířky */
+        max-width: 320px;
         padding: 1rem;
+        z-index: 2000; /* Zvýšení priority, aby panel nebyl pod jinými prvky */
     }
     
     .side-panel-toggle {
-        display: none;
+        display: flex; /* ZMĚNA: Tlačítko musí být viditelné i na mobilu */
+        width: 45px;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
     }
     
     .logos-grid {
@@ -2768,3 +2773,4 @@ const focusStyles = `
         font-size: 0.85rem;
     }
 }
+
