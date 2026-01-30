@@ -36,4 +36,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('Boční panel s logy energetických společností inicializován');
+
 });
